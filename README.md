@@ -6,7 +6,7 @@
 - Daniel Nogales Mateos
 
 ## Introducción al proyecto
-- Quiero hacer un proyecto que creo que es muy original y puede ser de mucha ayuda para los usuarios mas fitness. Me gustaría hacer con Django una aplicación web donde un usuario pueda crear rutinas de entrenamiento, dietas, haya dietas predefinidas, registros de pesos del usuario, gestiones futuras del proyecto como contactar con entrenadores personales, integrar apis de nutricion como Edamam, etc...
+- Quiero hacer un proyecto que creo que es muy original y puede ser de mucha ayuda para los usuarios mas fitness. Me gustaría hacer con Django una aplicación web donde un usuario pueda crear rutinas de entrenamiento, dietas, haya dietas predefinidas, registros de pesos del usuario, gestiones futuras del proyecto como contactar con entrenadores personales, integrar apis de nutricion como Edamam, CalorieKing, etc...
 
 ## Finalidad
 - Puede servir para que los usuarios que son poco fitness se motiven a entrenar, a registrar sus comidas, sus entrenamientos, etc...
@@ -23,4 +23,4 @@
 
 ## Planificación 
 - Ahora mismo al ser una idea muy general tengo una pequeña idea de como puedo empezar a meterle mano pero no lo sé al 100%
-- Probablente usare la api de Edamam para el tema de los alimentos, pero empezare creando apps de rutina, entrenamiento, persona. Probablemente despues de terminar lo principal de la página y dentro de un tiempo le implementaré algo más opcional como foros, seguir a usuarios fitness, ranking de usuarios con más rutinas hechas, etc... Es un campo tan amplio que la creatividad vuela.
+- Probablente usare la api de CalorieKing, ya que es gratuita. Para el tema de los alimentos, pero empezare creando apps de rutina, entrenamiento, persona. Probablemente despues de terminar lo principal de la página y dentro de un tiempo le implementaré algo más opcional como foros, seguir a usuarios fitness, ranking de usuarios con más rutinas hechas, etc... Es un campo tan amplio que la creatividad vuela.
