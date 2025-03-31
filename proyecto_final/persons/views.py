@@ -29,6 +29,7 @@ class PersonDetailView(LoginRequiredMixin, DetailView):
     template_name = 'persons/detail.html'
     model = Person
     context_object_name = 'user'
+
     
 
     def get_object(self):
