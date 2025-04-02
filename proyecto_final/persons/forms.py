@@ -13,20 +13,25 @@ class PersonForm(forms.ModelForm):
     class Meta:
         model = Person
         fields = [
-            'username', 'email', 'birth_date', 'gender',
+            'username', 'first_name','last_name', 'email', 'birth_date', 'gender',
             'profile_picture', 'weight', 'height', 'fitness_goal',
             'activity_level',
-            'allergies', 'medical_conditions', 'target_weight', 'bio'
+            'allergies', 'medical_conditions', 'target_weight', 'bio', 'cuello', 'cadera', 'cintura',
         ]
 
     FORM_ORDER = [
         'username',
+        'first_name',
+        'last_name',
         'password',
         'email',
         'birth_date',
         'gender',
         'weight',
         'height',
+        'cuello',
+        'cadera',
+        'cintura',
         'fitness_goal',
         'activity_level',
         'allergies',

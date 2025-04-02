@@ -1,3 +1,6 @@
+import math
+
+from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.db import models
 from django.contrib.auth.models import User, AbstractUser
 
@@ -9,8 +12,10 @@ class Person(AbstractUser):
     GENDER_CHOICES = [
         ('M', 'Masculino'),
         ('F', 'Femenino'),
-        ('O', 'Otro'),
     ]
+    cuello = models.FloatField("Perímetro cuello (cm) ", max_length=20, default=0)
+    cadera = models.FloatField("Perímetro cadera (Rellenar solo si eres mujer) (cm) ", max_length=20, default=0)
+    cintura = models.FloatField("Perímetro cintura (cm) ", max_length=20, default=0)
     FITNESS_GOAL_CHOICES = [
         ('lose_weight', 'Perder peso'),
         ('gain_muscle', 'Ganar músculo'),
@@ -33,6 +38,7 @@ class Person(AbstractUser):
         blank=True,
         help_text="Ej: 15.5 (opcional)"
     )
+    imc = models.FloatField(default=0)
     fitness_goal = models.CharField(
         "Objetivo principal",
         max_length=20,
@@ -55,3 +61,12 @@ class Person(AbstractUser):
         default='profile_pics/default.jpg'
     )
     bio = models.TextField("Biografía", max_length=500, blank=True)
+
+    def calculate_bodyfat_percentage(self):
+        if self.gender == 'M':
+            return round(number=(495/1.0324-0.19077*math.log10(self.cintura-self.cuello)+0.15456*math.log10(self.height)) - 450,ndigits=2)
+        return round(number=(495/1.29579 - 0.35004*math.log10(self.cintura+self.cadera-self.cuello)+0.22100*math.log10(self.height)) - 450, ndigits=2)
+
+    def calculate_imc(self):
+        if self.gender == 'M':
+            pass
