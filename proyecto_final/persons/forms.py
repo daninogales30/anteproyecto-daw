@@ -44,3 +44,35 @@ class PersonForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields = OrderedDict((key, self.fields[key]) for key in self.FORM_ORDER)
+
+class PersonUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Person
+        fields = ['username', 'first_name', 'last_name', 'email', 'birth_date', 'gender',
+                  'weight', 'height','cuello','cadera','cintura', 'fitness_goal', 'activity_level',
+                  'allergies', 'medical_conditions','target_weight', 'bio','profile_picture']
+
+    FORM_ORDER = [
+        'username',
+        'first_name',
+        'last_name',
+        'email',
+        'birth_date',
+        'gender',
+        'weight',
+        'height',
+        'cuello',
+        'cadera',
+        'cintura',
+        'fitness_goal',
+        'activity_level',
+        'allergies',
+        'medical_conditions',
+        'target_weight',
+        'profile_picture',
+        'bio'
+    ]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields = OrderedDict((key, self.fields[key]) for key in self.FORM_ORDER)

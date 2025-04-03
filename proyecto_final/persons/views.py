@@ -1,9 +1,9 @@
+from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.views import LoginView
-from django.core.asgi import get_asgi_application
+from django.contrib.auth.views import LoginView, PasswordChangeView
 from django.urls import reverse_lazy
-from django.views.generic import FormView, ListView, TemplateView, DetailView
-from persons.forms import PersonForm
+from django.views.generic import FormView, TemplateView, DetailView, UpdateView
+from persons.forms import PersonForm, PersonUpdateForm
 from persons.models import Person
 
 
@@ -33,9 +33,42 @@ class PersonDetailView(LoginRequiredMixin, DetailView):
     model = Person
     context_object_name = 'usuario'
 
+    def get_object(self):
+        return self.request.user
+
+class PersonUpdateView(LoginRequiredMixin, UpdateView):
+    template_name = "persons/update.html"
+    model = Person
+    form_class = PersonUpdateForm
+    success_url = reverse_lazy('persons:profile')
 
     def get_object(self):
         return self.request.user
 
+    def form_valid(self, form):
+        if 'height' in form.changed_data or 'cintura' in form.changed_data or 'cuello' in form.changed_data or 'cadera' in form.changed_data or 'gender' in form.changed_data:
+            person = form.save(commit=False)
+            person.body_fat_percentage = person.calculate_bodyfat_percentage()
+            person.save()
+            return super().form_valid(form)
 
+        person = form.save(commit=False)
+        person.save()
+        return super().form_valid(form)
+
+
+class PersonPasswordUpdateView(LoginRequiredMixin, PasswordChangeView):
+    template_name = 'persons/password.html'
+    model = Person
+    form_class = PasswordChangeForm
+    success_url = reverse_lazy('persons:profile')
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+    
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid(form)
 

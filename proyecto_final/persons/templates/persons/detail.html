@@ -41,6 +41,12 @@
         {% endif %}
         <p>Género: {{ usuario.gender }}</p>
     </div>
+
+    <div class="container bg-warning mt-5">
+        <h3 class="text-center mb-4">Funcionalidades</h3>
+        <a href="{% url 'persons:update' %}">Modificar datos de usuario</a>
+        <a href="{% url 'persons:password' %}">Cambiar contraseña</a>
+    </div>
 </div>
 </body>
 </html>
