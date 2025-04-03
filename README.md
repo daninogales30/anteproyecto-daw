@@ -27,3 +27,4 @@
 
 ## Del 24 de marzo al 7 de abril
 - A dia 2 de abril lo que llevo realizado es la creación de las apps diets, persons y workout_routines. En diets lo unico que tengo montado ahora mismo es el models.py, en la app persons tengo el models.py, tambien tengo los forms para la creación del usuario, y algunas vistas como los detalles del usuario, el login y el register. En workout_routines tengo el models.py y algunas vistas de los formularios para crear una rutina y crear un entrenamiento
+- A dia 3 de abril he detectado un problema que solucionaré sobre el calculo de grasa corporal. Estoy avanzando en el tema vistas me gustaria hacer vistas de listas de entrenamientos ya creados para que los usuarios puedan realizar y que tambien puedan crear sus propios entrenamientos.
