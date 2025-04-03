@@ -5,6 +5,7 @@ from django.db import models
 from django.contrib.auth.models import User, AbstractUser
 
 from diets.models import SemanalDiet
+from workout_routines.models import Workout
 
 
 class Person(AbstractUser):
@@ -28,7 +29,7 @@ class Person(AbstractUser):
         ('moderate', 'Moderado (3-5 días/semana)'),
         ('active', 'Activo (6-7 días/semana)'),
     ]
-    diets = models.ManyToManyField(SemanalDiet)
+    diets = models.ManyToManyField(SemanalDiet, blank=True)
     gender = models.CharField("Género", max_length=1, choices=GENDER_CHOICES, blank=True)
     weight = models.FloatField("Peso (kg)", help_text="Peso en kilogramos", default=70.0)
     height = models.FloatField("Altura (cm)", help_text="Altura en centímetros", default=170.0)
@@ -61,6 +62,7 @@ class Person(AbstractUser):
         default='profile_pics/default.jpg'
     )
     bio = models.TextField("Biografía", max_length=500, blank=True)
+    workouts = models.ManyToManyField(Workout, blank=True)
 
     def calculate_bodyfat_percentage(self):
         if self.gender == 'M':

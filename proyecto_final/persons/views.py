@@ -2,7 +2,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, PasswordChangeView
 from django.urls import reverse_lazy
-from django.views.generic import FormView, TemplateView, DetailView, UpdateView
+from django.views.generic import FormView, TemplateView, DetailView, UpdateView, ListView
 from persons.forms import PersonForm, PersonUpdateForm
 from persons.models import Person
 
@@ -73,3 +73,10 @@ class PersonPasswordUpdateView(LoginRequiredMixin, PasswordChangeView):
         form.save()
         return super().form_valid(form)
 
+class PersonWorkoutListView(LoginRequiredMixin, DetailView):
+    model = Person
+    template_name = 'persons/workout_list.html'
+    context_object_name = 'usuario'
+
+    def get_object(self):
+        return self.request.user
