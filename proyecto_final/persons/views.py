@@ -48,7 +48,8 @@ class PersonUpdateView(LoginRequiredMixin, UpdateView):
     def form_valid(self, form):
         if 'height' in form.changed_data or 'cintura' in form.changed_data or 'cuello' in form.changed_data or 'cadera' in form.changed_data or 'gender' in form.changed_data:
             person = form.save(commit=False)
-            person.body_fat_percentage = person.calculate_bodyfat_percentage()
+            body_fat_percentage = person.calculate_bodyfat_percentage()
+            person.body_fat_percentage = body_fat_percentage
             person.save()
             return super().form_valid(form)
 

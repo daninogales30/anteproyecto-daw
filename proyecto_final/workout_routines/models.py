@@ -1,3 +1,5 @@
+from contextlib import nullcontext
+
 from django.db import models
 
 
@@ -18,7 +20,6 @@ class Exercise(models.Model):
     description = models.TextField()
     muscle_groups = models.ManyToManyField(MuscleGroup)
     equipment_needed = models.ManyToManyField(Equipment, blank=True)
-    video_url = models.URLField(blank=True)
 
     def __str__(self):
         return self.name

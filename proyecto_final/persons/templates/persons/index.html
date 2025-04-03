@@ -12,7 +12,7 @@
 <body>
 <div class="container bg-warning my-5">
     <h1 class="fw-bold">Estas en la página principal</h1>
-    <a href="">Entrenamientos</a>
+    <a href="{% url 'workout_routines:form_routine' %}">Crear rutinas (ejercicio con serie)</a>
     <a href="">Dietas</a>
     <a href="{% url 'persons:profile' %}">Ver perfil</a>
 </div>
