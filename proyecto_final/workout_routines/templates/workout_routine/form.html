@@ -12,6 +12,13 @@
 <body>
 <div class="container bg-success text-center my-5">
     <h1 class="fw-bold mb-5">{{ titulo }}</h1>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{% if message.tags %}{{ message.tags }}{% else %}info{% endif %}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
     <form action="" method="post">
         {% csrf_token %}
         {{ form.as_p }}

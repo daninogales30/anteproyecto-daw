@@ -5,9 +5,18 @@
     <title>Title</title>
 </head>
 <body>
-{% for workout in usuario.workouts.all %}
+{% for workout in usuario.user_workouts.all %}
 	<ul>
-        <li>{{ workout.name }}</li>
+        <li><a href="{% url 'workout_routines:workout_detail' workout.pk %}">{{ workout.name|capfirst }}</a>
+            <ul>
+                {% for routine in workout.routineexercise_set.all %}
+                    <li>
+                        {{ routine.exercise.name }}
+                    </li>
+                {% endfor %}
+
+            </ul>
+        </li>
     </ul>
 {% endfor %}
 

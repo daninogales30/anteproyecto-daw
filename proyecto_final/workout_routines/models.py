@@ -38,9 +38,25 @@ class RoutineExercise(models.Model):
         return f"{self.exercise.name} en {self.workout.name}"
 
 class Workout(models.Model):
-    name = models.CharField(max_length=100)
+    DIAS_SEMANA = [
+        ('lunes', 'Lunes'),
+        ('martes', 'Martes'),
+        ('miércoles', 'Miércoles'),
+        ('jueves', 'Jueves'),
+        ('viernes', 'Viernes'),
+        ('sábado', 'Sábado'),
+        ('domingo', 'Domingo'),
+    ]
+
+    name = models.CharField(max_length=100, choices=DIAS_SEMANA)
     exercises = models.ManyToManyField(Exercise, through=RoutineExercise)
     created_at = models.DateTimeField(auto_now_add=True)
+    user = models.ForeignKey(
+        'persons.Person',
+        on_delete=models.CASCADE,
+        related_name='user_workouts',
+        null=True
+    )
 
     def __str__(self):
         return self.name

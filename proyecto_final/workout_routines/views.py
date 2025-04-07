@@ -1,35 +1,44 @@
+from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import FormView, ListView
-from workout_routines.forms import WorkoutForm, RoutineExerciseForm
-from workout_routines.models import RoutineExercise
+from django.views.generic import FormView, ListView, DetailView
+from workout_routines.forms import RoutineExerciseForm, WorkoutExerciseForm
+from workout_routines.models import RoutineExercise, Workout
 
 
-class WorkoutFormView(FormView):
-    form_class = WorkoutForm
+class WorkoutFormView(LoginRequiredMixin, FormView):
+    form_class = WorkoutExerciseForm
     template_name = 'workout_routine/form.html'
-    success_url = reverse_lazy('persons:list')
-    
+    success_url = reverse_lazy('persons:index')
+
     def form_valid(self, form):
-        workout = form.save(commit=False)
-        workout.save()
+        workout_day = form.save(commit=False)
+        user = self.request.user
+
+        if user.user_workouts.filter(name=workout_day.name).exists():
+            messages.error(self.request,
+                           f"Ya tienes un entrenamiento programado para este dia.")
+            return self.form_invalid(form)
+
+        workout_day.save()
+        user.user_workouts.add(workout_day)
+
         return super().form_valid(form)
+
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['titulo'] = 'Crear entrenamiento'
         return context
 
-
-class RoutineFormView(FormView):
+class RoutineFormView(LoginRequiredMixin, FormView):
     form_class = RoutineExerciseForm
     template_name = 'workout_routine/form.html'
-    success_url = reverse_lazy('persons:list')
+    success_url = reverse_lazy('persons:index')
 
     def form_valid(self, form):
-        workout = form.save(commit=False)
-        workout.save()
+        routine = form.save(commit=False)
+        routine.save()
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
@@ -37,7 +46,15 @@ class RoutineFormView(FormView):
         context['titulo'] = 'Crear rutina'
         return context
 
-class RoutineListView(ListView):
+class RoutineListView(LoginRequiredMixin, ListView):
     model = RoutineExercise
     template_name = 'workout_routine/list.html'
     context_object_name = 'routines'
+
+class WorkoutDetailView(LoginRequiredMixin, DetailView):
+    model = Workout
+    template_name = 'workout_routine/detail.html'
+    context_object_name = 'workout'
+
+    def get_queryset(self):
+        return self.request.user.user_workouts.all()

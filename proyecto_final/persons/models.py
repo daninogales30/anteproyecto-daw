@@ -62,7 +62,6 @@ class Person(AbstractUser):
         default='profile_pics/default.jpg'
     )
     bio = models.TextField("Biografía", max_length=500, blank=True)
-    workouts = models.ManyToManyField(Workout, blank=True)
 
     def calculate_bodyfat_percentage(self):
         if self.gender == 'M':

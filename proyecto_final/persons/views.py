@@ -1,6 +1,6 @@
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.views import LoginView, PasswordChangeView
+from django.contrib.auth.views import LoginView, PasswordChangeView, LogoutView
 from django.urls import reverse_lazy
 from django.views.generic import FormView, TemplateView, DetailView, UpdateView, ListView
 from persons.forms import PersonForm, PersonUpdateForm
@@ -24,6 +24,9 @@ class PersonRegisterCreateView(FormView):
 class PersonLoginView(LoginView):
     template_name = 'registration/login.html'
     redirect_authenticated_user = True
+
+class PersonLogoutView(LogoutView):
+    template_name = 'registration/logout.html'
 
 class PersonIndexView(LoginRequiredMixin, TemplateView):
     template_name = 'persons/index.html'

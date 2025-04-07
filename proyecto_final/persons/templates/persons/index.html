@@ -12,9 +12,16 @@
 <body>
 <div class="container bg-warning my-5">
     <h1 class="fw-bold">Estas en la página principal</h1>
-    <a href="{% url 'workout_routines:form_routine' %}">Crear rutinas (ejercicio con serie)</a>
-    <a href="">Dietas</a>
-    <a href="{% url 'persons:profile' %}">Ver perfil</a>
+    <h2 class="fw-bold">Aprende a usar la app</h2>
+    <p>Para aprender el uso de nuestra página, <a href="">pincha aquí</a> y descarga nuestro manual de uso.</p>
+        <a href="{% url 'workout_routines:form_workout' %}">Crear entrenamiento</a><br>
+    <a href="{% url 'workout_routines:form_routine' %}">Crear rutinas</a><br>
+    <a href="">Dietas</a><br>
+    <a href="{% url 'persons:profile' %}">Ver perfil</a><br>
+    <form action="{% url 'persons:logout' %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Cerrar sesión</button>
+    </form>
 </div>
 </body>
 </html>

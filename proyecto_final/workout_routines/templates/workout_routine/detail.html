@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>{{ workout.name|capfirst }}</h1>
+<h2>Ejercicios ({{ workout.routineexercise_set.count }})</h2>
+{% for routine in workout.routineexercise_set.all %}
+    <h3>{{ routine.exercise.name }}</h3>
+    <ul>
+        <li>Series: {{ routine.sets }}</li>
+        <li>Repeticiones: {{ routine.reps }}</li>
+        <li>Descanso entre series: {{ routine.rest_time }}seg</li>
+        <li>Grupos musculares que trabajan en este ejercicio:
+            <ul>
+                {% for muscle_group in routine.exercise.muscle_groups.all %}
+                	<li>{{ muscle_group.name }}</li>
+                {% endfor %}
+            </ul>
+        </li>
+        <li>Equipamiento que podemos usar
+            <ul>
+                {% for equipment in routine.exercise.equipment_needed.all %}
+                	<li>{{ equipment.name }}</li>
+                {% endfor %}
+            </ul>
+        </li>
+        <li>Descripción del ejercicio:</li>
+        <span>{{ routine.exercise.description }}</span>
+    </ul>
+{% endfor %}
+<a href="{% url 'workout_routines:form_routine' %}">Añadir más rutinas a mi entrenamiento</a><br>
+<a href="{% url 'persons:index' %}">Volver a inicio</a>
+</body>
+</html>

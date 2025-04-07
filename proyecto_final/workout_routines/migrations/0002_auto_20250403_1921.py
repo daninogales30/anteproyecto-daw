@@ -22,8 +22,8 @@ def poblar_ejercicios(apps, schema_editor):
     gemelo = MuscleGroup.objects.create(name='Gemelo')
 
     press_banca = Exercise.objects.create(name='Press banca', description='El Press banca es un gran ejercicio multialticular que sirve para el desarrollo sobre todo del pectoral, aunque trabaja indirectamente los hombros y los triceps.')
-    press_banca.set_muscle_groups = [(pecho,hombro,triceps)]
-    press_banca.set_equipment_needed = [(manc,barra)]
+    press_banca.muscle_groups.add(pecho, hombro, triceps)
+    press_banca.equipment_needed.add(manc, barra)
     press_banca.save()
 
 
