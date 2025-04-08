@@ -10,6 +10,7 @@ from workout_routines.models import Workout
 
 class Person(AbstractUser):
     birth_date = models.DateField("Fecha de nacimiento", null=True, blank=True)
+    edad = models.PositiveIntegerField("Edad", default=18)
     GENDER_CHOICES = [
         ('M', 'Masculino'),
         ('F', 'Femenino'),
@@ -32,7 +33,7 @@ class Person(AbstractUser):
     diets = models.ManyToManyField(SemanalDiet, blank=True)
     gender = models.CharField("Género", max_length=1, choices=GENDER_CHOICES, blank=True)
     weight = models.FloatField("Peso (kg)", help_text="Peso en kilogramos", default=70.0)
-    height = models.FloatField("Altura (cm)", help_text="Altura en centímetros", default=170.0)
+    height = models.IntegerField("Altura (cm)", help_text="Altura en centímetros", default=170)
     body_fat_percentage = models.FloatField(
         "Porcentaje de grasa corporal",
         null=True,
@@ -62,12 +63,35 @@ class Person(AbstractUser):
         default='profile_pics/default.jpg'
     )
     bio = models.TextField("Biografía", max_length=500, blank=True)
+    diary_callories = models.PositiveIntegerField("Calorías diarias", null=True, blank=True, default=0)
 
-    def calculate_bodyfat_percentage(self):
+
+    """
+        def calculate_bodyfat_percentage(self):
         if self.gender == 'M':
             return round(number=(495/1.0324-0.19077*math.log10(self.cintura-self.cuello)+0.15456*math.log10(self.height)) - 450,ndigits=2)
         return round(number=(495/1.29579 - 0.35004*math.log10(self.cintura+self.cadera-self.cuello)+0.22100*math.log10(self.height)) - 450, ndigits=2)
+    """
+
 
     def calculate_imc(self):
+        imc = self.weight / ((self.height / 100) ** 2)
+        return round(imc, 1)
+
+    def calculate_diary_callories(self):
         if self.gender == 'M':
-            pass
+            tmb = 88.362 + (13.397 * self.weight) + (4.799 * self.height) - (5.677 * self.edad)
+        else:
+            tmb = 447.593 + (9.247 * self.weight) + (3.098 * self.height) - (4.330 * self.edad)
+
+        if self.activity_level == 'sedentary':
+            tmb_final = tmb * 1.2
+        elif self.activity_level == 'light':
+            tmb_final = tmb * 1.375
+        elif self.activity_level == 'moderate':
+            tmb_final = tmb * 1.55
+        else:  # 'active'
+            tmb_final = tmb * 1.725
+
+        return round(tmb_final, 0)
+

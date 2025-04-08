@@ -15,7 +15,7 @@ class PersonForm(forms.ModelForm):
         fields = [
             'username', 'first_name','last_name', 'email', 'birth_date', 'gender',
             'profile_picture', 'weight', 'height', 'fitness_goal',
-            'activity_level',
+            'activity_level','edad',
             'allergies', 'medical_conditions', 'target_weight', 'bio', 'cuello', 'cadera', 'cintura',
         ]
 
@@ -25,6 +25,7 @@ class PersonForm(forms.ModelForm):
         'last_name',
         'password',
         'email',
+        'edad',
         'birth_date',
         'gender',
         'weight',

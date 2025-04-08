@@ -16,8 +16,14 @@ class PersonRegisterCreateView(FormView):
     def form_valid(self, form):
         person = form.save(commit=False)
         person.set_password(form.cleaned_data['password'])
-        grasa = person.calculate_bodyfat_percentage()
-        person.body_fat_percentage = grasa
+        # grasa = person.calculate_bodyfat_percentage()
+        # person.body_fat_percentage = grasa
+
+        imc = person.calculate_imc()
+        person.imc = imc
+
+        day_calories = person.calculate_day_calories()
+        person.diary_callories = day_calories
         person.save()
         return super().form_valid(form)
 
@@ -49,14 +55,20 @@ class PersonUpdateView(LoginRequiredMixin, UpdateView):
         return self.request.user
 
     def form_valid(self, form):
-        if 'height' in form.changed_data or 'cintura' in form.changed_data or 'cuello' in form.changed_data or 'cadera' in form.changed_data or 'gender' in form.changed_data:
-            person = form.save(commit=False)
-            body_fat_percentage = person.calculate_bodyfat_percentage()
-            person.body_fat_percentage = body_fat_percentage
-            person.save()
-            return super().form_valid(form)
-
         person = form.save(commit=False)
+
+        # if 'height' in form.changed_data or 'cintura' in form.changed_data or 'cuello' in form.changed_data or 'cadera' in form.changed_data or 'gender' in form.changed_data:
+            # body_fat_percentage = person.calculate_bodyfat_percentage()
+            # person.body_fat_percentage = body_fat_percentage
+
+        if 'height' in form.changed_data or 'weight' in form.changed_data:
+            imc = person.calculate_imc()
+            person.imc = imc
+
+        if 'gender' in form.changed_data or 'weight' in form.changed_data or 'height' in form.changed_data or 'edad' in form.changed_data or 'activity_level' in form.changed_data:
+            day_calories = person.calculate_diary_callories()
+            person.diary_callories = day_calories
+
         person.save()
         return super().form_valid(form)
 

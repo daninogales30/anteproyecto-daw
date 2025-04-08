@@ -21,6 +21,7 @@
         <p>Nombre de usuario: {{ usuario.username }}</p>
         <p>Nombre: {{ usuario.first_name }}</p>
         <p>Apellidos: {{ usuario.last_name }}</p>
+        <p>Edad: {{ usuario.edad }}</p>
         <p>Fecha de nacimiento: {{ usuario.birth_date }}</p>
         <p>Género: {{ usuario.get_gender_display }}</p>
         <p>Email: {{ usuario.email }}</p>
@@ -39,6 +40,18 @@
         {% if not usuario.fitness_goal == 'maintain' %}
         	<p>Peso objetivo: {{ usuario.target_weight }}kg</p>
         {% endif %}
+        <p>IMC (Índice de masa corporal) 
+            {% if usuario.imc < 18.5 %}
+            	{{ usuario.imc }} Bajo peso
+            {% elif usuario.imc >= 18.5 and usuario.imc <= 24.9 %}
+                {{ usuario.imc }} Peso normal
+            {% elif usuario.imc >= 25 and usuario.imc <= 29.9 %}
+                {{ usuario.imc }} Sobrepeso
+            {% elif usuario.imc >= 30 %}
+                {{ usuario.imc }} Obesidad
+            {% endif %}
+        </p>
+        <p>Calorías diarias: {{ usuario.diary_callories }}</p>
     </div>
 
     <div class="container bg-warning mt-5">
