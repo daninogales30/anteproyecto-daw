@@ -57,6 +57,7 @@ class Workout(models.Model):
         related_name='user_workouts',
         null=True
     )
+    precargado = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name

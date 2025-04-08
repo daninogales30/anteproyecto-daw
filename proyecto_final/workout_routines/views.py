@@ -58,3 +58,12 @@ class WorkoutDetailView(LoginRequiredMixin, DetailView):
 
     def get_queryset(self):
         return self.request.user.user_workouts.all()
+
+class PreloadedWorkoutsListView(LoginRequiredMixin, ListView):
+    model = Workout
+    template_name = 'workout_routine/preloaded.html'
+    context_object_name = 'workouts'
+
+    def get_queryset(self):
+        queryset = Workout.objects.filter(precargado=True)
+        return queryset
