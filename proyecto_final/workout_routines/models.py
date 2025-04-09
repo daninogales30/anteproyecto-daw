@@ -66,7 +66,7 @@ class Workout(models.Model):
         null=True
     )
     precargado = models.BooleanField(default=False)
-    nivel = models.CharField(choices=NIVEL_DIFICULTAD, max_length=100)
+    # nivel = models.CharField(choices=NIVEL_DIFICULTAD, max_length=100, blank=True, null=True)
 
     def __str__(self):
         return self.name

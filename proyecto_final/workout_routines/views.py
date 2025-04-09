@@ -13,6 +13,7 @@ class WorkoutFormView(LoginRequiredMixin, FormView):
 
     def form_valid(self, form):
         workout_day = form.save(commit=False)
+        workout_day.precargado = False
         user = self.request.user
 
         if user.user_workouts.filter(name=workout_day.name).exists():
