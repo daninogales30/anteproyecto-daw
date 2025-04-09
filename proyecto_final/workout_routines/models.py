@@ -48,6 +48,14 @@ class Workout(models.Model):
         ('domingo', 'Domingo'),
     ]
 
+    NIVEL_DIFICULTAD = [
+        ('principiante', 'Principiante'),
+        ('amateur', 'Amateur'),
+        ('avanzado', 'Avanzado'),
+        ('elite', 'Elite'),
+        ('culturista', 'Culturista'),
+    ]
+
     name = models.CharField(max_length=100, choices=DIAS_SEMANA)
     exercises = models.ManyToManyField(Exercise, through=RoutineExercise)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -58,6 +66,7 @@ class Workout(models.Model):
         null=True
     )
     precargado = models.BooleanField(default=False)
+    nivel = models.CharField(choices=NIVEL_DIFICULTAD, max_length=100)
 
     def __str__(self):
         return self.name
