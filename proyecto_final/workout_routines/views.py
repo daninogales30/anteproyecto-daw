@@ -37,6 +37,11 @@ class RoutineFormView(LoginRequiredMixin, FormView):
     template_name = 'workout_routine/form.html'
     success_url = reverse_lazy('persons:index')
 
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
     def form_valid(self, form):
         routine = form.save(commit=False)
         routine.save()
