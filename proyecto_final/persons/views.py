@@ -22,7 +22,7 @@ class PersonRegisterCreateView(FormView):
         imc = person.calculate_imc()
         person.imc = imc
 
-        day_calories = person.calculate_day_calories()
+        day_calories = person.calculate_diary_callories()
         person.diary_callories = day_calories
         person.save()
         return super().form_valid(form)
