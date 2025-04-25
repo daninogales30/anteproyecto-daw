@@ -34,3 +34,6 @@
 - A día 8 de abril, he añadido el metodo para calcular calorias diarias dependiendo de su altura, peso, si es sedentario, activo, muy activo, etc... También, me he dado cuenta que el método de calcular el porcentaje de grasa necesita un cambio ya que dependiendo de los datos que introduzca da un error matemático, por lo cual debo de hacer las comprobaciones para que el resultado de lo más acertado posible y ponerle ciertas condiciones a los datos.
 - A día 21 de abril, he mejorado la vista previa del html de profile pero sobre todo he encontrado un error que tengo que solucionar. He visto que al crear una rutina para añadir al entrenamiento aparecen todos los workouts de la base de datos, no solamente los del usuario, es algo que tenemos que modificar.
 - A día 21 de abril, ya he podido solucionar ese error, filtrando en el formulario solamente los workouts creados por el usuario.
+
+### Del 22 de abril al 5 de mayo
+- A día 25 de abril, he añadido una view para eliminar rutinas y tambien una lista con armas precargadas. Ahora mismo, la parte de workout_routine esta terminada, solo falta empezar el diseño con Bootstrap.
