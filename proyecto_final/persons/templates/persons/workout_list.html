@@ -9,28 +9,39 @@
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
             crossorigin="anonymous"></script>
 </head>
-<body>
-<div class="container bg-danger">
-    <h1 class="text-center fw-bold">Entrenamientos creados por mi</h1>
+<body class="bg-light">
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="card w-100 shadow rounded-3" style="max-width: 800px;">
+        <div class="card-body p-5">
+            <div class="text-center mb-5">
+                <h1 class="fw-bold text-primary mb-4">Entrenamientos creados por mí</h1>
+            </div>
+
+            <div class="list-group">
+                {% for workout in usuario.user_workouts.all %}
+                    <div class="list-group-item border-0 p-3 mb-3 bg-light shadow-sm">
+                        <a href="{% url 'workout_routines:workout_detail' workout.pk %}"
+                           class="text-decoration-none fw-bold text-primary mb-2 d-block">
+                            {{ workout.name|capfirst }}
+                        </a>
+                        <a href="{% url 'workout_routines:workout_delete' workout.pk %}">Eliminar entrenamiento</a>
+                        <ul class="list-group list-group-flush">
+                            {% for routine in workout.routineexercise_set.all %}
+                                <li class="list-group-item bg-transparent border-0 py-1">
+                                    <i class="fas fa-dumbbell text-muted me-2"></i>
+                                    {{ routine.exercise.name }}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div class="text-center mt-4">
+                <a href="{% url 'persons:index' %}" class="btn btn-secondary">Volver a inicio</a>
+            </div>
+        </div>
+    </div>
 </div>
-
-<div class="container bg-light">
-    {% for workout in usuario.user_workouts.all %}
-        <ul>
-            <li><a href="{% url 'workout_routines:workout_detail' workout.pk %}">{{ workout.name|capfirst }}</a>
-                <ul>
-                    {% for routine in workout.routineexercise_set.all %}
-                        <li>
-                            {{ routine.exercise.name }}
-                        </li>
-                    {% endfor %}
-
-                </ul>
-            </li>
-        </ul>
-    {% endfor %}
-</div>
-
-<ul></ul>
 </body>
 </html>

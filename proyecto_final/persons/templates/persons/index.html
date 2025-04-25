@@ -9,20 +9,45 @@
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
             crossorigin="anonymous"></script>
 </head>
-<body>
-<div class="container bg-warning my-5">
-    <h1 class="fw-bold">Estas en la página principal</h1>
-    <h2 class="fw-bold">Aprende a usar la app</h2>
-    <p>Para aprender el uso de nuestra página, <a href="">pincha aquí</a> y descarga nuestro manual de uso.</p>
-    <a href="{% url 'workout_routines:form_workout' %}">Crear entrenamiento</a><br>
-    <a href="{% url 'workout_routines:form_routine' %}">Crear rutinas</a><br>
-    <a href="{% url 'workout_routines:workout_preloaded' %}">Ver entrenamientos precargados</a><br>
-    <a href="">Dietas</a><br>
-    <a href="{% url 'persons:profile' %}">Ver perfil</a><br>
-    <form action="{% url 'persons:logout' %}" method="post">
-        {% csrf_token %}
-        <button type="submit">Cerrar sesión</button>
-    </form>
+<body class="bg-light">
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="card w-100 shadow rounded-3" style="max-width: 600px;">
+        <div class="card-body p-5">
+            <h1 class="fw-bold text-center text-primary mb-4">Estás en la página principal</h1>
+            <h2 class="h4 text-muted text-center mb-4">Aprende a usar la app</h2>
+
+            <div class="list-group mb-4">
+                <a href="{% url 'workout_routines:form_workout' %}"
+                   class="list-group-item list-group-item-action border-0 py-3 text-primary">
+                    Crear entrenamiento
+                </a>
+                <a href="{% url 'workout_routines:form_routine' %}"
+                   class="list-group-item list-group-item-action border-0 py-3 text-primary">
+                    Crear rutinas
+                </a>
+                <a href="{% url 'workout_routines:workout_preloaded' %}"
+                   class="list-group-item list-group-item-action border-0 py-3 text-primary">
+                    Ver entrenamientos precargados
+                </a>
+                <a href="" class="list-group-item list-group-item-action border-0 py-3 text-primary">
+                    Dietas
+                </a>
+                <a href="{% url 'persons:profile' %}"
+                   class="list-group-item list-group-item-action border-0 py-3 text-primary">
+                    Ver perfil
+                </a>
+            </div>
+
+            <form action="{% url 'persons:logout' %}" method="post" class="text-center">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger btn-lg w-100">Cerrar sesión</button>
+            </form>
+
+            <p class="text-center mt-4 mb-0">Para aprender el uso de nuestra página,
+                <a href="" class="text-decoration-none">pincha aquí</a> y descarga nuestro manual de uso.
+            </p>
+        </div>
+    </div>
 </div>
 </body>
 </html>

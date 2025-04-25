@@ -9,57 +9,70 @@
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
             crossorigin="anonymous"></script>
 </head>
-<body>
-<div class="container-fluid bg-success">
-    <h1 class="fw-bold text-center">Bienvenido {{ usuario.username }}</h1>
-    <h2 class="text-center">Aquí encontrarás datos importantes sobre tu perfil</h2>
-</div>
+<body class="bg-light">
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="card w-100 shadow rounded-3" style="max-width: 800px;">
+        <div class="card-body p-5">
+            <div class="text-center mb-5">
+                <h1 class="fw-bold text-primary mb-3">Bienvenido {{ usuario.username }}</h1>
+                <h2 class="h5 text-muted">Aquí encontrarás datos importantes sobre tu perfil</h2>
+            </div>
 
-<div class="container-fluid bg-success my-5">
-    <div class="container bg-warning">
-        <h3 class="text-center mb-4">Datos personales</h3>
-        <p>Nombre de usuario: {{ usuario.username }}</p>
-        <p>Nombre: {{ usuario.first_name }}</p>
-        <p>Apellidos: {{ usuario.last_name }}</p>
-        <p>Edad: {{ usuario.edad }}</p>
-        <p>Fecha de nacimiento: {{ usuario.birth_date }}</p>
-        <p>Género: {{ usuario.get_gender_display }}</p>
-        <p>Email: {{ usuario.email }}</p>
-        <p>Foto de perfil: <img src="" alt=""></p>
-        <p>Biografía: {{ usuario.bio }}</p>
-        <p>Alergias: {{ usuario.allergies }}</p>
-        <p>Alguna condicion médica: {{ usuario.medical_conditions }}</p>
-    </div>
+            <div class="mb-5">
+                <h3 class="h4 text-center text-primary mb-4">Datos personales</h3>
+                <div class="list-group">
+                    <div class="list-group-item border-0 py-2">Nombre de usuario: {{ usuario.username }}</div>
+                    <div class="list-group-item border-0 py-2">Nombre: {{ usuario.first_name }}</div>
+                    <div class="list-group-item border-0 py-2">Apellidos: {{ usuario.last_name }}</div>
+                    <div class="list-group-item border-0 py-2">Edad: {{ usuario.edad }}</div>
+                    <div class="list-group-item border-0 py-2">Fecha de nacimiento: {{ usuario.birth_date }}</div>
+                    <div class="list-group-item border-0 py-2">Género: {{ usuario.get_gender_display }}</div>
+                    <div class="list-group-item border-0 py-2">Email: {{ usuario.email }}</div>
+                    <div class="list-group-item border-0 py-2">Foto de perfil: <img src="" alt=""
+                                                                                    class="img-thumbnail mt-2"
+                                                                                    style="width: 100px"></div>
+                    <div class="list-group-item border-0 py-2">Biografía: {{ usuario.bio }}</div>
+                    <div class="list-group-item border-0 py-2">Alergias: {{ usuario.allergies }}</div>
+                    <div class="list-group-item border-0 py-2">Condiciones
+                        médicas: {{ usuario.medical_conditions }}</div>
+                </div>
+            </div>
 
-    <div class="container bg-warning mt-5">
-        <h3 class="text-center mb-4">Datos sobre salud</h3>
-        <p>Altura: {{ usuario.height }}cm</p>
-        <p>Peso: {{ usuario.weight }}kg</p>
-        <p>Porcentaje de grasa: {{ usuario.body_fat_percentage }}%</p>
-        <p>Objetivos fitness: {{ usuario.get_fitness_goal_display }}</p>
-        {% if not usuario.fitness_goal == 'maintain' %}
-        	<p>Peso objetivo: {{ usuario.target_weight }}kg</p>
-        {% endif %}
-        <p>IMC (Índice de masa corporal) 
-            {% if usuario.imc < 18.5 %}
-            	{{ usuario.imc }} Bajo peso
-            {% elif usuario.imc >= 18.5 and usuario.imc <= 24.9 %}
-                {{ usuario.imc }} Peso normal
-            {% elif usuario.imc >= 25 and usuario.imc <= 29.9 %}
-                {{ usuario.imc }} Sobrepeso
-            {% elif usuario.imc >= 30 %}
-                {{ usuario.imc }} Obesidad
-            {% endif %}
-        </p>
-        <p>Calorías diarias: {{ usuario.diary_callories }} kcal</p>
-    </div>
+            <div class="mb-5">
+                <h3 class="h4 text-center text-primary mb-4">Datos sobre salud</h3>
+                <div class="list-group">
+                    <div class="list-group-item border-0 py-2">Altura: {{ usuario.height }}cm</div>
+                    <div class="list-group-item border-0 py-2">Peso: {{ usuario.weight }}kg</div>
+                    <div class="list-group-item border-0 py-2">% Grasa: {{ usuario.body_fat_percentage }}%</div>
+                    <div class="list-group-item border-0 py-2">Objetivo: {{ usuario.get_fitness_goal_display }}</div>
+                    {% if not usuario.fitness_goal == 'maintain' %}
+                        <div class="list-group-item border-0 py-2">Peso objetivo: {{ usuario.target_weight }}kg</div>
+                    {% endif %}
+                    <div class="list-group-item border-0 py-2">
+                        IMC: {{ usuario.imc }}
+                        <span class="badge bg-secondary ms-2">
+                        {% if usuario.imc < 18.5 %}Bajo peso
+                        {% elif usuario.imc >= 18.5 and usuario.imc <= 24.9 %}Normal
+                        {% elif usuario.imc >= 25 and usuario.imc <= 29.9 %}Sobrepeso
+                        {% else %}Obesidad
+                        {% endif %}
+                        </span>
+                    </div>
+                    <div class="list-group-item border-0 py-2">Calorías diarias: {{ usuario.diary_callories }} kcal
+                    </div>
+                </div>
+            </div>
 
-    <div class="container bg-warning mt-5">
-        <h3 class="text-center mb-4">Funcionalidades</h3>
-        <a href="{% url 'persons:update' %}">Modificar datos de usuario</a>
-        <a href="{% url 'persons:password' %}">Cambiar contraseña</a>
-        <a href="{% url 'persons:workouts-list' %}">Ver entrenamientos creados por mi</a>
-        <a href="{% url 'persons:index' %}">Volver a inicio</a>
+            <div class="text-center">
+                <h3 class="h4 text-primary mb-4">Funcionalidades</h3>
+                <div class="d-grid gap-3">
+                    <a href="{% url 'persons:update' %}" class="btn btn-outline-primary">Modificar datos</a>
+                    <a href="{% url 'persons:password' %}" class="btn btn-outline-primary">Cambiar contraseña</a>
+                    <a href="{% url 'persons:workouts-list' %}" class="btn btn-outline-primary">Mis entrenamientos</a>
+                    <a href="{% url 'persons:index' %}" class="btn btn-secondary mt-3">Volver a inicio</a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 </body>

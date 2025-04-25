@@ -14,14 +14,14 @@
     <div class="card w-100 shadow rounded-3" style="max-width: 600px;">
         <div class="card-body p-5 text-center">
             <h1 class="fw-bold text-primary mb-4">
-                ¿Borrar rutina de {{ routine.exercise.name }}?
+                ¿Borrar entrenamiento del día: {{ workout.name|capfirst }}?
             </h1>
 
             <form method="post" class="d-flex flex-column gap-3">
                 {% csrf_token %}
                 <div class="d-flex justify-content-center gap-3">
                     <button type="submit" class="btn btn-danger btn-lg px-5">
-                        Sí, borrar
+                        Sí, eliminar
                     </button>
                     <a href="{% url 'persons:workouts-list' %}"
                        class="btn btn-outline-secondary btn-lg px-5">

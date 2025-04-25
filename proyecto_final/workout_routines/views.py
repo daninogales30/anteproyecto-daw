@@ -74,3 +74,9 @@ class RoutineDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'workout_routine/delete.html'
     context_object_name = 'routine'
     success_url = reverse_lazy('persons:workouts-list')
+
+class WorkoutDeleteView(LoginRequiredMixin, DeleteView):
+    model = Workout
+    template_name = 'workout_routine/delete_workout.html'
+    context_object_name = 'workout'
+    success_url = reverse_lazy('persons:workouts-list')
