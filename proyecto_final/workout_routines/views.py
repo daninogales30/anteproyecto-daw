@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
-from django.views.generic import FormView, ListView, DetailView
+from django.views.generic import FormView, ListView, DetailView, DeleteView
 from workout_routines.forms import RoutineExerciseForm, WorkoutExerciseForm
 from workout_routines.models import RoutineExercise, Workout
 
@@ -13,7 +13,6 @@ class WorkoutFormView(LoginRequiredMixin, FormView):
 
     def form_valid(self, form):
         workout_day = form.save(commit=False)
-        workout_day.precargado = False
         user = self.request.user
 
         if user.user_workouts.filter(name=workout_day.name).exists():
@@ -52,10 +51,6 @@ class RoutineFormView(LoginRequiredMixin, FormView):
         context['titulo'] = 'Crear rutina'
         return context
 
-class RoutineListView(LoginRequiredMixin, ListView):
-    model = RoutineExercise
-    template_name = 'workout_routine/list.html'
-    context_object_name = 'routines'
 
 class WorkoutDetailView(LoginRequiredMixin, DetailView):
     model = Workout
@@ -73,3 +68,9 @@ class PreloadedWorkoutsListView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         queryset = Workout.objects.filter(precargado=True)
         return queryset
+
+class RoutineDeleteView(LoginRequiredMixin, DeleteView):
+    model = RoutineExercise
+    template_name = 'workout_routine/delete.html'
+    context_object_name = 'routine'
+    success_url = reverse_lazy('persons:workouts-list')

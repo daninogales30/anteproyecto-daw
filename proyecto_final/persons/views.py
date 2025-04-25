@@ -16,8 +16,13 @@ class PersonRegisterCreateView(FormView):
     def form_valid(self, form):
         person = form.save(commit=False)
         person.set_password(form.cleaned_data['password'])
-        # grasa = person.calculate_bodyfat_percentage()
-        # person.body_fat_percentage = grasa
+        try:
+            grasa = person.calculate_bodyfat_percentage()
+        except ValueError as e:
+            form.add_error(None, str(e))
+            return self.form_invalid(form)
+
+        person.body_fat_percentage = grasa
 
         imc = person.calculate_imc()
         person.imc = imc

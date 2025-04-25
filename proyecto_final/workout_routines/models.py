@@ -63,7 +63,8 @@ class Workout(models.Model):
         'persons.Person',
         on_delete=models.CASCADE,
         related_name='user_workouts',
-        null=True
+        null=True,
+        blank=True
     )
     precargado = models.BooleanField(default=False)
     # nivel = models.CharField(choices=NIVEL_DIFICULTAD, max_length=100, blank=True, null=True)

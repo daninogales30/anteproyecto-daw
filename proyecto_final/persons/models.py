@@ -45,7 +45,8 @@ class Person(AbstractUser):
         "Objetivo principal",
         max_length=20,
         choices=FITNESS_GOAL_CHOICES,
-        default='maintain'
+        default='maintain',
+        null=True,
     )
     activity_level = models.CharField(
         "Nivel de actividad",
@@ -66,12 +67,26 @@ class Person(AbstractUser):
     diary_callories = models.PositiveIntegerField("Calorías diarias", null=True, blank=True, default=0)
 
 
-    """
-        def calculate_bodyfat_percentage(self):
+
+    def calculate_bodyfat_percentage(self):
+        if not self.height or self.height <= 0:
+            raise ValueError("Altura no puede ser cero o negativa")
         if self.gender == 'M':
-            return round(number=(495/1.0324-0.19077*math.log10(self.cintura-self.cuello)+0.15456*math.log10(self.height)) - 450,ndigits=2)
-        return round(number=(495/1.29579 - 0.35004*math.log10(self.cintura+self.cadera-self.cuello)+0.22100*math.log10(self.height)) - 450, ndigits=2)
-    """
+            diff = self.cintura - self.cuello
+            if diff <= 0:
+                raise ValueError("Perímetro cintura-cuello debe ser > 0 para hombre")
+            denom = 1.0324 - 0.19077 * math.log10(diff) + 0.15456 * math.log10(self.height)
+            bodyfat = (495 / denom) - 450
+
+        else:
+            diff = self.cintura + self.cadera - self.cuello
+            if diff <= 0:
+                raise ValueError("Perímetro cintura+cadera-cuello debe ser > 0 para mujer")
+            denom = 1.29579 - 0.35004 * math.log10(diff) + 0.22100 * math.log10(self.height)
+            bodyfat = (495 / denom) - 450
+
+        return round(bodyfat, 2)
+
 
 
     def calculate_imc(self):

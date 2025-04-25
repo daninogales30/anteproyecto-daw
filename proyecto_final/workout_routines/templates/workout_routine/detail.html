@@ -9,6 +9,7 @@
 <h2>Ejercicios ({{ workout.routineexercise_set.count }})</h2>
 {% for routine in workout.routineexercise_set.all %}
     <h3>{{ routine.exercise.name }}</h3>
+    <a href="{% url 'workout_routines:routine_delete' routine.pk %}">Borrar rutina</a>
     <ul>
         <li>Series: {{ routine.sets }}</li>
         <li>Repeticiones: {{ routine.reps }}</li>
