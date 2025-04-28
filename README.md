@@ -37,3 +37,4 @@
 
 ### Del 22 de abril al 5 de mayo
 - A día 25 de abril, he añadido una view para eliminar rutinas y tambien una lista con armas precargadas. Ahora mismo, la parte de workout_routine esta terminada, solo falta empezar el diseño con Bootstrap. He terminado todo el diseño de la app persons y también de la app workout_routines, solo me falta de esta última app el preloaded.html. Solo me quedaría empezar a plantear como hacer la app diets y hacerla.
+- A día 28 de abril, ya he terminado con el apartado de workouts. He terminado el diseño de todas las vistas que tengo de workout. Cuando acabe la parte de dietas me faltaría poner unas vistas de apiRest por ejemplo, usuarios con mas entrenamientos creados, es decir, los mas activos, etc...
