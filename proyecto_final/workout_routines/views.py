@@ -20,6 +20,7 @@ class WorkoutFormView(LoginRequiredMixin, FormView):
                            f"Ya tienes un entrenamiento programado para este dia.")
             return self.form_invalid(form)
 
+        workout_day.user = user
         workout_day.save()
         user.user_workouts.add(workout_day)
 

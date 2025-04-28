@@ -9,10 +9,13 @@ class SemanalDiet(models.Model):
         null=True,
         blank=True
     )
+    name = models.CharField(verbose_name='Nombre, ej: Semana 1', max_length=100, default='Semana 1')
     precargado = models.BooleanField(default=False)
     start_date = models.DateField("Inicio de semana")
     finish_date = models.DateField("Fin de semana")
-    goal = models.CharField("Objetivo de la semana", max_length=100, blank=True)
+
+    class Meta:
+        unique_together = [('user', 'name')]
 
     def __str__(self):
         return f"Semana {self.start_date} al {self.finish_date}"
