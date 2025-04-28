@@ -2,10 +2,17 @@ from django.db import models
 
 
 class SemanalDiet(models.Model):
+    user = models.ForeignKey(
+        'persons.Person',
+        on_delete=models.CASCADE,
+        related_name='user_semanaldiets',
+        null=True,
+        blank=True
+    )
+    precargado = models.BooleanField(default=False)
     start_date = models.DateField("Inicio de semana")
     finish_date = models.DateField("Fin de semana")
     goal = models.CharField("Objetivo de la semana", max_length=100, blank=True)
-
 
     def __str__(self):
         return f"Semana {self.start_date} al {self.finish_date}"
@@ -28,6 +35,22 @@ class DayDiet(models.Model):
     total_calories = models.PositiveIntegerField("Calorías totales", default=0)
 
 
+class FoodItem(models.Model):
+    name = models.CharField("Nombre", max_length=100, unique=True)
+    calories_per_100g = models.PositiveIntegerField("Calorías (por 100g)")
+    CATEGORY_CHOICES = [
+        ('fruta', 'Fruta'),
+        ('verdura', 'Verdura'),
+        ('lácteo', 'Lácteo'),
+        ('cereal', 'Cereal'),
+        ('otro', 'Otro'),
+    ]
+    category = models.CharField("Categoría", max_length=20, choices=CATEGORY_CHOICES, default='otro')
+
+    def __str__(self):
+        return f"{self.name} ({self.calories_per_100g} kcal/100g)"
+
+
 class Food(models.Model):
     FOOD_TYPE = [
         ('desayuno', 'Desayuno'),
@@ -38,7 +61,7 @@ class Food(models.Model):
 
     day = models.ForeignKey(DayDiet, on_delete=models.CASCADE, related_name='comidas')
     type = models.CharField("Tipo de comida", max_length=10, choices=FOOD_TYPE)
-    food = models.JSONField("Alimentos consumidos")  # Ej: {"Pollo": "200g", "Arroz": "150g"}
+    food_item = models.ForeignKey(FoodItem, on_delete=models.PROTECT, verbose_name="Alimento", null=True, blank=True)
     notes = models.TextField("Observaciones", blank=True)
     total_calories_per_food = models.PositiveIntegerField("Calorías totales", default=0)
 
