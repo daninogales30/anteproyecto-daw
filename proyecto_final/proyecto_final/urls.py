@@ -22,4 +22,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('persons.urls')),
     path('workout/', include('workout_routines.urls')),
+    path('diets/', include('diets.urls')),
 ] + debug_toolbar_urls()

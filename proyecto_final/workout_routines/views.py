@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
-from django.views.generic import FormView, ListView, DetailView, DeleteView
+from django.views.generic import FormView, ListView, DetailView, DeleteView, TemplateView
 from workout_routines.forms import RoutineExerciseForm, WorkoutExerciseForm
 from workout_routines.models import RoutineExercise, Workout
 
@@ -25,11 +25,11 @@ class WorkoutFormView(LoginRequiredMixin, FormView):
 
         return super().form_valid(form)
 
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['titulo'] = 'Crear entrenamiento'
         return context
+
 
 class RoutineFormView(LoginRequiredMixin, FormView):
     form_class = RoutineExerciseForm
@@ -60,6 +60,7 @@ class WorkoutDetailView(LoginRequiredMixin, DetailView):
     def get_queryset(self):
         return self.request.user.user_workouts.all()
 
+
 class PreloadedWorkoutsListView(LoginRequiredMixin, ListView):
     model = Workout
     template_name = 'workout_routine/preloaded.html'
@@ -69,14 +70,20 @@ class PreloadedWorkoutsListView(LoginRequiredMixin, ListView):
         queryset = Workout.objects.filter(precargado=True)
         return queryset
 
+
 class RoutineDeleteView(LoginRequiredMixin, DeleteView):
     model = RoutineExercise
     template_name = 'workout_routine/delete.html'
     context_object_name = 'routine'
     success_url = reverse_lazy('persons:workouts-list')
 
+
 class WorkoutDeleteView(LoginRequiredMixin, DeleteView):
     model = Workout
     template_name = 'workout_routine/delete_workout.html'
     context_object_name = 'workout'
     success_url = reverse_lazy('persons:workouts-list')
+
+
+class WorkoutIndexTemplateView(LoginRequiredMixin, TemplateView):
+    template_name = 'workout_routine/actions.html'
