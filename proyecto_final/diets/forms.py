@@ -1,6 +1,6 @@
 from django import forms
 
-from diets.models import DayDiet, SemanalDiet
+from diets.models import DayDiet, SemanalDiet, FoodItem
 
 
 class DayDietForm(forms.ModelForm):
@@ -17,3 +17,7 @@ class SemanalDietForm(forms.ModelForm):
             'finish_date': forms.DateInput(attrs={'type': 'date'}),
         }
 
+class FoodItemForm(forms.ModelForm):
+    class Meta:
+        model = FoodItem
+        fields = ['name', 'calories_per_100g', 'category', 'notes']
