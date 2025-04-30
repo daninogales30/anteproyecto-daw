@@ -110,3 +110,6 @@ class Person(AbstractUser):
 
         return round(tmb_final, 0)
 
+    def total_workouts(self):
+        return self.user_workouts.count()
+

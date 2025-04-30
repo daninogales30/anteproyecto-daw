@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Top 5 Usuarios Más Activos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+</head>
+<body class="bg-light">
+<div class="container d-flex flex-column align-items-center justify-content-center min-vh-100">
+    <h1 class="fw-bold text-primary mb-5">Top 5 Usuarios Más Activos</h1>
+
+    <div class="d-flex align-items-end justify-content-center">
+        <!-- Repetir este bloque para cada usuario -->
+        <div class="text-center mx-3">
+            <!-- Barra de podio -->
+            <div class="rounded-top"
+                 style="width: 80px; height: 220px; background-color: #ffd700;"></div>
+            <!-- Medalla -->
+            <div class="fs-1 mt-2">🥇</div>
+            <!-- Nombre y conteo -->
+            <div class="fw-bold">{{ first.username }}</div>
+            <div class="text-muted small">{{ first.total_workouts }} entrenamientos</div>
+        </div>
+
+        <div class="text-center mx-3">
+            <div class="rounded-top"
+                 style="width: 80px; height: 180px; background-color: #c0c0c0;"></div>
+            <div class="fs-1 mt-2">🥈</div>
+            <div class="fw-bold">{{ second.username }}</div>
+            <div class="text-muted small">{{ second.total_workouts }} entrenamientos</div>
+        </div>
+
+        <div class="text-center mx-3">
+            <div class="rounded-top"
+                 style="width: 80px; height: 140px; background-color: #cd7f32;"></div>
+            <div class="fs-1 mt-2">🥉</div>
+            <div class="fw-bold">{{ third.username }}</div>
+            <div class="text-muted small">{{ third.total_workouts }} entrenamientos</div>
+        </div>
+
+        <div class="text-center mx-3">
+            <div class="rounded-top bg-secondary"
+                 style="width: 80px; height: 100px;"></div>
+            <div class="fs-1 mt-2">🏅</div>
+            <div class="fw-bold">{{ fourth.username }}</div>
+            <div class="text-muted small">{{ fourth.total_workouts }} entrenamientos</div>
+        </div>
+
+        <div class="text-center mx-3">
+            <div class="rounded-top bg-secondary"
+                 style="width: 80px; height:  60px;"></div>
+            <div class="fs-1 mt-2">🏅</div>
+            <div class="fw-bold">{{ fifth.username }}</div>
+            <div class="text-muted small">{{ fifth.total_workouts }} entrenamientos</div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Si prefieres pintarlo con JS en lugar de pasar el contexto:
+    fetch('{% url "persons:api_leaderboard" %}')
+        .then(r => r.json())
+        .then(data => {
+            const medals = ['🥇', '🥈', '🥉', '🏅', '🏅'];
+            const heights = [220, 180, 140, 100, 60];
+            const container = document.querySelector('.d-flex.align-items-end');
+            container.innerHTML = '';
+            data.forEach((u, i) => {
+                const cot = document.createElement('div');
+                cot.className = 'text-center mx-3';
+                cot.innerHTML = `
+            <div class="rounded-top" style="width:80px;height:${heights[i]}px;
+                 background-color:${i === 0 ? '#ffd700' : i === 1 ? '#c0c0c0' : i === 2 ? '#cd7f32' : '#6c757d'};">
+            </div>
+            <div class="fs-1 mt-2">${medals[i]}</div>
+            <div class="fw-bold">${u.username}</div>
+            <div class="text-muted small">${u.total_workouts} entrenamientos</div>
+          `;
+                container.appendChild(cot);
+            });
+        })
+        .catch(() => {
+            document.querySelector('.container').innerHTML =
+                '<p class="text-danger">Error al cargar los datos del leaderboard.</p>';
+        });
+</script>
+</body>
+</html>

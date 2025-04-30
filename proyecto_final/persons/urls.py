@@ -13,4 +13,6 @@ urlpatterns = [
     path('update/', views.PersonUpdateView.as_view(), name='update'),
     path('update-password/', views.PersonPasswordUpdateView.as_view(), name='password'),
     path('workouts-list/', views.PersonWorkoutListView.as_view(), name='workouts-list'),
+    path('leaderboard/', views.PersonLeaderboardTemplate.as_view(), name='leaderboard'),
+    path('api/leaderboard/', views.PersonLeaderboardAPIView.as_view(), name='api_leaderboard'),
 ]

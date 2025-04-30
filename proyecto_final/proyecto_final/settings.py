@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'diets',
     'debug_toolbar',
     'django_extensions',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
