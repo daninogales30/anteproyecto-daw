@@ -49,7 +49,8 @@ class FoodItem(models.Model):
     def __str__(self):
         return f"{self.name} ({self.calories_per_100g} kcal/100g)"
 
-class DayDiet(models.Model):
+
+class Day(models.Model):
     DIAS_SEMANA = [
         ('lunes', 'Lunes'),
         ('martes', 'Martes'),
@@ -59,6 +60,30 @@ class DayDiet(models.Model):
         ('sábado', 'Sábado'),
         ('domingo', 'Domingo'),
     ]
+
+    semanal_diet = models.ForeignKey(
+        SemanalDiet,
+        on_delete=models.CASCADE,
+        related_name='days',
+        null=True,
+        blank=True
+    )
+
+    day = models.CharField(
+        'Día',
+        max_length=15,
+        choices=DIAS_SEMANA
+    )
+
+    class Meta:
+        unique_together = [('semanal_diet', 'day')]
+        ordering = ['day']
+
+    def __str__(self):
+        return f"{self.day} ({self.semanal_diet})"
+
+
+class DayDiet(models.Model):
     MOMENTO_DIA = [
         ('desayuno', 'Desayuno'),
         ('almuerzo', 'Almuerzo'),
@@ -71,12 +96,15 @@ class DayDiet(models.Model):
         on_delete=models.CASCADE,
         related_name='meals'
     )
-    date = models.DateField('Fecha específica')
-    day = models.CharField(
-        'Día',
-        max_length=15,
-        choices=DIAS_SEMANA
+
+    day = models.ForeignKey(
+        Day,
+        on_delete=models.CASCADE,
+        related_name='day_diets',
+        null=True,
+        blank=True
     )
+
     moment = models.CharField(
         'Momento',
         max_length=10,
@@ -104,20 +132,18 @@ class DayDiet(models.Model):
 
     class Meta:
         unique_together = [
-            ('semanal_diet', 'date', 'moment', 'food_item')
+            ('semanal_diet', 'moment', 'food_item')
         ]
-        ordering = ['date', 'moment']
+        ordering = ['moment']
 
     def save(self, *args, **kwargs):
         # Calcular calorías totales automáticamente
         self.total_calories = (
-            self.food_item.calories_per_100g * self.quantity_g // 100
+                self.food_item.calories_per_100g * self.quantity_g // 100
         )
         super().save(*args, **kwargs)
 
     def __str__(self):
         return (
-            f"Semana {self.semanal_diet.name}: {self.date} - "
-            f"{self.get_moment_display()} de {self.food_item.name}"
+            f"{self.day} {self.moment} {self.food_item.name}"
         )
-

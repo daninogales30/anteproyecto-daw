@@ -4,7 +4,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, FormView, ListView, CreateView, DeleteView, DetailView
 
-from diets.forms import SemanalDietForm, FoodItemForm
+from diets.forms import SemanalDietForm, FoodItemForm, DayDietForm, DayForm
 from diets.models import SemanalDiet
 from persons.models import Person
 
@@ -35,6 +35,38 @@ class SemanalDietFormView(LoginRequiredMixin, FormView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['titulo'] = 'Crear dieta semanal'
+        return context
+
+class DayFormView(LoginRequiredMixin, FormView):
+    form_class = DayForm
+    template_name = 'diets/form.html'
+    success_url = reverse_lazy('persons:index')
+
+    def form_valid(self, form):
+        day = form.save(commit=False)
+        day.save()
+
+        return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['titulo'] = 'Crear día semanal'
+        return context
+
+class DayDietFormView(LoginRequiredMixin, FormView):
+    form_class = DayDietForm
+    template_name = 'diets/form.html'
+    success_url = reverse_lazy('persons:index')
+
+    def form_valid(self, form):
+        daydiet = form.save(commit=False)
+        daydiet.save()
+
+        return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['titulo'] = 'Añadir alimentos a la dieta'
         return context
 
 class PersonDietListView(LoginRequiredMixin, ListView):

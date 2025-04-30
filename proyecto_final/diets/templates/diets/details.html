@@ -8,5 +8,19 @@
 {{ semanal_diet.name }}
 {{ total_calories }}
 {{ usuario.diary_callories }}
+{% for day in semanal_diet.days.all %}
+	<ul>
+        <li>{{ day.day|capfirst }}</li>
+        <li>Alimentos
+            {% for day_diet in day.day_diets.all %}
+        	    <ul>
+                    <li>{{ day_diet.food_item.name }}</li>
+                </ul>
+        {% endfor %}
+
+        </li>
+    </ul>
+{% endfor %}
+
 </body>
 </html>

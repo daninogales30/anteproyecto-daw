@@ -1,11 +1,16 @@
 from django import forms
 
-from diets.models import DayDiet, SemanalDiet, FoodItem
+from diets.models import DayDiet, SemanalDiet, FoodItem, Day
 
 
 class DayDietForm(forms.ModelForm):
     class Meta:
         model = DayDiet
+        fields = '__all__'
+
+class DayForm(forms.ModelForm):
+    class Meta:
+        model = Day
         fields = '__all__'
 
 class SemanalDietForm(forms.ModelForm):
