@@ -15,6 +15,7 @@ class RoutineExerciseForm(forms.ModelForm):
             # Filtramos los workouts por el usuario actual
             self.fields['workout'].queryset = Workout.objects.filter(user=user)
 
+
 class WorkoutExerciseForm(forms.ModelForm):
     class Meta:
         model = Workout

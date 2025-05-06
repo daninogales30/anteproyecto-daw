@@ -20,6 +20,7 @@
                     <div class="mb-4">
                         {% for message in messages %}
                             <div class="alert alert-
+
                                     {% if message.tags %}{{ message.tags }}{% else %}info{% endif %} alert-dismissible fade show">
                                 {{ message }}
                                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>

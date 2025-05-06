@@ -26,6 +26,7 @@ class DayForm(forms.ModelForm):
         if user:
             self.fields['semanal_diet'].queryset = SemanalDiet.objects.filter(user=user)
 
+
 class SemanalDietForm(forms.ModelForm):
     class Meta:
         model = SemanalDiet
@@ -34,6 +35,7 @@ class SemanalDietForm(forms.ModelForm):
             'start_date': forms.DateInput(attrs={'type': 'date'}),
             'finish_date': forms.DateInput(attrs={'type': 'date'}),
         }
+
 
 class FoodItemForm(forms.ModelForm):
     class Meta:

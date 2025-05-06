@@ -56,7 +56,8 @@ class Person(AbstractUser):
     )
     allergies = models.TextField("Alergias alimenticias", blank=True)
     medical_conditions = models.TextField("Condiciones médicas", blank=True)
-    target_weight = models.FloatField("Peso objetivo (kg) (Dejar en blanco si tu objetivo es mantenimiento)", null=True, blank=True)
+    target_weight = models.FloatField("Peso objetivo (kg) (Dejar en blanco si tu objetivo es mantenimiento)", null=True,
+                                      blank=True)
     profile_picture = models.ImageField(
         "Foto de perfil",
         upload_to='profile_pics/',
@@ -65,8 +66,6 @@ class Person(AbstractUser):
     )
     bio = models.TextField("Biografía", max_length=500, blank=True)
     diary_callories = models.PositiveIntegerField("Calorías diarias", null=True, blank=True, default=0)
-
-
 
     def calculate_bodyfat_percentage(self):
         if not self.height or self.height <= 0:
@@ -86,8 +85,6 @@ class Person(AbstractUser):
             bodyfat = (495 / denom) - 450
 
         return round(bodyfat, 2)
-
-
 
     def calculate_imc(self):
         imc = self.weight / ((self.height / 100) ** 2)
@@ -112,4 +109,3 @@ class Person(AbstractUser):
 
     def total_workouts(self):
         return self.user_workouts.count()
-

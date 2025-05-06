@@ -99,8 +99,6 @@ class Day(models.Model):
         unique_together = [('semanal_diet', 'day')]
         ordering = ['day']
 
-
-
     def __str__(self):
         return f"{self.day} ({self.semanal_diet})"
 
