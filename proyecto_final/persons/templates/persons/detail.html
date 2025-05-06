@@ -43,7 +43,7 @@
                 <div class="list-group">
                     <div class="list-group-item border-0 py-2">Altura: {{ usuario.height }}cm</div>
                     <div class="list-group-item border-0 py-2">Peso: {{ usuario.weight }}kg</div>
-                    <div class="list-group-item border-0 py-2">% Grasa: {{ usuario.body_fat_percentage }}%</div>
+                    <div class="list-group-item border-0 py-2">Porcentaje Graso: {{ usuario.body_fat_percentage }}%</div>
                     <div class="list-group-item border-0 py-2">Objetivo: {{ usuario.get_fitness_goal_display }}</div>
                     {% if not usuario.fitness_goal == 'maintain' %}
                         <div class="list-group-item border-0 py-2">Peso objetivo: {{ usuario.target_weight }}kg</div>

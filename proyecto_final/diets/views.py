@@ -1,16 +1,15 @@
 from django.contrib import messages
-from django.contrib.auth import user_logged_in
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
-from django.views.generic import TemplateView, FormView, ListView, CreateView, DeleteView, DetailView
+from django.views.generic import TemplateView, FormView, ListView, DeleteView, DetailView
 
 from diets.forms import SemanalDietForm, FoodItemForm, DayDietForm, DayForm
 from diets.models import SemanalDiet
-from persons.models import Person
 
 
 class DietTemplateView(LoginRequiredMixin, TemplateView):
     template_name = 'diets/diets.html'
+
 
 class SemanalDietFormView(LoginRequiredMixin, FormView):
     form_class = SemanalDietForm
@@ -37,10 +36,16 @@ class SemanalDietFormView(LoginRequiredMixin, FormView):
         context['titulo'] = 'Crear dieta semanal'
         return context
 
+
 class DayFormView(LoginRequiredMixin, FormView):
     form_class = DayForm
     template_name = 'diets/form.html'
     success_url = reverse_lazy('persons:index')
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
 
     def form_valid(self, form):
         day = form.save(commit=False)
@@ -53,10 +58,16 @@ class DayFormView(LoginRequiredMixin, FormView):
         context['titulo'] = 'Crear día semanal'
         return context
 
+
 class DayDietFormView(LoginRequiredMixin, FormView):
     form_class = DayDietForm
     template_name = 'diets/form.html'
     success_url = reverse_lazy('persons:index')
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
 
     def form_valid(self, form):
         daydiet = form.save(commit=False)
@@ -69,6 +80,7 @@ class DayDietFormView(LoginRequiredMixin, FormView):
         context['titulo'] = 'Añadir alimentos a la dieta'
         return context
 
+
 class PersonDietListView(LoginRequiredMixin, ListView):
     model = SemanalDiet
     template_name = 'diets/person_diets.html'
@@ -78,6 +90,7 @@ class PersonDietListView(LoginRequiredMixin, ListView):
         user = self.request.user
         queryset = SemanalDiet.objects.filter(user=user)
         return queryset
+
 
 class PersonDietDetailView(LoginRequiredMixin, DetailView):
     model = SemanalDiet
@@ -92,11 +105,13 @@ class PersonDietDetailView(LoginRequiredMixin, DetailView):
         context['total_calories'] = self.object.total_calories()
         return context
 
+
 class PersonDietDeleteView(LoginRequiredMixin, DeleteView):
     model = SemanalDiet
     template_name = "diets/person_deletediet.html"
     context_object_name = "semanal_diet"
     success_url = reverse_lazy('diets:list_semanaldiets')
+
 
 class FoodItemFormView(LoginRequiredMixin, FormView):
     form_class = FoodItemForm

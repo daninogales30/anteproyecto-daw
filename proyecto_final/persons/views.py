@@ -29,10 +29,20 @@ class PersonRegisterCreateView(FormView):
 
         person.body_fat_percentage = grasa
 
-        imc = person.calculate_imc()
+        try:
+            imc = person.calculate_imc()
+        except ValueError as e:
+            form.add_error(None, str(e))
+            return self.form_invalid(form)
+
         person.imc = imc
 
-        day_calories = person.calculate_diary_callories()
+        try:
+            day_calories = person.calculate_diary_callories()
+        except ValueError as e:
+            form.add_error(None, str(e))
+            return self.form_invalid(form)
+
         person.diary_callories = day_calories
         person.save()
         return super().form_valid(form)
@@ -121,6 +131,7 @@ class PersonLeaderboardAPIView(generics.ListAPIView):
                                                          filter=Q(user_workouts__exercises__isnull=False),
                                                          distinct=True)).order_by('-total_workouts')
         return q[:5]
+
 
 class PersonLeaderboardTemplate(TemplateView):
     template_name = 'persons/api_ranking.html'
