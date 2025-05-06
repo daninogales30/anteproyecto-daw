@@ -2,12 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Entrenamientos creados por mí</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-            crossorigin="anonymous"></script>
+    <!-- Font Awesome para el icono de papelera -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body class="bg-light">
 <div class="container d-flex justify-content-center align-items-center min-vh-100">
@@ -19,12 +18,18 @@
 
             <div class="list-group">
                 {% for workout in usuario.user_workouts.all %}
-                    <div class="list-group-item border-0 p-3 mb-3 bg-light shadow-sm">
-                        <a href="{% url 'workout_routines:workout_detail' workout.pk %}"
-                           class="text-decoration-none fw-bold text-primary mb-2 d-block">
-                            {{ workout.name|capfirst }}
-                        </a>
-                        <a href="{% url 'workout_routines:workout_delete' workout.pk %}">Eliminar entrenamiento</a>
+                    <div class="list-group-item border-0 p-4 mb-4 bg-light shadow-sm">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <a href="{% url 'workout_routines:workout_detail' workout.pk %}"
+                               class="text-decoration-none fw-bold text-primary">
+                                {{ workout.name|capfirst }}
+                            </a>
+                            <a href="{% url 'workout_routines:workout_delete' workout.pk %}"
+                               class="btn btn-sm btn-outline-danger"
+                               title="Eliminar entrenamiento">
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
+                        </div>
                         <ul class="list-group list-group-flush">
                             {% for routine in workout.routineexercise_set.all %}
                                 <li class="list-group-item bg-transparent border-0 py-1">

@@ -4,7 +4,7 @@ from django.urls import reverse_lazy
 from django.views.generic import TemplateView, FormView, ListView, DeleteView, DetailView
 
 from diets.forms import SemanalDietForm, FoodItemForm, DayDietForm, DayForm
-from diets.models import SemanalDiet
+from diets.models import SemanalDiet, DayDiet
 
 
 class DietTemplateView(LoginRequiredMixin, TemplateView):
@@ -100,9 +100,24 @@ class PersonDietDetailView(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         user = self.request.user
+        semanal_diet = self.object
 
+        dias_ordenados = ['lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado', 'domingo']
+        dias_con_dietas = []
+
+        for dia in dias_ordenados:
+            day_obj = semanal_diet.days.filter(day=dia).first()
+            if day_obj:
+                diets = day_obj.day_diets.all().order_by('moment')
+                dias_con_dietas.append({
+                    'nombre': dia.capitalize(),
+                    'diets': diets,
+                    'total_calories': day_obj.total_calories,
+                })
+
+        context['dias_con_dietas'] = dias_con_dietas
         context['usuario'] = user
-        context['total_calories'] = self.object.total_calories()
+        context['total_calories'] = semanal_diet.total_calories()
         return context
 
 
@@ -110,6 +125,13 @@ class PersonDietDeleteView(LoginRequiredMixin, DeleteView):
     model = SemanalDiet
     template_name = "diets/person_deletediet.html"
     context_object_name = "semanal_diet"
+    success_url = reverse_lazy('diets:list_semanaldiets')
+
+
+class PersonDayDietDeleteView(LoginRequiredMixin, DeleteView):
+    model = DayDiet
+    template_name = "diets/person_deletedaydiet.html"
+    context_object_name = "daydiet"
     success_url = reverse_lazy('diets:list_semanaldiets')
 
 

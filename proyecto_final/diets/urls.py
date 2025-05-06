@@ -11,6 +11,7 @@ urlpatterns = [
     path("list_semanaldiets/", views.PersonDietListView.as_view(), name="list_semanaldiets"),
     path("<int:pk>/details", views.PersonDietDetailView.as_view(), name="details_semanaldiet"),
     path("<int:pk>/delete/", views.PersonDietDeleteView.as_view(), name="person_delete_semanaldiet"),
+    path("daydiet/<int:pk>/delete/", views.PersonDayDietDeleteView.as_view(), name="person_delete_daydiet"),
     path("create_daydiet", views.DayDietFormView.as_view(), name="form_daydiet"),
     path("create_day", views.DayFormView.as_view(), name="form_day"),
 ]

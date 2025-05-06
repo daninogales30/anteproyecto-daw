@@ -11,17 +11,14 @@
 </head>
 <body class="bg-light">
 <div class="container d-flex flex-column align-items-center justify-content-center min-vh-100">
-    <h1 class="fw-bold text-primary mb-5">Top 5 Usuarios Más Activos</h1>
+    <h1 class="fw-bold text-primary mb-4">Top 5 Usuarios Más Activos</h1>
+    <p class="text-center text-primary mb-5">Si quieres ser uno de ellos, ¡¡sigue entrenando y creando tus entrenamientos!!</p>
 
     <div class="d-flex align-items-end justify-content-center">
-        <!-- Repetir este bloque para cada usuario -->
         <div class="text-center mx-3">
-            <!-- Barra de podio -->
             <div class="rounded-top"
                  style="width: 80px; height: 220px; background-color: #ffd700;"></div>
-            <!-- Medalla -->
             <div class="fs-1 mt-2">🥇</div>
-            <!-- Nombre y conteo -->
             <div class="fw-bold">{{ first.username }}</div>
             <div class="text-muted small">{{ first.total_workouts }} entrenamientos</div>
         </div>
@@ -61,7 +58,6 @@
 </div>
 
 <script>
-    // Si prefieres pintarlo con JS en lugar de pasar el contexto:
     fetch('{% url "persons:api_leaderboard" %}')
         .then(r => r.json())
         .then(data => {

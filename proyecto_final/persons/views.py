@@ -1,11 +1,11 @@
+from django.contrib.auth import logout
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, PasswordChangeView, LogoutView
 from django.db.models import Count, Q
 from django.urls import reverse_lazy
-from django.views.generic import FormView, TemplateView, DetailView, UpdateView, ListView
+from django.views.generic import FormView, TemplateView, DetailView, UpdateView
 from rest_framework import generics
-from rest_framework.utils.mediatypes import order_by_precedence
 
 from persons.forms import PersonForm, PersonUpdateForm
 from persons.models import Person
@@ -102,7 +102,7 @@ class PersonPasswordUpdateView(LoginRequiredMixin, PasswordChangeView):
     template_name = 'persons/password.html'
     model = Person
     form_class = PasswordChangeForm
-    success_url = reverse_lazy('persons:profile')
+    success_url = reverse_lazy('persons:index')
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
@@ -111,6 +111,7 @@ class PersonPasswordUpdateView(LoginRequiredMixin, PasswordChangeView):
 
     def form_valid(self, form):
         form.save()
+        logout(self.request)
         return super().form_valid(form)
 
 

@@ -15,6 +15,12 @@ class SemanalDiet(models.Model):
     start_date = models.DateField("Inicio de semana")
     finish_date = models.DateField("Fin de semana")
 
+    @property
+    def expected_weekly_calories(self):
+        if self.user:
+            return (self.user.diary_callories or 0) * 7
+        return 0
+
     class Meta:
         unique_together = [('user', 'name')]
 
@@ -75,9 +81,25 @@ class Day(models.Model):
         choices=DIAS_SEMANA
     )
 
+    diary_calories = models.PositiveIntegerField(
+        "Calorías objetivo del día", default=0
+    )
+
+    @property
+    def total_calories(self):
+        agg = self.day_diets.aggregate(total=Sum('total_calories'))
+        return agg['total'] or 0
+
+    def save(self, *args, **kwargs):
+        if self.semanal_diet and self.semanal_diet.user:
+            self.diary_calories = self.semanal_diet.user.diary_callories or 0
+        super().save(*args, **kwargs)
+
     class Meta:
         unique_together = [('semanal_diet', 'day')]
         ordering = ['day']
+
+
 
     def __str__(self):
         return f"{self.day} ({self.semanal_diet})"
@@ -137,7 +159,6 @@ class DayDiet(models.Model):
         ordering = ['moment']
 
     def save(self, *args, **kwargs):
-        # Calcular calorías totales automáticamente
         self.total_calories = (
                 self.food_item.calories_per_100g * self.quantity_g // 100
         )

@@ -105,7 +105,7 @@ class Person(AbstractUser):
             tmb_final = tmb * 1.375
         elif self.activity_level == 'moderate':
             tmb_final = tmb * 1.55
-        else:  # 'active'
+        else:
             tmb_final = tmb * 1.725
 
         return round(tmb_final, 0)
