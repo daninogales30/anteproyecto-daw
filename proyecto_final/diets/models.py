@@ -25,7 +25,7 @@ class SemanalDiet(models.Model):
         unique_together = [('user', 'name')]
 
     def __str__(self):
-        return f"Semana {self.start_date} al {self.finish_date}"
+        return f"{self.name} ({self.start_date} / {self.finish_date})"
 
     def total_calories(self):
         result = self.meals.aggregate(total=Sum('total_calories'))['total']
@@ -100,7 +100,7 @@ class Day(models.Model):
         ordering = ['day']
 
     def __str__(self):
-        return f"{self.day} ({self.semanal_diet})"
+        return f"{self.day} ({self.semanal_diet.name})"
 
 
 class DayDiet(models.Model):

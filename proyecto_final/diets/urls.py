@@ -14,4 +14,5 @@ urlpatterns = [
     path("daydiet/<int:pk>/delete/", views.PersonDayDietDeleteView.as_view(), name="person_delete_daydiet"),
     path("create_daydiet", views.DayDietFormView.as_view(), name="form_daydiet"),
     path("create_day", views.DayFormView.as_view(), name="form_day"),
+    path('ajax/load-days/', views.LoadDaysView.as_view(), name='ajax_load_days'),
 ]

@@ -10,9 +10,29 @@ class DayDietForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         user = kwargs.pop('user', None)
-        super(DayDietForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         if user:
             self.fields['semanal_diet'].queryset = SemanalDiet.objects.filter(user=user)
+
+            # Verificar usando semanal_diet_id (evita acceder a la relación)
+            if self.instance and self.instance.semanal_diet_id:
+                self.fields['day'].queryset = Day.objects.filter(semanal_diet_id=self.instance.semanal_diet_id)
+            else:
+                self.fields['day'].queryset = Day.objects.none()
+        else:
+            self.fields['semanal_diet'].queryset = SemanalDiet.objects.none()
+            self.fields['day'].queryset = Day.objects.none()
+
+    def clean(self):
+        cleaned_data = super().clean()
+        semanal_diet = cleaned_data.get('semanal_diet')
+        day = cleaned_data.get('day')
+
+        if semanal_diet and day:  # Solo validar si ambos existen
+            if day.semanal_diet != semanal_diet:
+                self.add_error('day', 'El día seleccionado no pertenece a la dieta semanal.')
+
+        return cleaned_data
 
 
 class DayForm(forms.ModelForm):

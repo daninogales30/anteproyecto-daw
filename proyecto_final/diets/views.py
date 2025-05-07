@@ -1,10 +1,12 @@
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import JsonResponse
 from django.urls import reverse_lazy
+from django.views import View
 from django.views.generic import TemplateView, FormView, ListView, DeleteView, DetailView
 
 from diets.forms import SemanalDietForm, FoodItemForm, DayDietForm, DayForm
-from diets.models import SemanalDiet, DayDiet
+from diets.models import SemanalDiet, DayDiet, Day
 
 
 class DietTemplateView(LoginRequiredMixin, TemplateView):
@@ -13,7 +15,7 @@ class DietTemplateView(LoginRequiredMixin, TemplateView):
 
 class SemanalDietFormView(LoginRequiredMixin, FormView):
     form_class = SemanalDietForm
-    template_name = 'diets/form.html'
+    template_name = 'diets/form_generic.html'
     success_url = reverse_lazy('persons:index')
 
     def form_valid(self, form):
@@ -39,7 +41,7 @@ class SemanalDietFormView(LoginRequiredMixin, FormView):
 
 class DayFormView(LoginRequiredMixin, FormView):
     form_class = DayForm
-    template_name = 'diets/form.html'
+    template_name = 'diets/form_generic.html'
     success_url = reverse_lazy('persons:index')
 
     def get_form_kwargs(self):
@@ -71,6 +73,7 @@ class DayDietFormView(LoginRequiredMixin, FormView):
 
     def form_valid(self, form):
         daydiet = form.save(commit=False)
+        daydiet.semanal_diet = form.cleaned_data['semanal_diet']
         daydiet.save()
 
         return super().form_valid(form)
@@ -157,3 +160,11 @@ class FoodItemFormView(LoginRequiredMixin, FormView):
         context = super().get_context_data(**kwargs)
         context['titulo'] = 'Añadir alimento'
         return context
+
+
+class LoadDaysView(View):
+    def get(self, request, *args, **kwargs):
+        semanal_diet_id = request.GET.get("semanal_diet_id")
+        days = Day.objects.filter(semanal_diet_id=semanal_diet_id).order_by("day")
+        data = [{"id": day.id, "name": day.get_day_display()} for day in days]
+        return JsonResponse(data, safe=False)

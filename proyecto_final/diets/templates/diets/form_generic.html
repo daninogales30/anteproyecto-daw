@@ -21,7 +21,6 @@
                         {% for message in messages %}
                             <div class="alert alert-
 
-
                                     {% if message.tags %}{{ message.tags }}{% else %}info{% endif %} alert-dismissible fade show">
                                 {{ message }}
                                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
@@ -41,35 +40,5 @@
         </div>
     </div>
 </div>
-<script>
-    function loadDays() {
-        const semanalDietSelect = document.getElementById("id_semanal_diet");
-        const semanalDietId = semanalDietSelect.value;
-        const daySelect = document.getElementById("id_day");
-
-        daySelect.innerHTML = '<option value="">---------</option>';
-
-        if (semanalDietId) {
-            fetch(`/diets/ajax/load-days/?semanal_diet_id=${semanalDietId}`)
-                .then(response => response.json())
-                .then(data => {
-                    data.forEach(day => {
-                        const option = new Option(day.name, day.id);
-                        daySelect.appendChild(option);
-                    });
-                })
-                .catch(error => console.error("Error:", error));
-        }
-    }
-
-    // Cargar días al inicio si hay un semanal_diet seleccionado
-    document.addEventListener("DOMContentLoaded", function () {
-        const semanalDietSelect = document.getElementById("id_semanal_diet");
-        semanalDietSelect.addEventListener("change", loadDays);
-        if (semanalDietSelect.value) {
-            loadDays();
-        }
-    });
-</script>
 </body>
 </html>
