@@ -34,11 +34,18 @@
                                             <br><small class="text-muted">{{ diet.notes }}</small>
                                         {% endif %}
                                     </div>
-                                    <a href="{% url 'diets:person_delete_daydiet' diet.pk %}"
-                                       class="btn btn-sm btn-outline-danger ms-3"
-                                       title="Eliminar comida">
+                                    <span>
+                                        <a href="{% url 'diets:person_delete_daydiet' diet.pk %}"
+                                           class="btn btn-sm btn-outline-danger ms-3"
+                                           title="Eliminar comida">
                                         <i class="fas fa-trash-alt"></i>
                                     </a>
+                                        <a href="{% url 'diets:person_update_daydiet' diet.pk %}"
+                                           class="btn btn-sm btn-outline-danger ms-3"
+                                           title="Editar comida">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    </span>
                                 </li>
                             {% endfor %}
                         </ul>

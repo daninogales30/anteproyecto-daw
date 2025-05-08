@@ -3,9 +3,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse
 from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import TemplateView, FormView, ListView, DeleteView, DetailView
+from django.views.generic import TemplateView, FormView, ListView, DeleteView, DetailView, UpdateView
 
-from diets.forms import SemanalDietForm, FoodItemForm, DayDietForm, DayForm
+from diets.forms import SemanalDietForm, FoodItemForm, DayDietForm, DayForm, DayDietUpdateForm
 from diets.models import SemanalDiet, DayDiet, Day
 
 
@@ -168,3 +168,26 @@ class LoadDaysView(View):
         days = Day.objects.filter(semanal_diet_id=semanal_diet_id).order_by("day")
         data = [{"id": day.id, "name": day.get_day_display()} for day in days]
         return JsonResponse(data, safe=False)
+
+
+class PersonDayDietUpdateView(LoginRequiredMixin, UpdateView):
+    model = DayDiet
+    form_class = DayDietUpdateForm
+    template_name = 'diets/form.html'
+    success_url = reverse_lazy('diets:list_semanaldiets')
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
+    def form_valid(self, form):
+        daydiet = form.save(commit=False)
+        daydiet.save()
+
+        return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['titulo'] = 'Modificar alimento'
+        return context
