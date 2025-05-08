@@ -49,8 +49,11 @@
                 {% endfor %}
             </div>
 
-            <div class="text-center mt-4">
-                <a href="{% url 'persons:index' %}" class="btn btn-secondary">Volver a inicio</a>
+            <div class="d-grid gap-3 mt-4">
+                <a href="{% url 'workout_routines:form_routine' %}"
+                   class="btn btn-outline-primary">Añadir más rutinas</a>
+                <a href="{% url 'persons:index' %}"
+                   class="btn btn-secondary">Volver a inicio</a>
             </div>
         </div>
     </div>

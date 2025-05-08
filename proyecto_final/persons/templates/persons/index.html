@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -40,8 +41,8 @@
                 <button type="submit" class="btn btn-danger btn-lg w-100">Cerrar sesión</button>
             </form>
 
-            <p class="text-center mt-4 mb-0">Para aprender el uso de nuestra página,
-                <a href="" class="text-decoration-none">pincha aquí</a> y descarga nuestro manual de uso.
+            <p class="text-center text-muted mt-4 mb-0">Para aprender el uso de nuestra página,
+                <a href="{% static 'pdfs/instrucciones.pdf' %}" class="text-decoration-none" download>pincha aquí</a> y descarga nuestro manual de uso.
             </p>
         </div>
     </div>

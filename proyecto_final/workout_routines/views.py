@@ -9,7 +9,7 @@ from workout_routines.models import RoutineExercise, Workout
 class WorkoutFormView(LoginRequiredMixin, FormView):
     form_class = WorkoutExerciseForm
     template_name = 'workout_routine/form.html'
-    success_url = reverse_lazy('persons:index')
+    success_url = reverse_lazy('persons:workouts-list')
 
     def form_valid(self, form):
         workout_day = form.save(commit=False)

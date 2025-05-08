@@ -29,14 +29,19 @@
                 </a>
                 <a href="{% url 'diets:form_fooditem' %}"
                    class="list-group-item list-group-item-action border-0 py-3 text-primary">
-                    Añadir comida o platos combinados (no recomendado)*
+                    Añadir comida o platos combinados <span style="font-weight: bold">(no recomendado)*</span>
                 </a>
-                <a href="{% url 'workout_routines:workout_preloaded' %}"
+                <a href=""
                    class="list-group-item list-group-item-action border-0 py-3 text-primary">
-                    Ver entrenamientos precargados
+                    Ver dietas precargadas <span style="font-weight: bold">(te recomendamos las más óptimas para tus kcal diarias)</span>
                 </a>
             </div>
-            <p>* No es recomendado ya que esta aplicacion ya trae una gran variedad de comidas y alimentos perfectos para que puedas montar tu dieta a la perfección.</p>
+
+            <p class="text-muted" style="font-size: 12px; font-weight: bold">* No es recomendado ya que esta aplicacion ya trae una gran variedad de comidas y alimentos perfectos para que puedas montar tu dieta a la perfección.</p>
+            <div class="d-grid gap-3 mt-4">
+                <a href="{% url 'persons:index' %}"
+                   class="btn btn-secondary">Volver a inicio</a>
+            </div>
         </div>
     </div>
 </div>

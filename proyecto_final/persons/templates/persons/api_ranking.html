@@ -10,80 +10,51 @@
             crossorigin="anonymous"></script>
 </head>
 <body class="bg-light">
-<div class="container d-flex flex-column align-items-center justify-content-center min-vh-100">
-    <h1 class="fw-bold text-primary mb-4">Top 5 Usuarios Más Activos</h1>
-    <p class="text-center text-primary mb-5">Si quieres ser uno de ellos, ¡¡sigue entrenando y creando tus
-        entrenamientos!!</p>
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="card w-100 shadow-lg rounded-3" style="max-width: 700px;">
+        <div class="card-body py-5 px-4">
+            <h1 class="fw-bold text-center text-primary mb-3">Top 5 Usuarios Más Activos</h1>
+            <p class="text-center text-primary mb-4">Si quieres ser uno de ellos, ¡sigue entrenando y creando tus entrenamientos!</p>
 
-    <div class="d-flex align-items-end justify-content-center">
-        <div class="text-center mx-3">
-            <div class="rounded-top"
-                 style="width: 80px; height: 220px; background-color: #ffd700;"></div>
-            <div class="fs-1 mt-2">🥇</div>
-            <div class="fw-bold">{{ first.username }}</div>
-            <div class="text-muted small">{{ first.total_workouts }} entrenamientos</div>
-        </div>
-
-        <div class="text-center mx-3">
-            <div class="rounded-top"
-                 style="width: 80px; height: 180px; background-color: #c0c0c0;"></div>
-            <div class="fs-1 mt-2">🥈</div>
-            <div class="fw-bold">{{ second.username }}</div>
-            <div class="text-muted small">{{ second.total_workouts }} entrenamientos</div>
-        </div>
-
-        <div class="text-center mx-3">
-            <div class="rounded-top"
-                 style="width: 80px; height: 140px; background-color: #cd7f32;"></div>
-            <div class="fs-1 mt-2">🥉</div>
-            <div class="fw-bold">{{ third.username }}</div>
-            <div class="text-muted small">{{ third.total_workouts }} entrenamientos</div>
-        </div>
-
-        <div class="text-center mx-3">
-            <div class="rounded-top bg-secondary"
-                 style="width: 80px; height: 100px;"></div>
-            <div class="fs-1 mt-2">🏅</div>
-            <div class="fw-bold">{{ fourth.username }}</div>
-            <div class="text-muted small">{{ fourth.total_workouts }} entrenamientos</div>
-        </div>
-
-        <div class="text-center mx-3">
-            <div class="rounded-top bg-secondary"
-                 style="width: 80px; height:  60px;"></div>
-            <div class="fs-1 mt-2">🏅</div>
-            <div class="fw-bold">{{ fifth.username }}</div>
-            <div class="text-muted small">{{ fifth.total_workouts }} entrenamientos</div>
+            <div class="d-flex align-items-end justify-content-center flex-wrap" id="ranking-container">
+                <!-- Rankings dinámicos se insertan aquí -->
+            </div>
+            <div class="d-grid gap-3 mt-4">
+                <a href="{% url 'persons:index' %}"
+                   class="btn btn-secondary">Volver a inicio</a>
+            </div>
         </div>
     </div>
 </div>
 
 <script>
-    fetch('{% url "persons:api_leaderboard" %}')
-        .then(r => r.json())
-        .then(data => {
-            const medals = ['🥇', '🥈', '🥉', '🏅', '🏅'];
-            const heights = [220, 180, 140, 100, 60];
-            const container = document.querySelector('.d-flex.align-items-end');
-            container.innerHTML = '';
-            data.forEach((u, i) => {
-                const cot = document.createElement('div');
-                cot.className = 'text-center mx-3';
-                cot.innerHTML = `
-            <div class="rounded-top" style="width:80px;height:${heights[i]}px;
-                 background-color:${i === 0 ? '#ffd700' : i === 1 ? '#c0c0c0' : i === 2 ? '#cd7f32' : '#6c757d'};">
-            </div>
-            <div class="fs-1 mt-2">${medals[i]}</div>
-            <div class="fw-bold">${u.username}</div>
-            <div class="text-muted small">${u.total_workouts} entrenamientos</div>
-          `;
-                container.appendChild(cot);
+    (function() {
+        const medals = ['🥇', '🥈', '🥉', '🏅', '🏅'];
+        const colors = ['#ffd700', '#c0c0c0', '#cd7f32', '#6c757d', '#6c757d'];
+        const heights = [220, 180, 140, 100, 60];
+
+        fetch('{% url "persons:api_leaderboard" %}')
+            .then(res => res.json())
+            .then(data => {
+                const container = document.getElementById('ranking-container');
+                container.innerHTML = '';
+                data.forEach((u, i) => {
+                    const col = document.createElement('div');
+                    col.className = 'text-center mx-3 mb-4';
+                    col.innerHTML = `
+                        <div class="rounded-top mx-auto" style="width:80px; height:${heights[i]}px; background-color:${colors[i]};"></div>
+                        <div class="fs-1 mt-2">${medals[i]}</div>
+                        <div class="fw-bold">${u.username}</div>
+                        <div class="text-muted small">${u.total_workouts} entrenamientos</div>
+                    `;
+                    container.appendChild(col);
+                });
+            })
+            .catch(() => {
+                const body = document.querySelector('.card-body');
+                body.innerHTML = '<p class="text-danger text-center">Error al cargar los datos del leaderboard.</p>';
             });
-        })
-        .catch(() => {
-            document.querySelector('.container').innerHTML =
-                '<p class="text-danger">Error al cargar los datos del leaderboard.</p>';
-        });
+    })();
 </script>
 </body>
 </html>
