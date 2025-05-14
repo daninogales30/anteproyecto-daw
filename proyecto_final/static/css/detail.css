@@ -1,0 +1,184 @@
+/* detail.css - Estilos para la página de perfil */
+:root {
+    --primary-color: #4A90E2;
+    --secondary-color: #6AC8C9;
+    --gradient-primary: linear-gradient(135deg, #4A90E2 0%, #6AC8C9 100%);
+}
+
+/* Estructura principal */
+.container {
+    padding: 2rem;
+}
+
+.card {
+    border: none;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+}
+
+/* Títulos y texto */
+h1 {
+    font-size: 2.3rem;
+    letter-spacing: -0.03em;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+
+h2 {
+    color: rgba(0, 0, 0, 0.6);
+    font-weight: 300;
+    letter-spacing: 0.03em;
+}
+
+h3 {
+    position: relative;
+    padding-bottom: 0.5rem;
+}
+
+h3::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 2px;
+    background: var(--secondary-color);
+}
+
+/* Lista de datos mejorada */
+.list-group-item {
+    background: transparent !important;
+    border-left: 3px solid transparent;
+    transition: all 0.2s ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    margin-bottom: 0.5rem;
+    border-radius: 8px !important;
+}
+
+.list-group-item:hover {
+    background: rgba(74, 144, 226, 0.03) !important;
+    border-left-color: var(--primary-color);
+    transform: translateX(8px);
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* Imagen de perfil */
+.img-thumbnail {
+    border: 2px solid var(--primary-color) !important;
+    border-radius: 12px !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+}
+
+.img-thumbnail:hover {
+    transform: scale(1.08);
+    box-shadow: 0 8px 20px rgba(74, 144, 226, 0.15);
+}
+
+/* Badges personalizados */
+.badge {
+    background: var(--secondary-color) !important;
+    color: #fff !important;
+    font-weight: 500;
+    padding: 0.5em 1.2em;
+    border-radius: 8px;
+    letter-spacing: 0.03em;
+}
+
+/* Botones especiales */
+.btn-outline-primary {
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+    font-weight: 500;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-outline-primary:hover {
+    background: var(--gradient-primary);
+    color: white !important;
+    border-color: transparent;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(74, 144, 226, 0.2);
+}
+
+.btn-outline-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(255, 255, 255, 0.3),
+        transparent
+    );
+    transition: all 0.5s;
+}
+
+.btn-outline-primary:hover::before {
+    left: 100%;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .card {
+        margin: 1rem;
+        border-radius: 15px !important;
+    }
+
+    .list-group-item {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0.8rem;
+    }
+
+    .badge {
+        margin-top: 0.5rem;
+        width: 100%;
+        text-align: center;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    .btn-outline-primary {
+        width: 100%;
+    }
+}
+
+/* Mejoras de legibilidad */
+.list-group-item strong {
+    color: var(--primary-color);
+    min-width: 180px;
+    display: inline-block;
+    font-weight: 500;
+}
+
+.text-muted {
+    color: #6c757d !important;
+    opacity: 0.8;
+}
+
+/* Efecto de carga suave */
+body {
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
