@@ -63,7 +63,7 @@ class DayDietUpdateForm(forms.ModelForm):
 class DayForm(forms.ModelForm):
     class Meta:
         model = Day
-        fields = '__all__'
+        fields = ['semanal_diet', 'day']
 
     def __init__(self, *args, **kwargs):
         user = kwargs.pop('user', None)

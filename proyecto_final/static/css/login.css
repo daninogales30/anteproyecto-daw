@@ -1,0 +1,130 @@
+/* login.css - Estilos para el formulario de login */
+:root {
+    --primary-color: #4A90E2;
+    --secondary-color: #6AC8C9;
+    --gradient-primary: linear-gradient(135deg, #4A90E2 0%, #6AC8C9 100%);
+}
+
+.card {
+    border: none;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+h1 {
+    font-size: 2rem;
+    letter-spacing: -0.03em;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    position: relative;
+    padding-bottom: 1rem;
+    margin-bottom: 2rem;
+}
+
+h1::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: var(--secondary-color);
+    border-radius: 2px;
+}
+
+.form-control {
+    border: 2px solid var(--primary-color);
+    border-radius: 12px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 3px rgba(106, 200, 201, 0.25);
+}
+
+.btn-primary {
+    background: var(--gradient-primary);
+    border: none;
+    padding: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 25px rgba(74, 144, 226, 0.3);
+}
+
+.text-center a {
+    color: var(--primary-color);
+    text-decoration: none;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.text-center a:hover {
+    color: var(--secondary-color);
+}
+
+.text-center a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--secondary-color);
+    transition: width 0.3s ease;
+}
+
+.text-center a:hover::after {
+    width: 100%;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .card {
+        margin: 1rem;
+    }
+
+    h1 {
+        font-size: 1.6rem;
+        padding-bottom: 0.5rem;
+    }
+
+    .form-control {
+        padding: 0.8rem;
+    }
+
+    .btn-primary {
+        width: 100%;
+        padding: 0.8rem;
+    }
+}
+
+/* Efectos generales */
+body {
+    background: linear-gradient(45deg, #f8f9fa 0%, #e9ecef 100%);
+    min-height: 100vh;
+}
+
+.shadow {
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1) !important;
+}
+
+.rounded-3 {
+    border-radius: 20px !important;
+}
