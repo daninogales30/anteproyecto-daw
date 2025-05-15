@@ -63,7 +63,6 @@ h1::after {
 }
 
 .list-group-item::before {
-    content: '';
     position: absolute;
     left: 0;
     top: 0;

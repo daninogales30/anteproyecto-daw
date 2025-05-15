@@ -9,6 +9,7 @@ urlpatterns = [
     path("create_semanaldiet/", views.SemanalDietFormView.as_view(), name="form_semanaldiet"),
     path("create_fooditem/", views.FoodItemFormView.as_view(), name="form_fooditem"),
     path("list_semanaldiets/", views.PersonDietListView.as_view(), name="list_semanaldiets"),
+    path("<int:pk>/update", views.PersonSemanalDietUpdateView.as_view(), name="update_semanaldiet"),
     path("<int:pk>/details", views.PersonDietDetailView.as_view(), name="details_semanaldiet"),
     path("<int:pk>/delete/", views.PersonDietDeleteView.as_view(), name="person_delete_semanaldiet"),
     path("daydiet/<int:pk>/delete/", views.PersonDayDietDeleteView.as_view(), name="person_delete_daydiet"),

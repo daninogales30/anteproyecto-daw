@@ -33,6 +33,27 @@ class SemanalDietFormView(LoginRequiredMixin, FormView):
 
         return super().form_valid(form)
 
+
+class PersonSemanalDietUpdateView(LoginRequiredMixin, UpdateView):
+    form_class = SemanalDietForm
+    template_name = 'diets/form_generic.html'
+    success_url = reverse_lazy('persons:index')
+
+    def form_valid(self, form):
+        semanal_diet = form.save(commit=False)
+        user = self.request.user
+
+        if user.user_semanaldiets.filter(name=semanal_diet.name).exists():
+            messages.error(self.request,
+                           f"Ya tienes una dieta semanal con ese nombre")
+            return self.form_invalid(form)
+
+        semanal_diet.user = user
+        semanal_diet.save()
+        user.user_semanaldiets.add(semanal_diet)
+
+        return super().form_valid(form)
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['titulo'] = 'Crear dieta semanal'
