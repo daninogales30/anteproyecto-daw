@@ -1,0 +1,27 @@
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Fondo de color (usa tu color de marca) -->
+  <rect width="200" height="200" fill="#2a9d8f"/>
+
+  <!-- Círculo exterior -->
+  <circle cx="100" cy="100" r="95" stroke="white" stroke-width="2" fill="none"/>
+
+  <!-- Cabeza -->
+  <circle cx="100" cy="60" r="20" fill="white"/>
+
+  <!-- Cuerpo -->
+  <path d="M100 80 L90 120" stroke="white" stroke-width="4"/>
+  <path d="M100 80 L110 120" stroke="white" stroke-width="4"/>
+
+  <!-- Brazos -->
+  <path d="M85 90 Q75 100 85 110" stroke="white" stroke-width="4"/>
+  <path d="M115 90 Q125 85 130 95" stroke="white" stroke-width="4"/>
+
+  <!-- Piernas -->
+  <path d="M90 120 Q80 145 95 150" stroke="white" stroke-width="4"/>
+  <path d="M110 120 Q120 145 105 150" stroke="white" stroke-width="4"/>
+
+  <!-- Texto -->
+  <text x="100" y="185" text-anchor="middle" font-family="Arial" font-weight="bold" font-size="16" fill="white">
+    MyFitSpace
+  </text>
+</svg>

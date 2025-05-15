@@ -1,52 +1,48 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Inicio - MyFitSpace</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-            crossorigin="anonymous"></script>
+
+{% block title %}Inicio | MyFitSpace{% endblock %}
+
+{% block extra_css %}
     <link rel="stylesheet" href="{% static 'css/index.css' %}">
-</head>
-<body class="bg-light">
-<div class="container d-flex justify-content-center align-items-center min-vh-100">
-    <div class="card w-100 shadow rounded-3" style="max-width: 600px;">
-        <div class="card-body p-5">
-            <h1 class="fw-bold text-center text-primary mb-4">Estás en la página principal</h1>
-            <h2 class="h4 text-muted text-center mb-4">Aprende a usar la app</h2>
+{% endblock %}
 
-            <div class="list-group mb-4">
-                <a href="{% url 'workout_routines:index' %}"
-                   class="list-group-item list-group-item-action border-0 py-3 text-primary">
-                    Entrenamientos
-                </a>
-                <a href="{% url 'diets:index' %}"
-                   class="list-group-item list-group-item-action border-0 py-3 text-primary">
-                    Dietas
-                </a>
-                <a href="{% url 'persons:leaderboard' %}"
-                   class="list-group-item list-group-item-action border-0 py-3 text-primary">
-                    Ver ranking usuarios
-                </a>
-                <a href="{% url 'persons:profile' %}"
-                   class="list-group-item list-group-item-action border-0 py-3 text-primary">
-                    Ver perfil
-                </a>
+{% block content %}
+    <div class="container d-flex justify-content-center align-items-center min-vh-100">
+        <div class="card w-100 shadow rounded-3" style="max-width: 600px;">
+            <div class="card-body p-5">
+                <h1 class="fw-bold text-center text-primary mb-4">Estás en la página principal</h1>
+                <h2 class="h4 text-muted text-center mb-4">Aprende a usar la app</h2>
+
+                <div class="list-group mb-4">
+                    <a href="{% url 'workout_routines:index' %}"
+                       class="list-group-item list-group-item-action border-0 py-3 text-primary">
+                        Entrenamientos
+                    </a>
+                    <a href="{% url 'diets:index' %}"
+                       class="list-group-item list-group-item-action border-0 py-3 text-primary">
+                        Dietas
+                    </a>
+                    <a href="{% url 'persons:leaderboard' %}"
+                       class="list-group-item list-group-item-action border-0 py-3 text-primary">
+                        Ver ranking usuarios
+                    </a>
+                    <a href="{% url 'persons:profile' %}"
+                       class="list-group-item list-group-item-action border-0 py-3 text-primary">
+                        Ver perfil
+                    </a>
+                </div>
+
+                <form action="{% url 'persons:logout' %}" method="post" class="text-center">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger btn-lg w-100">Cerrar sesión</button>
+                </form>
+
+                <p class="text-center text-muted mt-4 mb-0">Para aprender el uso de nuestra página,
+                    <a href="{% static 'pdfs/instrucciones.pdf' %}" class="text-decoration-none" download>pincha
+                        aquí</a> y descarga nuestro manual de uso.
+                </p>
             </div>
-
-            <form action="{% url 'persons:logout' %}" method="post" class="text-center">
-                {% csrf_token %}
-                <button type="submit" class="btn btn-danger btn-lg w-100">Cerrar sesión</button>
-            </form>
-
-            <p class="text-center text-muted mt-4 mb-0">Para aprender el uso de nuestra página,
-                <a href="{% static 'pdfs/instrucciones.pdf' %}" class="text-decoration-none" download>pincha aquí</a> y descarga nuestro manual de uso.
-            </p>
         </div>
     </div>
-</div>
-</body>
-</html>
+{% endblock %}
