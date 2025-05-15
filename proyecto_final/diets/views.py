@@ -35,6 +35,7 @@ class SemanalDietFormView(LoginRequiredMixin, FormView):
 
 
 class PersonSemanalDietUpdateView(LoginRequiredMixin, UpdateView):
+    model = SemanalDiet
     form_class = SemanalDietForm
     template_name = 'diets/form_generic.html'
     success_url = reverse_lazy('persons:index')
@@ -56,7 +57,7 @@ class PersonSemanalDietUpdateView(LoginRequiredMixin, UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['titulo'] = 'Crear dieta semanal'
+        context['titulo'] = 'Editar dieta semanal'
         return context
 
 
