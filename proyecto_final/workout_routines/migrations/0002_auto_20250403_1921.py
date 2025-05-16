@@ -8,23 +8,139 @@ def poblar_ejercicios(apps, schema_editor):
     Equipment = apps.get_model('workout_routines', 'Equipment')
     MuscleGroup = apps.get_model('workout_routines', 'MuscleGroup')
     Exercise = apps.get_model('workout_routines', 'Exercise')
+    Workout = apps.get_model('workout_routines', 'Workout')
+    RoutineExercise = apps.get_model('workout_routines', 'RoutineExercise')
 
-    manc = Equipment.objects.create(name='Mancuernas')
-    barra = Equipment.objects.create(name='Barra libre')
-    pecho = MuscleGroup.objects.create(name='Pecho')
-    hombro = MuscleGroup.objects.create(name='Hombro')
-    triceps = MuscleGroup.objects.create(name='Triceps')
-    espalda = MuscleGroup.objects.create(name='Espalda')
-    biceps = MuscleGroup.objects.create(name='Biceps')
-    abdomen = MuscleGroup.objects.create(name='Abdomen')
-    cuadriceps = MuscleGroup.objects.create(name='Cuádriceps')
-    femoral = MuscleGroup.objects.create(name='Femoral')
-    gemelo = MuscleGroup.objects.create(name='Gemelo')
+    equip_names = [
+        'Mancuernas', 'Barra libre', 'Polea alta', 'Polea baja',
+        'Multiestación', 'Máquina Smith', 'Máquina de remo'
+    ]
+    musc_names = [
+        'Pecho', 'Hombro', 'Triceps', 'Espalda', 'Biceps',
+        'Abdomen', 'Cuádriceps', 'Femoral', 'Gemelo', 'Trapecio'
+    ]
 
-    press_banca = Exercise.objects.create(name='Press banca', description='El Press banca es un gran ejercicio multialticular que sirve para el desarrollo sobre todo del pectoral, aunque trabaja indirectamente los hombros y los triceps.')
-    press_banca.muscle_groups.add(pecho, hombro, triceps)
-    press_banca.equipment_needed.add(manc, barra)
-    press_banca.save()
+    equips = {name: Equipment.objects.get_or_create(name=name)[0] for name in equip_names}
+    muscs = {name: MuscleGroup.objects.get_or_create(name=name)[0] for name in musc_names}
+
+    ejercicios = [
+        {
+            'name': 'Press banca plano',
+            'desc': 'Ejercicio multiarticular para pectoral, hombros y tríceps.',
+            'mgs': ['Pecho', 'Hombro', 'Triceps'],
+            'eqs': ['Barra libre', 'Máquina Smith']
+        },
+        {
+            'name': 'Press inclinado con mancuernas',
+            'desc': 'Focaliza la parte superior del pectoral y deltoides anterior.',
+            'mgs': ['Pecho', 'Hombro'],
+            'eqs': ['Mancuernas']
+        },
+        {
+            'name': 'Aperturas en máquina',
+            'desc': 'Aísla el pectoral mayor con poca implicación de tríceps.',
+            'mgs': ['Pecho'],
+            'eqs': ['Multiestación']
+        },
+        {
+            'name': 'Jalón al pecho',
+            'desc': 'Trabaja dorsal ancho y bíceps de forma primaria.',
+            'mgs': ['Espalda', 'Biceps'],
+            'eqs': ['Polea alta']
+        },
+        {
+            'name': 'Remo con barra',
+            'desc': 'Fortalece toda la zona media y superior de la espalda.',
+            'mgs': ['Espalda', 'Trapecio', 'Biceps'],
+            'eqs': ['Barra libre']
+        },
+        {
+            'name': 'Remo en máquina',
+            'desc': 'Versión guiada del remo, menos estabilización.',
+            'mgs': ['Espalda', 'Trapecio', 'Biceps'],
+            'eqs': ['Máquina de remo']
+        },
+        {
+            'name': 'Curl bíceps con barra',
+            'desc': 'Aísla el bíceps braquial con barra recta.',
+            'mgs': ['Biceps'],
+            'eqs': ['Barra libre']
+        },
+        {
+            'name': 'Curl martillo con mancuernas',
+            'desc': 'Trabaja braquial y antebrazo.',
+            'mgs': ['Biceps'],
+            'eqs': ['Mancuernas']
+        },
+        {
+            'name': 'Sentadilla trasera',
+            'desc': 'Rey de los ejercicios de pierna: cuádriceps, glúteos y femoral.',
+            'mgs': ['Cuádriceps', 'Femoral'],
+            'eqs': ['Barra libre']
+        },
+        {
+            'name': 'Prensa de piernas',
+            'desc': 'Ejercicio guiado para cuádriceps y glúteos.',
+            'mgs': ['Cuádriceps'],
+            'eqs': ['Multiestación']
+        },
+        {
+            'name': 'Extensión de piernas',
+            'desc': 'Aíslan el cuádriceps.',
+            'mgs': ['Cuádriceps'],
+            'eqs': ['Multiestación']
+        },
+        {
+            'name': 'Curl femoral tumbado',
+            'desc': 'Aísla el femoral en máquina.',
+            'mgs': ['Femoral'],
+            'eqs': ['Multiestación']
+        },
+        {
+            'name': 'Elevación de talones de pie',
+            'desc': 'Fortalece los gemelos.',
+            'mgs': ['Gemelo'],
+            'eqs': ['Multiestación']
+        },
+        {
+            'name': 'Press militar',
+            'desc': 'Trabaja hombros y tríceps en barra.',
+            'mgs': ['Hombro', 'Triceps'],
+            'eqs': ['Barra libre', 'Máquina Smith']
+        },
+        {
+            'name': 'Elevaciones laterales con mancuernas',
+            'desc': 'Aíslan deltoides medio.',
+            'mgs': ['Hombro'],
+            'eqs': ['Mancuernas']
+        },
+        {
+            'name': 'Fondos en paralelas',
+            'desc': 'Trabaja pecho inferior y tríceps.',
+            'mgs': ['Pecho', 'Triceps'],
+            'eqs': []
+        },
+        {
+            'name': 'Crunch abdominal',
+            'desc': 'Ejercicio básico para abdomen.',
+            'mgs': ['Abdomen'],
+            'eqs': []
+        },
+    ]
+
+    ex_objs = {}
+    for ex in ejercicios:
+        e, created = Exercise.objects.get_or_create(
+            name=ex['name'], defaults={'description': ex['desc']}
+        )
+        for mg in ex['mgs']:
+            if mg in muscs:
+                e.muscle_groups.add(muscs[mg])
+        for eq in ex['eqs']:
+            if eq in equips:
+                e.equipment_needed.add(equips[eq])
+        e.save()
+        ex_objs[ex['name']] = e
 
 
 class Migration(migrations.Migration):

@@ -51,8 +51,7 @@ class Workout(models.Model):
     NIVEL_DIFICULTAD = [
         ('principiante', 'Principiante'),
         ('amateur', 'Amateur'),
-        ('avanzado', 'Avanzado'),
-        ('elite', 'Elite'),
+        ('profesional', 'Profesional'),
         ('culturista', 'Culturista'),
     ]
 
@@ -67,7 +66,7 @@ class Workout(models.Model):
         blank=True
     )
     precargado = models.BooleanField(default=False)
-    # nivel = models.CharField(choices=NIVEL_DIFICULTAD, max_length=100, blank=True, null=True)
+    nivel = models.CharField(choices=NIVEL_DIFICULTAD, max_length=100, blank=True, null=True)
 
     def __str__(self):
         return self.name
