@@ -142,3 +142,6 @@ LOGOUT_REDIRECT_URL = 'persons:login'
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

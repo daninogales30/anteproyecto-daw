@@ -20,15 +20,18 @@
                     <h3 class="h4 text-center text-primary mb-4">Datos personales</h3>
                     <div class="list-group">
                         <div class="list-group-item border-0 py-2">Nombre de usuario: {{ usuario.username }}</div>
+                        <div class="list-group-item border-0 py-2">Foto de perfil: <img
+                                src="{{ usuario.profile_picture.url }}"
+                                alt="Foto de perfil de {{ usuario.username }}"
+                                class="img-thumbnail mt-2"
+                                style="width: 100px; height: 100px; object-fit: cover;"
+                        ></div>
                         <div class="list-group-item border-0 py-2">Nombre: {{ usuario.first_name }}</div>
                         <div class="list-group-item border-0 py-2">Apellidos: {{ usuario.last_name }}</div>
                         <div class="list-group-item border-0 py-2">Edad: {{ usuario.edad }}</div>
                         <div class="list-group-item border-0 py-2">Fecha de nacimiento: {{ usuario.birth_date }}</div>
                         <div class="list-group-item border-0 py-2">Género: {{ usuario.get_gender_display }}</div>
                         <div class="list-group-item border-0 py-2">Email: {{ usuario.email }}</div>
-                        <div class="list-group-item border-0 py-2">Foto de perfil: <img src="" alt=""
-                                                                                        class="img-thumbnail mt-2"
-                                                                                        style="width: 100px"></div>
                         <div class="list-group-item border-0 py-2">Biografía: {{ usuario.bio }}</div>
                         <div class="list-group-item border-0 py-2">Alergias: {{ usuario.allergies }}</div>
                         <div class="list-group-item border-0 py-2">Condiciones

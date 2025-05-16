@@ -17,7 +17,7 @@ class PersonForm(forms.ModelForm):
         fields = [
             'username', 'first_name', 'last_name', 'email', 'birth_date', 'gender',
             'profile_picture', 'weight', 'height', 'fitness_goal',
-            'activity_level', 'edad',
+            'activity_level', 'edad','workout_level',
             'allergies', 'medical_conditions', 'target_weight', 'bio', 'cuello', 'cadera', 'cintura',
         ]
 
@@ -37,6 +37,7 @@ class PersonForm(forms.ModelForm):
         'cintura',
         'fitness_goal',
         'activity_level',
+        'workout_level',
         'allergies',
         'medical_conditions',
         'target_weight',
@@ -54,7 +55,7 @@ class PersonUpdateForm(forms.ModelForm):
         model = Person
         fields = ['username', 'first_name', 'last_name', 'email', 'birth_date', 'gender',
                   'weight', 'height', 'cuello', 'cadera', 'cintura', 'fitness_goal', 'activity_level',
-                  'allergies', 'medical_conditions', 'target_weight', 'bio', 'profile_picture']
+                  'allergies', 'medical_conditions', 'target_weight', 'bio', 'profile_picture', 'workout_level']
 
     FORM_ORDER = [
         'username',
@@ -70,6 +71,7 @@ class PersonUpdateForm(forms.ModelForm):
         'cintura',
         'fitness_goal',
         'activity_level',
+        'workout_level',
         'allergies',
         'medical_conditions',
         'target_weight',

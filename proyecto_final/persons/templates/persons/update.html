@@ -16,7 +16,7 @@
                     <h2 class="h5 text-muted">Modifica tu información personal</h2>
                 </div>
 
-                <form action="" method="post">
+                <form action="" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="mb-4">
                         {{ form.as_p }}
