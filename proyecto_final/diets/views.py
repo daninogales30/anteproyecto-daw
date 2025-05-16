@@ -33,6 +33,11 @@ class SemanalDietFormView(LoginRequiredMixin, FormView):
 
         return super().form_valid(form)
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['titulo'] = 'Crear dieta semanal'
+        return context
+
 
 class PersonSemanalDietUpdateView(LoginRequiredMixin, UpdateView):
     model = SemanalDiet

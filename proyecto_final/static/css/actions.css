@@ -30,11 +30,10 @@ h1 {
     -webkit-text-fill-color: transparent;
     position: relative;
     padding-bottom: 1rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
 }
 
 h1::after {
-    content: '';
     position: absolute;
     bottom: 0;
     left: 50%;
@@ -47,13 +46,12 @@ h1::after {
 
 .list-group-item {
     border-radius: 12px !important;
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
     border: 2px solid transparent !important;
     background: rgba(255, 255, 255, 0.9);
     padding: 1.25rem 1.5rem;
-    position: relative;
-    overflow: hidden;
 }
 
 .list-group-item:hover {
@@ -83,7 +81,6 @@ h1::after {
     color: white !important;
     padding: 0.8rem 1.5rem;
     font-weight: 600;
-    letter-spacing: 0.03em;
     transition: all 0.3s ease;
 }
 
@@ -92,17 +89,21 @@ h1::after {
     box-shadow: 0 8px 25px rgba(74, 144, 226, 0.3);
 }
 
-body {
-    background: linear-gradient(45deg, #f8f9fa 0%, #e9ecef 100%);
-    min-height: 100vh;
+.text-muted {
+    color: var(--secondary-color) !important;
+    opacity: 0.8;
+    font-size: 0.8rem;
+    border-left: 3px solid var(--primary-color);
+    padding-left: 1rem;
+    margin-top: 1rem;
 }
 
-.shadow {
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1) !important;
-}
-
-.rounded-3 {
-    border-radius: 20px !important;
+/* Estilo para el asterisco en el enlace */
+.list-group-item a[href*="preloaded"]::after {
+    content: '*';
+    color: var(--primary-color);
+    margin-left: 0.3rem;
+    font-weight: bold;
 }
 
 /* Responsive Design */
@@ -124,4 +125,17 @@ body {
     .btn-secondary {
         width: 100%;
     }
+}
+
+body {
+    background: linear-gradient(45deg, #f8f9fa 0%, #e9ecef 100%);
+    min-height: 100vh;
+}
+
+.shadow {
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1) !important;
+}
+
+.rounded-3 {
+    border-radius: 20px !important;
 }
