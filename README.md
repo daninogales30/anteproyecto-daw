@@ -49,3 +49,6 @@
 - A día 10 de mayo, he creado css para vistas principales y formularios, inicio de sesion, registrar usuario, etc... Falta todavía alguna que otra.
 - A día 15 de mayo, he estado creando los css restantes para que la aplicacion quede más estética pero sobre todo he estado creando una vista para editar los datos de las dietas semanales creadas y la creación de los archivos Dockerfile, docker-compose y requirements para el funcionamiento en el despliegue en docker. Mi idea, es poder desplegarlo en una máquina en AWS con una ip elástica que apunte a nuestro dominio en ".tech". He remodelado la mayoria de htmls (faltan sobre todo el de dietas y algunos de workout_routine) para que partan desde un base.html, para tener el contenido digamos más recogido y no con tanto código html repetido.
 - A día 16 de mayo, he terminado de poner todos los htmls lo más optimizados posibles. Me falta algunos css como el de eliminar dietas, entrenamientos, etc... Css de perfil modificado y error solucionado, no se mostraba la imagen de perfil correctamente.
+
+### Del 20 de mayo al 2 de junio
+- A día 20 de mayo, he añadido la imagen default.png para los usuario que no quieran añadir foto de perfil.
