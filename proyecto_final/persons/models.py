@@ -69,7 +69,7 @@ class Person(AbstractUser):
         "Foto de perfil",
         upload_to='profile_pics/',
         blank=True,
-        default='profile_pics/default.jpg'
+        default='profile_pics/default.png'
     )
     bio = models.TextField("Biografía", max_length=500, blank=True)
     diary_callories = models.PositiveIntegerField("Calorías diarias", null=True, blank=True, default=0)
