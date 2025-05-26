@@ -28,6 +28,9 @@
 ## Errores a solucionar
 - He detectado un error y es el siguiente. Cuando le añado un alimento a un dia de la semana, si vuelvo a añadir ese alimento a otro dia de esa misma semana no se puede, eso quiere decir que hay algo que esta diciendo que ese alimento es unico en ese dia, cosa que no es óptima.
 
+## Mejoras
+- Quiero cambiar el html de profile para que parezca la tipica pantalla de perfil de algunos páginas fitness.
+
 ### Del 24 de marzo al 7 de abril
 - A día 2 de abril lo que llevo realizado es la creación de las apps diets, persons y workout_routines. En diets lo unico que tengo montado ahora mismo es el models.py, en la app persons tengo el models.py, tambien tengo los forms para la creación del usuario, y algunas vistas como los detalles del usuario, el login y el register. En workout_routines tengo el models.py y algunas vistas de los formularios para crear una rutina y crear un entrenamiento
 - A día 3 de abril he detectado un problema que solucionaré sobre el calculo de grasa corporal. Estoy avanzando en el tema vistas me gustaria hacer vistas de listas de entrenamientos ya creados para que los usuarios puedan realizar y que tambien puedan crear sus propios entrenamientos.
