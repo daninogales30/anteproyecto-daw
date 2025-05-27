@@ -151,9 +151,7 @@ class DayDiet(models.Model):
     notes = models.TextField('Observaciones', blank=True)
 
     class Meta:
-        unique_together = [
-            ('semanal_diet', 'moment', 'food_item')
-        ]
+        unique_together = [('day', 'moment', 'food_item')]
         ordering = ['moment']
 
     def save(self, *args, **kwargs):
