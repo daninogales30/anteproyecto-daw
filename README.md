@@ -59,4 +59,4 @@
 ### Del 20 de mayo al 2 de junio
 - A día 20 de mayo, he añadido la imagen default.png para los usuario que no quieran añadir foto de perfil.
 - A día 21 de mayo, he creado el css de los detalles de las dietas, me falta el css para las vistas que sean de eliminar. **Error**: He detectado un error y es el siguiente. Cuando le añado un alimento a un dia de la semana, si vuelvo a añadir ese alimento a otro dia de esa misma semana no se puede, eso quiere decir que hay algo que esta diciendo que ese alimento es unico en ese dia, cosa que no es óptima, para mañana lo tendré ya solucionado.
-- A día 27 de mayo, ya he mejorado el html de profile con un diseño más parecido al que tienen a día de hoy las redes sociales.
+- A día 27 de mayo, ya he mejorado el html de profile con un diseño más parecido al que tienen a día de hoy las redes sociales. Error que tenia pendiente sobre las dietas ya lo acabo de solucionar.
