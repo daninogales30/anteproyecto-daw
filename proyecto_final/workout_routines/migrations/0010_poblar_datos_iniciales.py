@@ -3,7 +3,6 @@
 from django.db import migrations
 
 
-
 def poblar_ejercicios(apps, schema_editor):
     Equipment = apps.get_model('workout_routines', 'Equipment')
     MuscleGroup = apps.get_model('workout_routines', 'MuscleGroup')
@@ -142,52 +141,65 @@ def poblar_ejercicios(apps, schema_editor):
         e.save()
         ex_objs[ex['name']] = e
 
-    workout_data = [
-        {'nivel': 'principiante', 'day': 'lunes'},
-        {'nivel': 'principiante', 'day': 'martes'},
-        {'nivel': 'principiante', 'day': 'miércoles'},
-        {'nivel': 'principiante', 'day': 'jueves'},
-        {'nivel': 'principiante', 'day': 'viernes'},
-    ]
-
     workout_ejemplos = {
-        'lunes': ['Press banca plano', 'Crunch abdominal'],
-        'martes': ['Press inclinado con mancuernas', 'Curl bíceps con barra'],
-        'miércoles': ['Sentadilla trasera', 'Press militar'],
-        'jueves': ['Jalón al pecho', 'Remo con barra'],
-        'viernes': ['Curl martillo con mancuernas', 'Fondos en paralelas'],
+        ('principiante', 'lunes'): ['Press banca plano', 'Crunch abdominal'],
+        ('principiante', 'martes'): ['Press inclinado con mancuernas', 'Curl bíceps con barra'],
+        ('principiante', 'miércoles'): ['Sentadilla trasera', 'Press militar'],
+        ('principiante', 'jueves'): ['Jalón al pecho', 'Remo con barra'],
+        ('principiante', 'viernes'): ['Curl martillo con mancuernas', 'Fondos en paralelas'],
+
+        ('amateur', 'lunes'): ['Press inclinado con mancuernas', 'Curl bíceps con barra'],
+        ('amateur', 'martes'): ['Sentadilla trasera', 'Press militar'],
+        ('amateur', 'miércoles'): ['Jalón al pecho', 'Remo con barra'],
+        ('amateur', 'jueves'): ['Press banca plano', 'Fondos en paralelas'],
+        ('amateur', 'viernes'): ['Curl martillo con mancuernas', 'Crunch abdominal'],
+
+        ('profesional', 'lunes'): ['Sentadilla trasera', 'Press militar'],
+        ('profesional', 'martes'): ['Jalón al pecho', 'Remo con barra'],
+        ('profesional', 'miércoles'): ['Press banca plano', 'Curl bíceps con barra'],
+        ('profesional', 'jueves'): ['Press inclinado con mancuernas', 'Fondos en paralelas'],
+        ('profesional', 'viernes'): ['Curl martillo con mancuernas', 'Crunch abdominal'],
+
+        ('culturista', 'lunes'): ['Press banca plano', 'Remo con barra'],
+        ('culturista', 'martes'): ['Sentadilla trasera', 'Curl bíceps con barra'],
+        ('culturista', 'miércoles'): ['Press militar', 'Fondos en paralelas'],
+        ('culturista', 'jueves'): ['Press inclinado con mancuernas', 'Jalón al pecho'],
+        ('culturista', 'viernes'): ['Curl martillo con mancuernas', 'Crunch abdominal'],
     }
 
-    for w in workout_data:
-        # Crear (o recuperar) el Workout
-        workout_obj, created = Workout.objects.get_or_create(
-            name=w['day'],
-            defaults={
-                'nivel': w['nivel'],
-                'precargado': True
-            }
-        )
+    niveles = ['principiante', 'amateur', 'profesional', 'culturista']
+    dias = ['lunes', 'martes', 'miércoles', 'jueves', 'viernes']
 
-        # Recuperar la lista de ejercicios para este día
-        lista_nombres = workout_ejemplos.get(w['day'], [])
+    for nivel in niveles:
+        for day in dias:
+            # Ahora incluimos 'nivel' en el lookup:
+            workout_obj, created = Workout.objects.get_or_create(
+                name=day,
+                nivel=nivel,
+                defaults={
+                    'precargado': True
+                }
+            )
 
-        # Asociar cada Exercise correspondiente mediante RoutineExercise
-        for nombre_ex in lista_nombres:
-            ex_obj = ex_objs.get(nombre_ex)
-            if ex_obj:
-                RoutineExercise.objects.get_or_create(
-                    workout=workout_obj,
-                    exercise=ex_obj,
-                    defaults={
-                        'sets': 3,
-                        'reps': 10,
-                        'rest_time': 60
-                    }
-                )
+            # Obtener los nombres de ejercicios asignados a (nivel, día)
+            lista_nombres = workout_ejemplos.get((nivel, day), [])
+
+            # Asociar cada Exercise con este Workout (vía RoutineExercise)
+            for nombre_ex in lista_nombres:
+                ex_obj = ex_objs.get(nombre_ex)
+                if ex_obj:
+                    RoutineExercise.objects.get_or_create(
+                        workout=workout_obj,
+                        exercise=ex_obj,
+                        defaults={
+                            'sets': 3,
+                            'reps': 10,
+                            'rest_time': 60
+                        }
+                    )
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('workout_routines', '0009_alter_workout_nivel'),
     ]

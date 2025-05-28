@@ -4,7 +4,7 @@
 {% block title %}Entrenamientos Precargados | MyFitSpace{% endblock %}
 
 {% block extra_css %}
-    <!-- <link rel="stylesheet" href="{% static 'css/actions.css' %}"> -->
+    <link rel="stylesheet" href="{% static 'css/workout_list.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -15,7 +15,7 @@
                 <div class="text-center mb-5">
                     <h1 class="fw-bold text-primary mb-3">Entrenamientos Precargados</h1>
                     <p class="text-muted">Si no sabes qué hacer en tu día de pecho, espalda, piernas, etc... usa estos
-                        entrenamientos como guía</p>
+                        entrenamientos como guía. Este nivel se asemeja a tu nivel, es decir, nivel {{ nivel }}.</p>
                 </div>
 
                 <!-- Lista de entrenamientos -->
@@ -23,7 +23,7 @@
                     {% for workout in workouts %}
                         <div class="list-group-item border-0 p-4 bg-light shadow-sm">
                             <div class="mb-3">
-                                <h2 class="h4 fw-bold text-primary">Día: <a href="{% url 'workout_routines:workout_detail' workout.pk %}">{{ workout.name }}</a></h2>
+                                <h2 class="h4 fw-bold text-primary">Día: <a class="text-decoration-none fw-bold text-primary" href="{% url 'workout_routines:preloaded_workout_detail' workout.pk %}">{{ workout.name }}</a></h2>
                             </div>
 
                             <div class="ms-3">

@@ -60,10 +60,7 @@ class WorkoutDetailView(LoginRequiredMixin, DetailView):
     context_object_name = 'workout'
 
     def get_queryset(self):
-        return Workout.objects.filter(
-            Q(user=self.request.user) |
-            Q(precargado=True)
-        )
+        return Workout.objects.filter(user=self.request.user)
 
 
 class PreloadedWorkoutsListView(LoginRequiredMixin, ListView):
@@ -77,8 +74,15 @@ class PreloadedWorkoutsListView(LoginRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['precargado'] = 'precargado'
+        context['nivel'] = f'{self.request.user.workout_level}'
         return context
+
+
+class PreloadedWorkoutDetailView(LoginRequiredMixin, DetailView):
+    model = Workout
+    template_name = 'workout_routine/preloaded_detail.html'
+    context_object_name = 'workout'
+
 
 
 class RoutineDeleteView(LoginRequiredMixin, DeleteView):
