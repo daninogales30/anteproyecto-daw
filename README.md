@@ -28,8 +28,9 @@
 ## Errores a solucionar
 - He detectado un error y es el siguiente. Cuando le añado un alimento a un dia de la semana, si vuelvo a añadir ese alimento a otro dia de esa misma semana no se puede, eso quiere decir que hay algo que esta diciendo que ese alimento es unico en ese dia, cosa que no es óptima.
 
-## Mejoras
-- Quiero cambiar el html de profile para que parezca la tipica pantalla de perfil de algunos páginas fitness.
+## ¿Que falta?
+- Migracion para precargar dietas personalizadas y meter muchisimos alimentos.
+- Modificar la migracion de workout para personalizar más los workout dependiendo del nivel.
 
 ### Del 24 de marzo al 7 de abril
 - A día 2 de abril lo que llevo realizado es la creación de las apps diets, persons y workout_routines. En diets lo unico que tengo montado ahora mismo es el models.py, en la app persons tengo el models.py, tambien tengo los forms para la creación del usuario, y algunas vistas como los detalles del usuario, el login y el register. En workout_routines tengo el models.py y algunas vistas de los formularios para crear una rutina y crear un entrenamiento
@@ -60,4 +61,4 @@
 - A día 20 de mayo, he añadido la imagen default.png para los usuario que no quieran añadir foto de perfil.
 - A día 21 de mayo, he creado el css de los detalles de las dietas, me falta el css para las vistas que sean de eliminar. **Error**: He detectado un error y es el siguiente. Cuando le añado un alimento a un dia de la semana, si vuelvo a añadir ese alimento a otro dia de esa misma semana no se puede, eso quiere decir que hay algo que esta diciendo que ese alimento es unico en ese dia, cosa que no es óptima, para mañana lo tendré ya solucionado.
 - A día 27 de mayo, ya he mejorado el html de profile con un diseño más parecido al que tienen a día de hoy las redes sociales. Error que tenia pendiente sobre las dietas ya lo acabo de solucionar.
-- A día 28 de mayo he mejorado la migracion de poblar datos de entrenamiento ya que solo estaba creando los ejercicios, ahora tambien crea un workout precargado para los usuarios y les aparece el semejante a su nivel, aunque todavia falta por meter workouts de nivel amateur, profesional y culturista. También falta crear las dietas precargadas y ya estaría todo casi listo.
+- A día 28 de mayo he mejorado la migracion de poblar datos de entrenamiento ya que solo estaba creando los ejercicios, ahora tambien crea un workout precargado para los usuarios y les aparece el semejante a su nivel, aunque todavia falta por meter workouts de nivel amateur, profesional y culturista. También falta crear las dietas precargadas y ya estaría todo casi listo. Ya estan creado para los workouts de distintos niveles, pero falta cambiar la dificultad de los ejercicios y crear la migración de las dietas.
