@@ -23,7 +23,7 @@
                     {% for workout in workouts %}
                         <div class="list-group-item border-0 p-4 bg-light shadow-sm">
                             <div class="mb-3">
-                                <h2 class="h4 fw-bold text-primary">Día: {{ workout.name }}</h2>
+                                <h2 class="h4 fw-bold text-primary">Día: <a href="{% url 'workout_routines:workout_detail' workout.pk %}">{{ workout.name }}</a></h2>
                             </div>
 
                             <div class="ms-3">

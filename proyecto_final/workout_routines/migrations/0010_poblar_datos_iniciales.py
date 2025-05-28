@@ -142,11 +142,54 @@ def poblar_ejercicios(apps, schema_editor):
         e.save()
         ex_objs[ex['name']] = e
 
+    workout_data = [
+        {'nivel': 'principiante', 'day': 'lunes'},
+        {'nivel': 'principiante', 'day': 'martes'},
+        {'nivel': 'principiante', 'day': 'miércoles'},
+        {'nivel': 'principiante', 'day': 'jueves'},
+        {'nivel': 'principiante', 'day': 'viernes'},
+    ]
+
+    workout_ejemplos = {
+        'lunes': ['Press banca plano', 'Crunch abdominal'],
+        'martes': ['Press inclinado con mancuernas', 'Curl bíceps con barra'],
+        'miércoles': ['Sentadilla trasera', 'Press militar'],
+        'jueves': ['Jalón al pecho', 'Remo con barra'],
+        'viernes': ['Curl martillo con mancuernas', 'Fondos en paralelas'],
+    }
+
+    for w in workout_data:
+        # Crear (o recuperar) el Workout
+        workout_obj, created = Workout.objects.get_or_create(
+            name=w['day'],
+            defaults={
+                'nivel': w['nivel'],
+                'precargado': True
+            }
+        )
+
+        # Recuperar la lista de ejercicios para este día
+        lista_nombres = workout_ejemplos.get(w['day'], [])
+
+        # Asociar cada Exercise correspondiente mediante RoutineExercise
+        for nombre_ex in lista_nombres:
+            ex_obj = ex_objs.get(nombre_ex)
+            if ex_obj:
+                RoutineExercise.objects.get_or_create(
+                    workout=workout_obj,
+                    exercise=ex_obj,
+                    defaults={
+                        'sets': 3,
+                        'reps': 10,
+                        'rest_time': 60
+                    }
+                )
+
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('workout_routines', '0001_initial'),
+        ('workout_routines', '0009_alter_workout_nivel'),
     ]
 
     operations = [

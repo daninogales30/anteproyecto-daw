@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Q
 from django.urls import reverse_lazy
 from django.views.generic import FormView, ListView, DetailView, DeleteView, TemplateView, UpdateView
 from workout_routines.forms import RoutineExerciseForm, WorkoutExerciseForm
@@ -59,7 +60,10 @@ class WorkoutDetailView(LoginRequiredMixin, DetailView):
     context_object_name = 'workout'
 
     def get_queryset(self):
-        return self.request.user.user_workouts.all()
+        return Workout.objects.filter(
+            Q(user=self.request.user) |
+            Q(precargado=True)
+        )
 
 
 class PreloadedWorkoutsListView(LoginRequiredMixin, ListView):
@@ -68,8 +72,13 @@ class PreloadedWorkoutsListView(LoginRequiredMixin, ListView):
     context_object_name = 'workouts'
 
     def get_queryset(self):
-        queryset = Workout.objects.filter(precargado=True)
+        queryset = Workout.objects.filter(precargado=True, nivel=self.request.user.workout_level)
         return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['precargado'] = 'precargado'
+        return context
 
 
 class RoutineDeleteView(LoginRequiredMixin, DeleteView):
