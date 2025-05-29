@@ -30,10 +30,8 @@
 
 ## ¿Que falta?
 - Migracion para precargar dietas personalizadas y meter muchisimos alimentos.
-- Modificar la migracion de workout para personalizar más los workout dependiendo del nivel.
-- Cambiar el formato de fecha en la creacion del usuario y meterle el widget del calendario.
 - Mejorar el calculo de las calorias diarias implementando si quiere mantenimiento subir o bajar peso.
-- Cuando termine esto, mi intención es hacer un blog que la gente pueda subir entradas y las vea todo el mundo
+- Cuando termine esto, mi intención es hacer un blog que la gente pueda subir entradas y las vea todo el mundo.
 
 ### Del 24 de marzo al 7 de abril
 - A día 2 de abril lo que llevo realizado es la creación de las apps diets, persons y workout_routines. En diets lo unico que tengo montado ahora mismo es el models.py, en la app persons tengo el models.py, tambien tengo los forms para la creación del usuario, y algunas vistas como los detalles del usuario, el login y el register. En workout_routines tengo el models.py y algunas vistas de los formularios para crear una rutina y crear un entrenamiento

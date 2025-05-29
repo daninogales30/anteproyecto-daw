@@ -111,6 +111,12 @@ class Person(AbstractUser):
         else:
             tmb_final = tmb * 1.725
 
+        if self.fitness_goal == 'lose_weight':
+            # Déficit calórico para pérdida de peso (15-20%)
+            tmb_final -= 300
+        elif self.fitness_goal == 'gain_muscle':
+            # Superávit calórico para ganancia muscular (10-15%)
+            tmb_final += 300
         return round(tmb_final, 0)
 
     def total_workouts(self):

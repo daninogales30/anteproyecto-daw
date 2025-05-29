@@ -20,6 +20,9 @@ class PersonForm(forms.ModelForm):
             'activity_level', 'edad','workout_level',
             'allergies', 'medical_conditions', 'target_weight', 'bio', 'cuello', 'cadera', 'cintura',
         ]
+        widgets = {
+            'birth_date': forms.DateInput(attrs={'type': 'date'}),
+        }
 
     FORM_ORDER = [
         'username',
@@ -56,6 +59,9 @@ class PersonUpdateForm(forms.ModelForm):
         fields = ['username', 'first_name', 'last_name', 'email', 'birth_date', 'gender',
                   'weight', 'height', 'cuello', 'cadera', 'cintura', 'fitness_goal', 'activity_level',
                   'allergies', 'medical_conditions', 'target_weight', 'bio', 'profile_picture', 'workout_level']
+        widgets = {
+            'birth_date': forms.DateInput(attrs={'type': 'date'}),
+        }
 
     FORM_ORDER = [
         'username',

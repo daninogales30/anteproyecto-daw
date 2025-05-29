@@ -125,6 +125,168 @@ def poblar_ejercicios(apps, schema_editor):
             'mgs': ['Abdomen'],
             'eqs': []
         },
+        {
+            'name': 'Press declinado con barra',
+            'desc': 'Enfocado en la parte inferior del pectoral.',
+            'mgs': ['Pecho', 'Triceps'],
+            'eqs': ['Barra libre']
+        },
+        {
+            'name': 'Flexiones con peso',
+            'desc': 'Ejercicio básico para desarrollo pectoral con carga adicional.',
+            'mgs': ['Pecho', 'Triceps'],
+            'eqs': []
+        },
+        {
+            'name': 'Pullover con mancuerna',
+            'desc': 'Ejercicio para expansión torácica y trabajo de serrato.',
+            'mgs': ['Pecho', 'Espalda'],
+            'eqs': ['Mancuernas']
+        },
+
+        # Espalda
+        {
+            'name': 'Peso muerto convencional',
+            'desc': 'Ejercicio completo para espalda baja y cadena posterior.',
+            'mgs': ['Espalda', 'Femoral', 'Trapecio'],
+            'eqs': ['Barra libre']
+        },
+        {
+            'name': 'Dominadas pronadas',
+            'desc': 'Ejercicio fundamental para desarrollo de espalda ancha.',
+            'mgs': ['Espalda', 'Biceps'],
+            'eqs': []
+        },
+        {
+            'name': 'Remo en T',
+            'desc': 'Ejercicio para grosor de espalda media.',
+            'mgs': ['Espalda', 'Trapecio', 'Biceps'],
+            'eqs': ['Barra libre']
+        },
+        {
+            'name': 'Encogimientos con barra',
+            'desc': 'Aislamiento de trapecios superiores.',
+            'mgs': ['Trapecio'],
+            'eqs': ['Barra libre']
+        },
+
+        # Hombros
+        {
+            'name': 'Elevaciones frontales con disco',
+            'desc': 'Aislamiento del deltoides anterior.',
+            'mgs': ['Hombro'],
+            'eqs': []
+        },
+        {
+            'name': 'Pájaros invertidos en máquina',
+            'desc': 'Trabajo específico para deltoides posterior.',
+            'mgs': ['Hombro', 'Espalda'],
+            'eqs': ['Multiestación']
+        },
+        {
+            'name': 'Press Arnold',
+            'desc': 'Variación de press de hombros con rotación.',
+            'mgs': ['Hombro', 'Triceps'],
+            'eqs': ['Mancuernas']
+        },
+
+        # Piernas
+        {
+            'name': 'Sentadilla frontal',
+            'desc': 'Variante que enfatiza cuádriceps y núcleo.',
+            'mgs': ['Cuádriceps', 'Abdomen'],
+            'eqs': ['Barra libre']
+        },
+        {
+            'name': 'Prensa inclinada',
+            'desc': 'Ejercicio guiado para desarrollo completo de pierna.',
+            'mgs': ['Cuádriceps', 'Femoral'],
+            'eqs': ['Multiestación']
+        },
+        {
+            'name': 'Hip thrust con barra',
+            'desc': 'Ejercicio fundamental para glúteos y cadena posterior.',
+            'mgs': ['Femoral', 'Espalda'],
+            'eqs': ['Barra libre']
+        },
+        {
+            'name': 'Peso muerto rumano',
+            'desc': 'Enfocado en femoral e isquiotibiales.',
+            'mgs': ['Femoral', 'Espalda'],
+            'eqs': ['Barra libre']
+        },
+        {
+            'name': 'Zancadas con mancuernas',
+            'desc': 'Ejercicio unilateral para pierna y glúteos.',
+            'mgs': ['Cuádriceps', 'Femoral'],
+            'eqs': ['Mancuernas']
+        },
+        {
+            'name': 'Elevación de talones sentado',
+            'desc': 'Aislamiento de sóleo (gemelo interno).',
+            'mgs': ['Gemelo'],
+            'eqs': ['Multiestación']
+        },
+
+        # Brazos
+        {
+            'name': 'Fondos en máquina',
+            'desc': 'Variante asistida para tríceps y pecho.',
+            'mgs': ['Triceps', 'Pecho'],
+            'eqs': ['Multiestación']
+        },
+        {
+            'name': 'Curl predicador',
+            'desc': 'Aislamiento de bíceps con apoyo.',
+            'mgs': ['Biceps'],
+            'eqs': ['Barra libre', 'Máquina Smith']
+        },
+        {
+            'name': 'Extensión de tríceps sobre cabeza',
+            'desc': 'Ejercicio completo para tríceps largo.',
+            'mgs': ['Triceps'],
+            'eqs': ['Mancuernas']
+        },
+        {
+            'name': 'Curl de martillo en polea',
+            'desc': 'Variante para braquial y antebrazo.',
+            'mgs': ['Biceps'],
+            'eqs': ['Polea baja']
+        },
+
+        # Abdomen y core
+        {
+            'name': 'Plancha abdominal',
+            'desc': 'Ejercicio isométrico para core completo.',
+            'mgs': ['Abdomen'],
+            'eqs': []
+        },
+        {
+            'name': 'Russian twists',
+            'desc': 'Rotaciones para oblicuos y core.',
+            'mgs': ['Abdomen'],
+            'eqs': []
+        },
+        {
+            'name': 'Elevaciones de piernas colgado',
+            'desc': 'Ejercicio avanzado para abdomen inferior.',
+            'mgs': ['Abdomen'],
+            'eqs': []
+        },
+
+        # Ejercicios compuestos avanzados
+        {
+            'name': 'Clean and press',
+            'desc': 'Ejercicio olímpico completo para fuerza y potencia.',
+            'mgs': ['Hombro', 'Espalda', 'Piernas'],
+            'eqs': ['Barra libre']
+        },
+        {
+            'name': 'Sentadilla sobre cabeza',
+            'desc': 'Ejercicio avanzado de movilidad y fuerza.',
+            'mgs': ['Hombro', 'Cuádriceps', 'Abdomen'],
+            'eqs': ['Barra libre']
+        }
     ]
 
     ex_objs = {}
@@ -142,29 +304,143 @@ def poblar_ejercicios(apps, schema_editor):
         ex_objs[ex['name']] = e
 
     workout_ejemplos = {
-        ('principiante', 'lunes'): ['Press banca plano', 'Crunch abdominal'],
-        ('principiante', 'martes'): ['Press inclinado con mancuernas', 'Curl bíceps con barra'],
-        ('principiante', 'miércoles'): ['Sentadilla trasera', 'Press militar'],
-        ('principiante', 'jueves'): ['Jalón al pecho', 'Remo con barra'],
-        ('principiante', 'viernes'): ['Curl martillo con mancuernas', 'Fondos en paralelas'],
+        # PRINCIPIANTE (2 ejercicios por día + abdomen)
+        ('principiante', 'lunes'): [
+            'Sentadilla trasera',
+            'Prensa de piernas',
+            'Crunch abdominal'
+        ],
+        ('principiante', 'martes'): [
+            'Press banca plano',
+            'Fondos en máquina',
+            'Plancha abdominal'
+        ],
+        ('principiante', 'miércoles'): [
+            'Jalón al pecho',
+            'Curl bíceps con barra',
+            'Russian twists'
+        ],
+        ('principiante', 'jueves'): [
+            'Peso muerto rumano',
+            'Elevación de talones de pie',
+            'Elevaciones de piernas colgado'
+        ],
+        ('principiante', 'viernes'): [
+            'Press inclinado con mancuernas',
+            'Remo con barra',
+            'Crunch abdominal'
+        ],
 
-        ('amateur', 'lunes'): ['Press inclinado con mancuernas', 'Curl bíceps con barra'],
-        ('amateur', 'martes'): ['Sentadilla trasera', 'Press militar'],
-        ('amateur', 'miércoles'): ['Jalón al pecho', 'Remo con barra'],
-        ('amateur', 'jueves'): ['Press banca plano', 'Fondos en paralelas'],
-        ('amateur', 'viernes'): ['Curl martillo con mancuernas', 'Crunch abdominal'],
+        # AMATEUR (3 ejercicios por día + abdomen)
+        ('amateur', 'lunes'): [
+            'Sentadilla frontal',
+            'Curl femoral tumbado',
+            'Prensa inclinada',
+            'Plancha abdominal'
+        ],
+        ('amateur', 'martes'): [
+            'Press declinado con barra',
+            'Aperturas en máquina',
+            'Extensión de tríceps sobre cabeza',
+            'Russian twists'
+        ],
+        ('amateur', 'miércoles'): [
+            'Dominadas pronadas',
+            'Remo en T',
+            'Curl predicador',
+            'Elevaciones de piernas colgado'
+        ],
+        ('amateur', 'jueves'): [
+            'Zancadas con mancuernas',
+            'Hip thrust con barra',
+            'Elevación de talones sentado',
+            'Crunch abdominal'
+        ],
+        ('amateur', 'viernes'): [
+            'Pullover con mancuerna',
+            'Peso muerto convencional',
+            'Flexiones con peso',
+            'Plancha abdominal'
+        ],
 
-        ('profesional', 'lunes'): ['Sentadilla trasera', 'Press militar'],
-        ('profesional', 'martes'): ['Jalón al pecho', 'Remo con barra'],
-        ('profesional', 'miércoles'): ['Press banca plano', 'Curl bíceps con barra'],
-        ('profesional', 'jueves'): ['Press inclinado con mancuernas', 'Fondos en paralelas'],
-        ('profesional', 'viernes'): ['Curl martillo con mancuernas', 'Crunch abdominal'],
+        # PROFESIONAL (4 ejercicios por día + abdomen)
+        ('profesional', 'lunes'): [
+            'Sentadilla trasera',
+            'Peso muerto rumano',
+            'Extensión de piernas',
+            'Hip thrust con barra',
+            'Russian twists'
+        ],
+        ('profesional', 'martes'): [
+            'Press inclinado con mancuernas',
+            'Fondos en paralelas',
+            'Press Arnold',
+            'Extensión de tríceps sobre cabeza',
+            'Elevaciones de piernas colgado'
+        ],
+        ('profesional', 'miércoles'): [
+            'Remo con barra',
+            'Encogimientos con barra',
+            'Curl martillo en polea',
+            'Remo en máquina',
+            'Crunch abdominal'
+        ],
+        ('profesional', 'jueves'): [
+            'Sentadilla frontal',
+            'Prensa de piernas',
+            'Curl femoral tumbado',
+            'Elevación de talones de pie',
+            'Plancha abdominal'
+        ],
+        ('profesional', 'viernes'): [
+            'Press banca plano',
+            'Jalón al pecho',
+            'Pájaros invertidos en máquina',
+            'Pullover con mancuerna',
+            'Russian twists'
+        ],
 
-        ('culturista', 'lunes'): ['Press banca plano', 'Remo con barra'],
-        ('culturista', 'martes'): ['Sentadilla trasera', 'Curl bíceps con barra'],
-        ('culturista', 'miércoles'): ['Press militar', 'Fondos en paralelas'],
-        ('culturista', 'jueves'): ['Press inclinado con mancuernas', 'Jalón al pecho'],
-        ('culturista', 'viernes'): ['Curl martillo con mancuernas', 'Crunch abdominal'],
+        # CULTURISTA (5 ejercicios por día + abdomen)
+        ('culturista', 'lunes'): [
+            'Sentadilla frontal',
+            'Peso muerto convencional',
+            'Zancadas con mancuernas',
+            'Elevación de talones sentado',
+            'Hip thrust con barra',
+            'Elevaciones de piernas colgado'
+        ],
+        ('culturista', 'martes'): [
+            'Press declinado con barra',
+            'Aperturas en máquina',
+            'Press militar',
+            'Fondos en máquina',
+            'Extensión de tríceps sobre cabeza',
+            'Crunch abdominal'
+        ],
+        ('culturista', 'miércoles'): [
+            'Remo en T',
+            'Dominadas pronadas',
+            'Peso muerto rumano',
+            'Curl bíceps con barra',
+            'Curl predicador',
+            'Plancha abdominal'
+        ],
+        ('culturista', 'jueves'): [
+            'Sentadilla trasera',
+            'Prensa inclinada',
+            'Curl femoral tumbado',
+            'Elevación de talones de pie',
+            'Clean and press',
+            'Russian twists'
+        ],
+        ('culturista', 'viernes'): [
+            'Press Arnold',
+            'Pullover con mancuerna',
+            'Remo con barra',
+            'Flexiones con peso',
+            'Jalón al pecho',
+            'Elevaciones de piernas colgado'
+        ]
     }
 
     niveles = ['principiante', 'amateur', 'profesional', 'culturista']

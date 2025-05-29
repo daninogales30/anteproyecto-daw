@@ -24,15 +24,15 @@
                                     {{ workout.name|capfirst }}
                                 </a>
                                 <span>
+                                    <a href="{% url 'workout_routines:workout_update' workout.pk %}"
+                                   class="btn btn-sm btn-outline-danger"
+                                   title="Cambiar entrenamiento">
+                                <i class="fas fa-edit"></i>
+                            </a>
                                 <a href="{% url 'workout_routines:workout_delete' workout.pk %}"
                                    class="btn btn-sm btn-outline-danger"
                                    title="Eliminar entrenamiento">
                                 <i class="fas fa-trash-alt"></i>
-                            </a>
-                                <a href="{% url 'workout_routines:workout_update' workout.pk %}"
-                                   class="btn btn-sm btn-outline-danger"
-                                   title="Cambiar entrenamiento">
-                                <i class="fas fa-edit"></i>
                             </a>
                             </span>
                             </div>

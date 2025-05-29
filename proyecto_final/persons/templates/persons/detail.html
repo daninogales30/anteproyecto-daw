@@ -8,94 +8,102 @@
 {% endblock %}
 
 {% block content %}
-<div class="container py-5">
-    <div class="main-body">
-        <div class="card shadow rounded-3">
-            <div class="card-body p-4 p-lg-5">
-                <!-- Header del perfil -->
-                <div class="profile-header d-flex flex-column flex-md-row align-items-md-center gap-4 mb-5">
-                    <div class="profile-picture position-relative">
-                        <img src="{{ usuario.profile_picture.url }}"
-                             class="img-thumbnail shadow"
-                             alt="Foto de perfil"
-                             style="width: 150px; height: 150px; object-fit: cover; border-radius: 20px;">
-                    </div>
-                    <div class="profile-info flex-grow-1">
-                        <h1 class="mb-3">{{ usuario.username }}</h1>
-                        <div class="d-flex align-items-center gap-3 mb-3">
-                            <span class="badge">{{ usuario.get_gender_display }}</span>
-                            <span class="text-muted h5 mb-0">{{ usuario.edad }} años</span>
+    <div class="container py-5">
+        <div class="main-body">
+            <div class="card shadow rounded-3">
+                <div class="card-body p-4 p-lg-5">
+                    <!-- Header del perfil -->
+                    <div class="profile-header d-flex flex-column flex-md-row align-items-md-center gap-4 mb-5">
+                        <div class="profile-picture position-relative">
+                            <img src="{{ usuario.profile_picture.url }}"
+                                 class="img-thumbnail shadow"
+                                 alt="Foto de perfil"
+                                 style="width: 150px; height: 150px; object-fit: cover; border-radius: 20px;">
                         </div>
-                        <p class="lead text-muted mb-0">{{ usuario.bio }}</p>
-                    </div>
-                </div>
-
-                <!-- Sección de estadísticas -->
-                <div class="row g-4 mb-5">
-                    <div class="col-6 col-md-3">
-                        <div class="stat-card p-3 rounded-3 shadow-sm">
-                            <div class="h2 fw-bold text-primary mb-1">{{ usuario.height }}cm</div>
-                            <small class="text-muted">Altura</small>
+                        <div class="profile-info flex-grow-1">
+                            <h1 class="mb-3">{{ usuario.username }}</h1>
+                            <div class="d-flex align-items-center gap-3 mb-3">
+                                <span class="badge">{{ usuario.get_gender_display }}</span>
+                                <span class="text-muted h5 mb-0">{{ usuario.edad }} años</span>
+                            </div>
+                            <p class="lead text-muted mb-0">{{ usuario.bio }}</p>
                         </div>
                     </div>
-                    <div class="col-6 col-md-3">
-                        <div class="stat-card p-3 rounded-3 shadow-sm">
-                            <div class="h2 fw-bold text-primary mb-1">{{ usuario.weight }}kg</div>
-                            <small class="text-muted">Peso actual</small>
+
+                    <!-- Sección de estadísticas -->
+                    <div class="row g-4 mb-5">
+                        <div class="col-6 col-md-3">
+                            <div class="stat-card p-3 rounded-3 shadow-sm">
+                                <div class="h2 fw-bold text-primary mb-1">{{ usuario.height }}cm</div>
+                                <small class="text-muted">Altura</small>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-6 col-md-3">
-                        <div class="stat-card p-3 rounded-3 shadow-sm">
-                            <div class="h2 fw-bold text-primary mb-1">{{ usuario.imc }}</div>
-                            <small class="text-muted">IMC</small>
+                        <div class="col-6 col-md-3">
+                            <div class="stat-card p-3 rounded-3 shadow-sm">
+                                <div class="h2 fw-bold text-primary mb-1">{{ usuario.weight }}kg</div>
+                                <small class="text-muted">Peso actual</small>
+                            </div>
                         </div>
-                    </div>
-                </div>
-
-                <!-- Sección de información -->
-                <div class="row g-4">
-                    <!-- Columna izquierda -->
-                    <div class="col-md-6">
-                        <div class="card shadow-sm rounded-3 h-100 border-0">
-                            <div class="card-body p-4">
-                                <h3 class="mb-4">Información personal</h3>
-                                <dl class="row g-3">
-                                    <dt class="col-sm-5">Nombre completo</dt>
-                                    <dd class="col-sm-7">{{ usuario.first_name }} {{ usuario.last_name }}</dd>
-
-                                    <dt class="col-sm-5">Fecha nacimiento</dt>
-                                    <dd class="col-sm-7">{{ usuario.birth_date }}</dd>
-
-                                    <dt class="col-sm-5">Correo electrónico</dt>
-                                    <dd class="col-sm-7">{{ usuario.email }}</dd>
-
-                                    <dt class="col-sm-5">Alergias</dt>
-                                    <dd class="col-sm-7">{{ usuario.allergies|default:"Ninguna" }}</dd>
-
-                                    <dt class="col-sm-5">Condiciones médicas</dt>
-                                    <dd class="col-sm-7">{{ usuario.medical_conditions|default:"Ninguna" }}</dd>
-                                </dl>
+                        {% if not usuario.target_weight == null %}
+                            <div class="col-6 col-md-3">
+                                <div class="stat-card p-3 rounded-3 shadow-sm">
+                                    <div class="h2 fw-bold text-primary mb-1">{{ usuario.target_weight }}kg</div>
+                                    <small class="text-muted">Peso objetivo</small>
+                                </div>
+                            </div>
+                        {% endif %}
+                        <div class="col-6 col-md-3">
+                            <div class="stat-card p-3 rounded-3 shadow-sm">
+                                <div class="h2 fw-bold text-primary mb-1">{{ usuario.imc }}</div>
+                                <small class="text-muted">IMC</small>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Columna derecha -->
-                    <div class="col-md-6">
-                        <div class="card shadow-sm rounded-3 h-100 border-0">
-                            <div class="card-body p-4">
-                                <h3 class="mb-4">Datos de salud</h3>
-                                <dl class="row g-3">
-                                    <dt class="col-sm-5">Objetivo</dt>
-                                    <dd class="col-sm-7">{{ usuario.get_fitness_goal_display }}</dd>
+                    <!-- Sección de información -->
+                    <div class="row g-4">
+                        <!-- Columna izquierda -->
+                        <div class="col-md-6">
+                            <div class="card shadow-sm rounded-3 h-100 border-0">
+                                <div class="card-body p-4">
+                                    <h3 class="mb-4">Información personal</h3>
+                                    <dl class="row g-3">
+                                        <dt class="col-sm-5">Nombre completo</dt>
+                                        <dd class="col-sm-7">{{ usuario.first_name }} {{ usuario.last_name }}</dd>
 
-                                    <dt class="col-sm-5">% Graso</dt>
-                                    <dd class="col-sm-7">{{ usuario.body_fat_percentage }}%</dd>
+                                        <dt class="col-sm-5">Fecha nacimiento</dt>
+                                        <dd class="col-sm-7">{{ usuario.birth_date }}</dd>
 
-                                    <dt class="col-sm-5">Calorías diarias</dt>
-                                    <dd class="col-sm-7">{{ usuario.diary_callories }} kcal</dd>
+                                        <dt class="col-sm-5">Correo electrónico</dt>
+                                        <dd class="col-sm-7">{{ usuario.email }}</dd>
 
-                                    <dt class="col-sm-5">Estado IMC</dt>
-                                    <dd class="col-sm-7">
+                                        <dt class="col-sm-5">Alergias</dt>
+                                        <dd class="col-sm-7">{{ usuario.allergies|default:"Ninguna" }}</dd>
+
+                                        <dt class="col-sm-5">Condiciones médicas</dt>
+                                        <dd class="col-sm-7">{{ usuario.medical_conditions|default:"Ninguna" }}</dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Columna derecha -->
+                        <div class="col-md-6">
+                            <div class="card shadow-sm rounded-3 h-100 border-0">
+                                <div class="card-body p-4">
+                                    <h3 class="mb-4">Datos de salud</h3>
+                                    <dl class="row g-3">
+                                        <dt class="col-sm-5">Objetivo</dt>
+                                        <dd class="col-sm-7">{{ usuario.get_fitness_goal_display }}</dd>
+
+                                        <dt class="col-sm-5">% Graso</dt>
+                                        <dd class="col-sm-7">{{ usuario.body_fat_percentage }}%</dd>
+
+                                        <dt class="col-sm-5">Calorías diarias</dt>
+                                        <dd class="col-sm-7">{{ usuario.diary_callories }} kcal</dd>
+
+                                        <dt class="col-sm-5">Estado IMC</dt>
+                                        <dd class="col-sm-7">
                                         <span class="badge">
                                             {% if usuario.imc < 18.5 %}Bajo peso
                                             {% elif usuario.imc >= 18.5 and usuario.imc <= 24.9 %}Normal
@@ -103,33 +111,33 @@
                                             {% else %}Obesidad
                                             {% endif %}
                                         </span>
-                                    </dd>
-                                </dl>
+                                        </dd>
+                                    </dl>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Acciones -->
-                <div class="d-flex flex-wrap gap-3 mt-5 justify-content-center">
-                    <a href="{% url 'persons:update' %}" class="btn btn-primary">
-                        <i class="fas fa-edit me-2"></i>Editar perfil
-                    </a>
-                    <a href="{% url 'persons:password' %}" class="btn btn-outline-primary">
-                        <i class="fas fa-lock me-2"></i>Cambiar contraseña
-                    </a>
-                    <a href="{% url 'persons:workouts-list' %}" class="btn btn-outline-primary">
-                        <i class="fas fa-dumbbell me-2"></i>Entrenamientos
-                    </a>
-                    <a href="{% url 'diets:list_semanaldiets' %}" class="btn btn-outline-primary">
-                        <i class="fas fa-utensils me-2"></i>Dietas
-                    </a>
-                    <a href="{% url 'persons:index' %}" class="btn btn-outline-primary">
-                        <i class="fas fa-home me-2"></i>Volver a inicio
-                    </a>
+                    <!-- Acciones -->
+                    <div class="d-flex flex-wrap gap-3 mt-5 justify-content-center">
+                        <a href="{% url 'persons:update' %}" class="btn btn-primary">
+                            <i class="fas fa-edit me-2"></i>Editar perfil
+                        </a>
+                        <a href="{% url 'persons:password' %}" class="btn btn-outline-primary">
+                            <i class="fas fa-lock me-2"></i>Cambiar contraseña
+                        </a>
+                        <a href="{% url 'persons:workouts-list' %}" class="btn btn-outline-primary">
+                            <i class="fas fa-dumbbell me-2"></i>Entrenamientos
+                        </a>
+                        <a href="{% url 'diets:list_semanaldiets' %}" class="btn btn-outline-primary">
+                            <i class="fas fa-utensils me-2"></i>Dietas
+                        </a>
+                        <a href="{% url 'persons:index' %}" class="btn btn-outline-primary">
+                            <i class="fas fa-home me-2"></i>Volver a inicio
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 {% endblock %}
