@@ -22,7 +22,6 @@ class Person(AbstractUser):
         ('lose_weight', 'Perder peso'),
         ('gain_muscle', 'Ganar músculo'),
         ('maintain', 'Mantenimiento'),
-        ('improve_endurance', 'Mejorar resistencia'),
     ]
     ACTIVITY_LEVEL_CHOICES = [
         ('sedentary', 'Sedentario'),
