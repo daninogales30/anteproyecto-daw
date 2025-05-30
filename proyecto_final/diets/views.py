@@ -16,7 +16,7 @@ class DietTemplateView(LoginRequiredMixin, TemplateView):
 class SemanalDietFormView(LoginRequiredMixin, FormView):
     form_class = SemanalDietForm
     template_name = 'diets/form_generic.html'
-    success_url = reverse_lazy('persons:index')
+    success_url = reverse_lazy('diets:list_semanaldiets')
 
     def form_valid(self, form):
         semanal_diet = form.save(commit=False)
@@ -43,7 +43,7 @@ class PersonSemanalDietUpdateView(LoginRequiredMixin, UpdateView):
     model = SemanalDiet
     form_class = SemanalDietForm
     template_name = 'diets/form_generic.html'
-    success_url = reverse_lazy('persons:index')
+    success_url = reverse_lazy('diets:list_semanaldiets')
 
     def form_valid(self, form):
         semanal_diet = form.save(commit=False)
@@ -69,7 +69,7 @@ class PersonSemanalDietUpdateView(LoginRequiredMixin, UpdateView):
 class DayFormView(LoginRequiredMixin, FormView):
     form_class = DayForm
     template_name = 'diets/form_generic.html'
-    success_url = reverse_lazy('persons:index')
+    success_url = reverse_lazy('diets:list_semanaldiets')
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
@@ -91,7 +91,7 @@ class DayFormView(LoginRequiredMixin, FormView):
 class DayDietFormView(LoginRequiredMixin, FormView):
     form_class = DayDietForm
     template_name = 'diets/form.html'
-    success_url = reverse_lazy('persons:index')
+    success_url = reverse_lazy('diets:list_semanaldiets')
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
@@ -168,7 +168,7 @@ class PersonDayDietDeleteView(LoginRequiredMixin, DeleteView):
 class FoodItemFormView(LoginRequiredMixin, FormView):
     form_class = FoodItemForm
     template_name = 'diets/form.html'
-    success_url = reverse_lazy('persons:index')
+    success_url = reverse_lazy('diets:index')
 
     def form_valid(self, form):
         food_item = form.save(commit=False)

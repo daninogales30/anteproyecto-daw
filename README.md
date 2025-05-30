@@ -29,15 +29,11 @@
 - He detectado un error y es el siguiente. Cuando le añado un alimento a un dia de la semana, si vuelvo a añadir ese alimento a otro dia de esa misma semana no se puede, eso quiere decir que hay algo que esta diciendo que ese alimento es unico en ese dia, cosa que no es óptima.
 
 ## ¿Que falta?
-- Migracion para precargar dietas personalizadas y meter muchisimos alimentos.
-- Mejorar el calculo de las calorias diarias implementando si quiere mantenimiento subir o bajar peso.
-- Cuando termine esto, mi intención es hacer un blog que la gente pueda subir entradas y las vea todo el mundo.
-- Creo que hay error en el porcentaje graso.
-- El update view de person esta sin terminar, hay que terminarlo.
-- Cambiar las redirecciones de los formularios.
-- Css de las DeleteView
+- Migracion para precargar dietas personalizadas y meter muchisimos alimentos. *
+- Cuando termine esto, mi intención es hacer un blog que la gente pueda subir entradas y las vea todo el mundo. *
 - Mirar para añadir algo más de apis.
-- Hacer los test de las apps.
+- Hacer los test de diets, workout, persons.
+- En la lista de detalles de la semana de dietas, que dentro de los dias se ordenen por desayuno almuerzo merienda cena. En workout igual con los entrenamientos
 
 ### Del 24 de marzo al 7 de abril
 - A día 2 de abril lo que llevo realizado es la creación de las apps diets, persons y workout_routines. En diets lo unico que tengo montado ahora mismo es el models.py, en la app persons tengo el models.py, tambien tengo los forms para la creación del usuario, y algunas vistas como los detalles del usuario, el login y el register. En workout_routines tengo el models.py y algunas vistas de los formularios para crear una rutina y crear un entrenamiento

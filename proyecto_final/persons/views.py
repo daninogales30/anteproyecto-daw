@@ -81,18 +81,27 @@ class PersonUpdateView(LoginRequiredMixin, UpdateView):
 
     def form_valid(self, form):
         person = form.save(commit=False)
+        changed = set(form.changed_data)
 
-        # if 'height' in form.changed_data or 'cintura' in form.changed_data or 'cuello' in form.changed_data or 'cadera' in form.changed_data or 'gender' in form.changed_data:
-        # body_fat_percentage = person.calculate_bodyfat_percentage()
-        # person.body_fat_percentage = body_fat_percentage
+        bf_fields = {'height', 'cintura', 'cuello', 'cadera', 'gender'}
+        if changed & bf_fields:
+            try:
+                person.body_fat_percentage = person.calculate_bodyfat_percentage()
+            except ValueError as e:
+                # Si falta algún dato o es inválido, devolvemos el formulario con el error
+                form.add_error(None, str(e))
+                return self.form_invalid(form)
 
-        if 'height' in form.changed_data or 'weight' in form.changed_data:
-            imc = person.calculate_imc()
-            person.imc = imc
+        if changed & {'height', 'weight'}:
+            person.imc = person.calculate_imc()
 
-        if 'gender' in form.changed_data or 'weight' in form.changed_data or 'height' in form.changed_data or 'edad' in form.changed_data or 'activity_level' in form.changed_data:
-            day_calories = person.calculate_diary_callories()
-            person.diary_callories = day_calories
+        calorie_fields = {'gender', 'weight', 'height', 'edad', 'activity_level', 'fitness_goal'}
+        if changed & calorie_fields:
+            try:
+                person.diary_callories = person.calculate_diary_callories()
+            except ValueError as e:
+                form.add_error(None, str(e))
+                return self.form_invalid(form)
 
         person.save()
         return super().form_valid(form)

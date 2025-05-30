@@ -1,0 +1,121 @@
+/* actions.css - Estilos estáticos para la página de confirmación de acciones */
+:root {
+    --primary-color: #4A90E2;
+    --secondary-color: #6AC8C9;
+    --danger-color: #E74C3C;
+    --gradient-primary: linear-gradient(135deg, #4A90E2 0%, #6AC8C9 100%);
+    --gradient-danger: linear-gradient(135deg, #E74C3C 0%, #C0392B 100%);
+}
+
+.container {
+    padding: 2rem;
+}
+
+.card {
+    border: none;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1) !important;
+    border-radius: 20px !important;
+}
+
+h1 {
+    font-size: 2.3rem;
+    letter-spacing: -0.03em;
+    background: var(--gradient-danger);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    position: relative;
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+h1::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: var(--danger-color);
+    border-radius: 2px;
+}
+
+.btn-danger {
+    background: var(--gradient-danger);
+    border: none;
+    color: white !important;
+    padding: 0.8rem 1.5rem;
+    font-weight: 600;
+    border-radius: 50px !important;
+}
+
+.btn-danger:hover {
+    box-shadow: 0 8px 25px rgba(231, 76, 60, 0.4);
+}
+
+.btn-outline-secondary {
+    border: 2px solid var(--secondary-color) !important;
+    background: transparent;
+    color: var(--secondary-color) !important;
+    padding: 0.8rem 1.5rem;
+    font-weight: 600;
+    border-radius: 50px !important;
+}
+
+.btn-outline-secondary:hover {
+    background: rgba(106, 200, 201, 0.1);
+}
+
+.text-muted {
+    color: var(--secondary-color) !important;
+    opacity: 0.8;
+    font-size: 0.9rem;
+    margin-top: 1.5rem;
+    position: relative;
+    padding-left: 1rem;
+}
+
+.text-muted::before {
+    content: '⚠️';
+    position: absolute;
+    left: -1.8rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.2rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .card {
+        margin: 1rem;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+        padding-bottom: 0.5rem;
+    }
+
+    .btn-danger,
+    .btn-outline-secondary {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+
+    .d-flex.justify-content-center.gap-3 {
+        flex-direction: column;
+        gap: 0.5rem !important;
+    }
+
+    .text-muted::before {
+        display: none;
+    }
+}
+
+body {
+    background: linear-gradient(45deg, #f8f9fa 0%, #e9ecef 100%);
+    min-height: 100vh;
+}

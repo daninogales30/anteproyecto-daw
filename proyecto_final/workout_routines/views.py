@@ -36,7 +36,7 @@ class WorkoutFormView(LoginRequiredMixin, FormView):
 class RoutineFormView(LoginRequiredMixin, FormView):
     form_class = RoutineExerciseForm
     template_name = 'workout_routine/form.html'
-    success_url = reverse_lazy('persons:index')
+    success_url = reverse_lazy('persons:workouts-list')
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
