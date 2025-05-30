@@ -30,7 +30,7 @@
 
 ## ¿Que falta?
 - Migracion para precargar dietas personalizadas y meter muchisimos alimentos. *
-- Cuando termine esto, mi intención es hacer un blog que la gente pueda subir entradas y las vea todo el mundo. *
+- En el blog, poner bien el icono de eliminar entradas y también crear el de modificarlas
 - Mirar para añadir algo más de apis.
 - Hacer los test de diets, workout, persons.
 - En la lista de detalles de la semana de dietas, que dentro de los dias se ordenen por desayuno almuerzo merienda cena. En workout igual con los entrenamientos

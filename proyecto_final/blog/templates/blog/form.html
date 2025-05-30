@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Crear entrada | MyFitSpace{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/form.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="container d-flex justify-content-center align-items-center min-vh-100">
+        <div class="card w-100 shadow rounded-3" style="max-width: 600px;">
+            <div class="card-body p-5">
+                <div class="text-center mb-4">
+                    <h1 class="fw-bold text-primary mb-4">Crear entrada</h1>
+
+                    {% if messages %}
+                        <div class="mb-4">
+                            {% for message in messages %}
+                                <div class="alert alert-
+
+
+
+                                        {% if message.tags %}{{ message.tags }}{% else %}info{% endif %} alert-dismissible fade show">
+                                    {{ message }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <div class="mb-4">
+                        {{ form.as_p }}
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-lg w-100">Ok</button>
+                </form>
+
+                <div class="d-grid gap-3 mt-4">
+                    <a class="btn btn-secondary" href="javascript:history.back()">Volver atrás</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

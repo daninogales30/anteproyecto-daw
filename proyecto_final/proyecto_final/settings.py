@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'persons',
     'workout_routines',
     'diets',
+    'blog',
     'debug_toolbar',
     'django_extensions',
     'rest_framework',

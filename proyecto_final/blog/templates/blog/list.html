@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Entradas del blog | MyFitSpace{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/blog_list.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="container d-flex justify-content-center align-items-center min-vh-100">
+        <div class="card w-100 shadow rounded-3" style="max-width: 800px;">
+            <div class="card-body p-5">
+                <div class="text-center mb-5">
+                    <h1 class="fw-bold text-primary mb-4">Entradas del Blog</h1>
+                </div>
+
+                <!-- Filtro por nombre de usuario -->
+                <div class="mb-4">
+                    <label for="filter-username" class="form-label">Filtrar por usuario:</label>
+                    <input type="text"
+                           id="filter-username"
+                           class="form-control"
+                           placeholder="Escribe el nombre de usuario..."/>
+                </div>
+
+                <div class="list-group" id="posts-list">
+                    {% for post in posts %}
+                        <div class="list-group-item border-0 p-4 mb-4 bg-light shadow-sm"
+                             data-author="{{ post.author.username|lower }}">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div>
+                                    <h5 class="fw-bold">
+                                        {{ post.title|capfirst }}
+                                    </h5>
+                                    <p class="mb-1 text-muted">
+                                        por <strong>{{ post.user.username }}</strong>
+                                        el {{ post.created_at|date:"d/m/Y H:i" }}
+                                    </p>
+                                    {% if post.user == user %}
+                                        <span class="btn-group">
+            <a href=""
+               class="btn btn-sm btn-outline-danger"
+               title="Eliminar entrada">
+              <i class="fas fa-trash-alt"></i>
+            </a>
+          </span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="post-body">
+                                {{ post.body|linebreaks }}
+                            </div>
+                        </div>
+                    {% empty %}
+                        <div class="list-group-item border-0 p-4 mb-4 bg-light shadow-sm">
+                            <p class="text-center mb-0">No hay entradas publicadas todavía.</p>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <div class="d-grid gap-3 mt-4">
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'blog:create_entry' %}"
+                           class="btn btn-outline-primary">Crear nueva entrada</a>
+                    {% else %}
+                        <a href="{% url 'login' %}"
+                           class="btn btn-outline-primary">Inicia sesión para publicar</a>
+                    {% endif %}
+                    <a href="{% url 'persons:index' %}"
+                       class="btn btn-secondary">Volver a inicio</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const inputFiltro = document.getElementById('filter-username');
+            const listaItems = document.querySelectorAll('#posts-list .list-group-item');
+
+            inputFiltro.addEventListener('input', function () {
+                const valor = inputFiltro.value.trim().toLowerCase();
+                listaItems.forEach(function (item) {
+                    const autor = item.getAttribute('data-author');
+                    if (!valor || autor.includes(valor)) {
+                        item.style.display = '';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock %}

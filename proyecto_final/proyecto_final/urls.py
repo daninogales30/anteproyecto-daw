@@ -26,6 +26,7 @@ urlpatterns = [
     path('', include('persons.urls')),
     path('workout/', include('workout_routines.urls')),
     path('diets/', include('diets.urls')),
+    path('blog/', include('blog.urls')),
 ] + debug_toolbar_urls()
 
 if settings.DEBUG:
