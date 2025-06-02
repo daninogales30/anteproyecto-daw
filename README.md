@@ -30,10 +30,10 @@
 
 ## ¿Que falta?
 - Migracion para precargar dietas personalizadas y meter muchisimos alimentos. *
-- En el blog, poner bien el icono de eliminar entradas y también crear el de modificarlas
 - Mirar para añadir algo más de apis.
 - Hacer los test de diets, workout, persons.
-- En la lista de detalles de la semana de dietas, que dentro de los dias se ordenen por desayuno almuerzo merienda cena. En workout igual con los entrenamientos
+- En la lista de detalles de la semana de dietas, que dentro de los dias se ordenen por desayuno almuerzo merienda cena. En workout igual con los entrenamientos.
+- Instancia en aws para desplegar el proyecto.
 
 ### Del 24 de marzo al 7 de abril
 - A día 2 de abril lo que llevo realizado es la creación de las apps diets, persons y workout_routines. En diets lo unico que tengo montado ahora mismo es el models.py, en la app persons tengo el models.py, tambien tengo los forms para la creación del usuario, y algunas vistas como los detalles del usuario, el login y el register. En workout_routines tengo el models.py y algunas vistas de los formularios para crear una rutina y crear un entrenamiento
