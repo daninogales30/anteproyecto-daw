@@ -2,7 +2,7 @@ from django.contrib.auth import logout
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, PasswordChangeView, LogoutView
-from django.db.models import Count, Q
+from django.db.models import Count, Q, Case, When, IntegerField
 from django.urls import reverse_lazy
 from django.views.generic import FormView, TemplateView, DetailView, UpdateView
 from rest_framework import generics
@@ -10,6 +10,7 @@ from rest_framework import generics
 from persons.forms import PersonForm, PersonUpdateForm
 from persons.models import Person
 from persons.serializers import LeaderboardSerializer
+from workout_routines.models import Workout
 
 
 class PersonRegisterCreateView(FormView):
@@ -131,6 +132,31 @@ class PersonWorkoutListView(LoginRequiredMixin, DetailView):
 
     def get_object(self):
         return self.request.user
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        usuario = self.object
+
+        dias_orden = Case(
+            When(name='lunes', then=1),
+            When(name='martes', then=2),
+            When(name='miércoles', then=3),
+            When(name='jueves', then=4),
+            When(name='viernes', then=5),
+            When(name='sábado', then=6),
+            When(name='domingo', then=7),
+            output_field=IntegerField()
+        )
+
+        workouts_ordenados = (
+            Workout.objects
+            .filter(user=usuario)
+            .annotate(orden_dia=dias_orden)
+            .order_by('orden_dia')
+        )
+
+        context['workouts_ordenados'] = workouts_ordenados
+        return context
 
 
 class PersonLeaderboardAPIView(generics.ListAPIView):

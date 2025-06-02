@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Ranking Bloggers | MyFitSpace{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/bloggers.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="card w-100 shadow-lg rounded-3" style="max-width: 800px;">
+        <div class="card-body py-5 px-4">
+            <h1 class="fw-bold text-center text-primary mb-3">Top Bloggers</h1>
+            <p class="text-center text-primary mb-4">
+                ¿Quieres subir al podio? ¡Publica más y alcanza el top 3!
+            </p>
+
+            <!-- Podio TOP 3 -->
+            <div class="podium-container" id="podium">
+                <!-- Se llenará con JS -->
+            </div>
+
+            <!-- Resto de usuarios -->
+            <div id="others" class="other-users">
+                <!-- Se llenará con JS -->
+            </div>
+
+            <div class="d-grid gap-3 mt-4">
+                <a href="{% url 'persons:index' %}" class="btn btn-secondary">Volver a inicio</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+(function () {
+    const heights = [140, 180, 120];  // Segundo, primero, tercero (posición visual)
+
+    fetch('{% url "blog:api_top_bloggers" %}')
+        .then(res => res.json())
+        .then(data => {
+            const podium = document.getElementById('podium');
+            const others = document.getElementById('others');
+
+            const top3 = data.slice(0, 3);
+            const rest = data.slice(3);
+
+            // Orden visual del podio: [2º, 1º, 3º]
+            const podiumOrder = [1, 0, 2];
+            podiumOrder.forEach((idx, visualIdx) => {
+                if (top3[idx]) {
+                    const user = top3[idx];
+                    const step = document.createElement('div');
+                    step.className = 'podium-step';
+                    step.style.height = `${heights[visualIdx]}px`;
+                    step.innerHTML = `
+                        <div class="position">${idx + 1}</div>
+                        <div class="username">${user.username}</div>
+                        <div class="entries">${user.entry_count} entradas</div>
+                    `;
+                    podium.appendChild(step);
+                }
+            });
+
+            // Usuarios del 4 en adelante
+            rest.forEach((user, i) => {
+                const card = document.createElement('div');
+                card.className = 'other-user-card';
+                card.innerHTML = `
+                    <div class="position">#${i + 4}</div>
+                    <div class="username">${user.username}</div>
+                    <div class="entries">${user.entry_count} entradas</div>
+                `;
+                others.appendChild(card);
+            });
+        })
+        .catch(() => {
+            const cardBody = document.querySelector('.card-body');
+            cardBody.innerHTML = '<p class="text-danger text-center">Error al cargar el ranking.</p>';
+        });
+})();
+</script>
+{% endblock %}

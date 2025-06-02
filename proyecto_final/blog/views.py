@@ -1,10 +1,14 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Count
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, FormView, DeleteView, TemplateView, UpdateView
+from rest_framework import generics
 
 from blog.forms import EntradaForm
 from blog.models import Entrada
+from blog.serializers import TopBloggerSerializer
+from persons.models import Person
 
 
 class BlogTemplateView(LoginRequiredMixin, TemplateView):
@@ -61,3 +65,21 @@ class EntradaDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'blog/delete.html'
     success_url = reverse_lazy('blog:list')
     context_object_name = 'post'
+
+
+class TopBloggersList(generics.ListAPIView):
+    serializer_class = TopBloggerSerializer
+
+    def get_queryset(self):
+        q = (
+            Person.objects
+            .annotate(entry_count=Count('user_entry'))
+            .filter(entry_count__gt=0)
+            .order_by('-entry_count', 'username')
+        )
+
+        return q[:10]
+
+
+class TopBloggersListTemplateView(LoginRequiredMixin, TemplateView):
+    template_name = 'blog/bloggers.html'

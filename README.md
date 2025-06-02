@@ -29,10 +29,8 @@
 - He detectado un error y es el siguiente. Cuando le añado un alimento a un dia de la semana, si vuelvo a añadir ese alimento a otro dia de esa misma semana no se puede, eso quiere decir que hay algo que esta diciendo que ese alimento es unico en ese dia, cosa que no es óptima.
 
 ## ¿Que falta?
-- Migracion para precargar dietas personalizadas y meter muchisimos alimentos. *
-- Mirar para añadir algo más de apis.
+- Mostrar dietas precargadas
 - Hacer los test de diets, workout, persons.
-- En la lista de detalles de la semana de dietas, que dentro de los dias se ordenen por desayuno almuerzo merienda cena. En workout igual con los entrenamientos.
 - Instancia en aws para desplegar el proyecto.
 
 ### Del 24 de marzo al 7 de abril
