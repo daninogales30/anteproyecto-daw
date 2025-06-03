@@ -112,9 +112,9 @@ class Person(AbstractUser):
             tmb_final = tmb * 1.725
 
         if self.fitness_goal == 'lose_weight':
-            tmb_final -= 300
+            tmb_final -= 200
         elif self.fitness_goal == 'gain_muscle':
-            tmb_final += 300
+            tmb_final += 200
         return round(tmb_final, 0)
 
     def total_workouts(self):

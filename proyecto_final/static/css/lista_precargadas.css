@@ -1,0 +1,241 @@
+/* lista_precargadas.css */
+:root {
+    --primary-color: #4A90E2;
+    --secondary-color: #6AC8C9;
+    --danger-color: #FF6B6B;
+    --gradient-primary: linear-gradient(135deg, #4A90E2 0%, #6AC8C9 100%);
+    --gradient-danger: linear-gradient(135deg, #FF6B6B 0%, #FF8E8E 100%);
+    --text-color: #333;
+    --light-bg: #f8f9fa;
+    --card-bg: rgba(255, 255, 255, 0.95);
+}
+
+body {
+    background: linear-gradient(45deg, #f8f9fa 0%, #e9ecef 100%);
+    min-height: 100vh;
+    animation: fadeIn 0.5s ease;
+    color: var(--text-color);
+    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.container.py-5 {
+    padding-top: 3rem !important;
+    padding-bottom: 5rem !important;
+}
+
+/* Estilo para el título principal */
+h2.page-title {
+    font-size: 2.2rem;
+    letter-spacing: -0.03em;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    position: relative;
+    padding-bottom: 1rem;
+    margin-bottom: 2.5rem;
+    text-align: center;
+    font-weight: 700;
+}
+
+h2.page-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: var(--secondary-color);
+    border-radius: 2px;
+}
+
+/* Estilos para las tarjetas de dieta */
+.card {
+    border: none;
+    overflow: hidden;
+    background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 20px !important;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1) !important;
+    height: 100%;
+}
+
+.card:hover {
+    transform: translateY(-5px) scale(1.005);
+    box-shadow: 0 15px 50px rgba(74, 144, 226, 0.15) !important;
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    padding: 1.8rem;
+}
+
+.card h3 {
+    font-weight: 700;
+    margin-bottom: 1.2rem;
+    color: var(--primary-color);
+    font-size: 1.5rem;
+}
+
+.card p {
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.card p:last-of-type {
+    margin-bottom: 1.5rem;
+}
+
+/* Botones */
+.btn {
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    padding: 0.6rem 1.2rem;
+}
+
+.btn-primary {
+    background: var(--gradient-primary);
+    border: none;
+    margin-top: auto;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(74, 144, 226, 0.3);
+}
+
+.btn-secondary {
+    background: var(--gradient-primary);
+    border: none;
+    max-width: 200px;
+    margin: 0 auto;
+}
+
+.btn-secondary:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 25px rgba(74, 144, 226, 0.3);
+}
+
+/* Mensaje cuando no hay dietas */
+.text-center h2 {
+    font-size: 1.8rem;
+    color: #6c757d;
+    font-weight: 400;
+    margin-bottom: 2rem;
+}
+
+/* Paginación */
+.pagination {
+    margin-top: 3rem;
+}
+
+.page-item .page-link {
+    color: var(--primary-color);
+    border: none;
+    border-radius: 8px !important;
+    margin: 0 5px;
+    transition: all 0.3s ease;
+}
+
+.page-item.active .page-link {
+    background: var(--gradient-primary);
+    color: white;
+    border: none;
+    box-shadow: 0 4px 10px rgba(74, 144, 226, 0.3);
+}
+
+.page-item:not(.active) .page-link:hover {
+    background: rgba(74, 144, 226, 0.1);
+    transform: translateY(-2px);
+}
+
+.page-item .page-link:focus {
+    box-shadow: none;
+}
+
+/* Animación para las tarjetas */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.col-md-4 {
+    animation: slideIn 0.5s ease forwards;
+    opacity: 0;
+}
+
+/* Retrasos para la animación escalonada */
+.col-md-4:nth-child(1) { animation-delay: 0.1s; }
+.col-md-4:nth-child(2) { animation-delay: 0.2s; }
+.col-md-4:nth-child(3) { animation-delay: 0.3s; }
+.col-md-4:nth-child(4) { animation-delay: 0.4s; }
+.col-md-4:nth-child(5) { animation-delay: 0.5s; }
+.col-md-4:nth-child(6) { animation-delay: 0.6s; }
+
+/* Responsive design */
+@media (max-width: 992px) {
+    .col-md-4 {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+}
+
+@media (max-width: 768px) {
+    .col-md-4 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+
+    h2.page-title {
+        font-size: 1.8rem;
+    }
+
+    .card-body {
+        padding: 1.5rem;
+    }
+
+    .card h3 {
+        font-size: 1.3rem;
+    }
+
+    .pagination {
+        flex-wrap: wrap;
+    }
+
+    .page-item {
+        margin-bottom: 5px;
+    }
+}
+
+@media (max-width: 576px) {
+    .container.py-5 {
+        padding-top: 1.5rem !important;
+        padding-bottom: 3rem !important;
+    }
+
+    h2.page-title {
+        font-size: 1.5rem;
+        padding-bottom: 0.8rem;
+    }
+
+    h2.page-title::after {
+        width: 60px;
+        height: 2px;
+    }
+}

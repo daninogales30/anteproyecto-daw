@@ -27,3 +27,5 @@ RUN chown -R django:django /app
 
 # Cambia al usuario no root
 USER django
+
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]

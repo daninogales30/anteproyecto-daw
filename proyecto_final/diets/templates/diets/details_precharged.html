@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Detalles dieta | MyFitSpace{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/detail_diet.css' %}">
+{% endblock %}
+
+{% block content %}
+
+    <div class="container d-flex justify-content-center align-items-center min-vh-100">
+        <div class="card w-100 shadow rounded-3" style="max-width: 800px;">
+            <div class="card-body p-5">
+                <div class="text-center mb-5">
+                    <h1 class="fw-bold text-primary mb-4">{{ semanal_diet.name|capfirst }}</h1>
+                    <h2 class="h5 text-muted">Días: {{ dias_con_dietas|length }}</h2>
+                </div>
+
+                <div class="list-group">
+                    {% for dia in dias_con_dietas %}
+                        <div class="list-group-item border-0 p-4 mb-4 bg-light shadow-sm">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h3 class="h5 fw-bold text-primary">{{ dia.nombre }}</h3>
+                            </div>
+                            <ul class="list-group list-group-flush">
+                                {% for diet in dia.diets %}
+                                    <li class="list-group-item bg-transparent d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <strong>{{ diet.get_moment_display }}:</strong>
+                                            {{ diet.food_item.name }} ({{ diet.quantity_g }} g)
+                                            {% if diet.notes %}
+                                                <br><small class="text-muted">{{ diet.notes }}</small>
+                                            {% endif %}
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <div class="d-grid gap-3 mt-4">
+                    <a href="javascript:history.back()" class="btn btn-secondary">
+                        Volver atrás
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

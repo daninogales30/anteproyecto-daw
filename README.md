@@ -29,9 +29,8 @@
 - He detectado un error y es el siguiente. Cuando le añado un alimento a un dia de la semana, si vuelvo a añadir ese alimento a otro dia de esa misma semana no se puede, eso quiere decir que hay algo que esta diciendo que ese alimento es unico en ese dia, cosa que no es óptima.
 
 ## ¿Que falta?
-- Mostrar dietas precargadas
 - Hacer los test de diets, workout, persons.
-- Instancia en aws para desplegar el proyecto.
+- Filtrar por nombre en el blog.
 
 ### Del 24 de marzo al 7 de abril
 - A día 2 de abril lo que llevo realizado es la creación de las apps diets, persons y workout_routines. En diets lo unico que tengo montado ahora mismo es el models.py, en la app persons tengo el models.py, tambien tengo los forms para la creación del usuario, y algunas vistas como los detalles del usuario, el login y el register. En workout_routines tengo el models.py y algunas vistas de los formularios para crear una rutina y crear un entrenamiento
@@ -64,3 +63,7 @@
 - A día 27 de mayo, ya he mejorado el html de profile con un diseño más parecido al que tienen a día de hoy las redes sociales. Error que tenia pendiente sobre las dietas ya lo acabo de solucionar.
 - A día 28 de mayo he mejorado la migracion de poblar datos de entrenamiento ya que solo estaba creando los ejercicios, ahora tambien crea un workout precargado para los usuarios y les aparece el semejante a su nivel, aunque todavia falta por meter workouts de nivel amateur, profesional y culturista. También falta crear las dietas precargadas y ya estaría todo casi listo. Ya estan creado para los workouts de distintos niveles, pero falta cambiar la dificultad de los ejercicios y crear la migración de las dietas.
 - A día 29 y 30 de mayo, estoy solucionando los errores que vaya viendo en la página. Errores graficos, errores como tal no hay, solo detalles que estoy solventando para dejar la página lo mejor posible. También, he creado la app de blog, que básicamente es como tener una red social para subir entradas y que las vea los demás usuarios.
+
+### Del 3 de junio al 8 de junio
+- A día 2 de junio, he realizado la instancia en aws con el dns del dominio tech para poder desplegar treafik y mi app en una máquina debian en Amazon Web Services.
+- A día 3 de junio, estoy ya ultimando detalles, para dejar la app lo más perfecta posible.

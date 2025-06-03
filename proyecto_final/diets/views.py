@@ -1,10 +1,13 @@
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.db.models import Case, When, IntegerField
+from django.db.models import Case, When, IntegerField, F, Value, Sum, ExpressionWrapper, FloatField
+from django.db.models.functions import Abs, Coalesce
 from django.http import JsonResponse
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import TemplateView, FormView, ListView, DeleteView, DetailView, UpdateView
+from django.db.models import Sum, F, Value, IntegerField, Case, When, Subquery, OuterRef
+from django.db.models.functions import Coalesce, Abs
 
 from diets.forms import SemanalDietForm, FoodItemForm, DayDietForm, DayForm, DayDietUpdateForm
 from diets.models import SemanalDiet, DayDiet, Day
@@ -65,6 +68,58 @@ class PersonSemanalDietUpdateView(LoginRequiredMixin, UpdateView):
         context = super().get_context_data(**kwargs)
         context['titulo'] = 'Editar dieta semanal'
         return context
+
+
+class TodasDietasPrecargadasListView(LoginRequiredMixin, ListView):
+    model = SemanalDiet
+    template_name = 'diets/todas_dietas_precargadas.html'
+    context_object_name = 'dietas'
+    paginate_by = 3
+
+    def get_queryset(self):
+        q = (
+            SemanalDiet.objects
+            .filter(precargado=True)
+            .order_by('name')
+        )
+        return q
+
+
+class DietasPrecargadasDetailView(LoginRequiredMixin, DetailView):
+    model = SemanalDiet
+    template_name = 'diets/details_precharged.html'
+    context_object_name = 'semanal_diet'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        semanal_diet = self.object
+
+        dias_ordenados = ['lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado', 'domingo']
+        dias_con_dietas = []
+
+        for dia in dias_ordenados:
+            day_obj = semanal_diet.days.filter(day=dia).first()
+            if day_obj:
+                diets = day_obj.day_diets.annotate(
+                    orden_momento=Case(
+                        When(moment='desayuno', then=1),
+                        When(moment='almuerzo', then=2),
+                        When(moment='merienda', then=3),
+                        When(moment='cena', then=4),
+                        output_field=IntegerField()
+                    )
+                ).order_by('orden_momento')
+
+                dias_con_dietas.append({
+                    'pk': day_obj.pk,
+                    'nombre': dia.capitalize(),
+                    'diets': diets,
+                    'total_calories': day_obj.total_calories,
+                })
+
+        context['dias_con_dietas'] = dias_con_dietas
+        return context
+
 
 
 class DayFormView(LoginRequiredMixin, FormView):
@@ -139,7 +194,6 @@ class PersonDietDetailView(LoginRequiredMixin, DetailView):
         for dia in dias_ordenados:
             day_obj = semanal_diet.days.filter(day=dia).first()
             if day_obj:
-                # En lugar de .order_by('moment'), usamos un CASE para darle un orden numérico:
                 diets = day_obj.day_diets.annotate(
                     orden_momento=Case(
                         When(moment='desayuno', then=1),
