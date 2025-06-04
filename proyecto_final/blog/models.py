@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Entrada(models.Model):
     title = models.CharField("Título", max_length=200)
     body = models.TextField("Contenido")

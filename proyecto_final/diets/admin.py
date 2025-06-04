@@ -6,4 +6,3 @@ admin.site.register(FoodItem)
 admin.site.register(SemanalDiet)
 admin.site.register(DayDiet)
 admin.site.register(Day)
-

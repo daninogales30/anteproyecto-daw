@@ -17,7 +17,7 @@ class PersonForm(forms.ModelForm):
         fields = [
             'username', 'first_name', 'last_name', 'email', 'birth_date', 'gender',
             'profile_picture', 'weight', 'height', 'fitness_goal',
-            'activity_level', 'edad','workout_level',
+            'activity_level', 'edad', 'workout_level',
             'allergies', 'medical_conditions', 'target_weight', 'bio', 'cuello', 'cadera', 'cintura',
         ]
         widgets = {

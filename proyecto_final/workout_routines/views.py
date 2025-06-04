@@ -84,7 +84,6 @@ class PreloadedWorkoutDetailView(LoginRequiredMixin, DetailView):
     context_object_name = 'workout'
 
 
-
 class RoutineDeleteView(LoginRequiredMixin, DeleteView):
     model = RoutineExercise
     template_name = 'workout_routine/delete.html'

@@ -9,11 +9,13 @@ class MuscleGroup(models.Model):
     def __str__(self):
         return self.name
 
+
 class Equipment(models.Model):
     name = models.CharField(max_length=100, unique=True)
 
     def __str__(self):
         return self.name
+
 
 class Exercise(models.Model):
     name = models.CharField(max_length=100)
@@ -23,6 +25,7 @@ class Exercise(models.Model):
 
     def __str__(self):
         return self.name
+
 
 class RoutineExercise(models.Model):
     workout = models.ForeignKey('Workout', on_delete=models.CASCADE)
@@ -36,6 +39,7 @@ class RoutineExercise(models.Model):
 
     def __str__(self):
         return f"{self.exercise.name} en {self.workout.name}"
+
 
 class Workout(models.Model):
     DIAS_SEMANA = [

@@ -18,7 +18,8 @@
                             <div class="card-body d-flex flex-column">
                                 <h3 class="fw-bold text-primary">{{ diet.name|capfirst }}</h3>
                                 <p class="mb-1">Días: {{ diet.days.count }}</p>
-                                <p class="mb-3">Dietas predefinidas, <strong>solo es una guía para orientarte.</strong></p>
+                                <p class="mb-3">Dietas predefinidas, <strong>solo es una guía para orientarte.</strong>
+                                </p>
                                 <a href="{% url 'diets:details_semanaldiet_precharged' diet.pk %}"
                                    class="btn btn-primary mt-auto">
                                     Ver detalles
@@ -34,7 +35,8 @@
                     <ul class="pagination justify-content-center">
                         {% if page_obj.has_previous %}
                             <li class="page-item">
-                                <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Anterior">
+                                <a class="page-link" href="?page={{ page_obj.previous_page_number }}"
+                                   aria-label="Anterior">
                                     <span aria-hidden="true">&laquo;</span>
                                 </a>
                             </li>
@@ -48,7 +50,8 @@
 
                         {% if page_obj.has_next %}
                             <li class="page-item">
-                                <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Siguiente">
+                                <a class="page-link" href="?page={{ page_obj.next_page_number }}"
+                                   aria-label="Siguiente">
                                     <span aria-hidden="true">&raquo;</span>
                                 </a>
                             </li>

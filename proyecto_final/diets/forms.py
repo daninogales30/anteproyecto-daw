@@ -44,6 +44,7 @@ class DayDietForm(forms.ModelForm):
 
         return cleaned_data
 
+
 class DayDietUpdateForm(forms.ModelForm):
     class Meta:
         model = DayDiet
@@ -59,6 +60,7 @@ class DayDietUpdateForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['semanal_diet'].disabled = True
         self.fields['day'].disabled = True
+
 
 class DayForm(forms.ModelForm):
     class Meta:

@@ -35,7 +35,8 @@ class Person(AbstractUser):
         ('profesional', 'Profesional'),
         ('culturista', 'Culturista'),
     ]
-    workout_level = models.CharField(max_length=100, choices=WORKOUT_LEVEL_CHOICES, default='amateur', verbose_name='Nivel de entrenamiento')
+    workout_level = models.CharField(max_length=100, choices=WORKOUT_LEVEL_CHOICES, default='amateur',
+                                     verbose_name='Nivel de entrenamiento')
     diets = models.ManyToManyField(SemanalDiet, blank=True)
     gender = models.CharField("Género", max_length=1, choices=GENDER_CHOICES, blank=True)
     weight = models.FloatField("Peso (kg)", help_text="Peso en kilogramos", default=70.0)

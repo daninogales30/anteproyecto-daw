@@ -5,6 +5,32 @@
 
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'css/blog_list.css' %}">
+    <style>
+        .filter-container {
+            position: relative;
+        }
+
+        .clear-filter {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            display: none;
+        }
+
+        .no-results {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            font-style: italic;
+            color: #6c757d;
+        }
+
+        .highlight {
+            background-color: rgba(255, 217, 0, 0.3);
+        }
+    </style>
 {% endblock %}
 
 {% block content %}
@@ -15,34 +41,53 @@
                     <h1 class="fw-bold text-primary mb-4">Entradas del Blog</h1>
                 </div>
 
-                <!-- Filtro por nombre de usuario -->
-                <div class="mb-4">
+                <!-- Filtro mejorado por nombre de usuario -->
+                <div class="mb-4 filter-container">
                     <label for="filter-username" class="form-label">Filtrar por usuario:</label>
-                    <input type="text"
-                           id="filter-username"
-                           class="form-control"
-                           placeholder="Escribe el nombre de usuario..."/>
+                    <div class="position-relative">
+                        <input
+                                type="text"
+                                id="filter-username"
+                                class="form-control"
+                                placeholder="Escribe el nombre de usuario..."
+                        />
+                        <span class="clear-filter" id="clear-filter" title="Limpiar filtro">
+                            <i class="fas fa-times"></i>
+                        </span>
+                    </div>
                 </div>
 
                 <div class="list-group" id="posts-list">
                     {% for post in posts %}
-                        <div class="list-group-item border-0 p-4 mb-4 bg-light shadow-sm"
-                             data-author="{{ post.author.username|lower }}">
+                        <div
+                                class="list-group-item border-0 p-4 mb-4 bg-light shadow-sm post-item"
+                                data-author="{{ post.user.username|lower }}"
+                                data-title="{{ post.title|lower }}">
                             <div class="d-flex justify-content-between align-items-center mb-3">
                                 <div>
-                                    <h5 class="fw-bold">
+                                    <h5 class="fw-bold post-title">
                                         {{ post.title|capfirst }}
                                     </h5>
-                                    <p class="mb-1 text-muted">
+                                    <p class="mb-1 text-muted post-username">
                                         por <strong>{{ post.user.username }}</strong>
                                         el {{ post.created_at|date:"d/m/Y H:i" }}
                                     </p>
                                     {% if post.user == user %}
                                         <span class="btn-group">
-                                        <a href="{% url 'blog:edit_entry' post.pk %}" class="btn btn-sm btn-outline-danger" title="Editar entrada"><i
-                                                class="fas fa-edit"></i></a>
-                                        <a href="{% url 'blog:delete_entry' post.pk %}" class="btn btn-sm btn-outline-danger" title="Eliminar entrada"><i
-                                                class="fas fa-trash-alt"></i></a>
+                                            <a
+                                                    href="{% url 'blog:edit_entry' post.pk %}"
+                                                    class="btn btn-sm btn-outline-danger"
+                                                    title="Editar entrada"
+                                            >
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <a
+                                                    href="{% url 'blog:delete_entry' post.pk %}"
+                                                    class="btn btn-sm btn-outline-danger"
+                                                    title="Eliminar entrada"
+                                            >
+                                                <i class="fas fa-trash-alt"></i>
+                                            </a>
                                         </span>
                                     {% endif %}
                                 </div>
@@ -58,11 +103,18 @@
                     {% endfor %}
                 </div>
 
+                <!-- Mensaje cuando no hay resultados -->
+                <div class="no-results" id="no-results">
+                    <p>No se encontraron entradas para "<span id="search-term"></span>"</p>
+                </div>
+
                 <div class="d-grid gap-3 mt-4">
-                        <a href="{% url 'blog:create_entry' %}"
-                           class="btn btn-outline-primary">Crear nueva entrada</a>
-                    <a href="{% url 'blog:index' %}"
-                       class="btn btn-secondary">Volver a funciones</a>
+                    <a href="{% url 'blog:create_entry' %}" class="btn btn-outline-primary">
+                        Crear nueva entrada
+                    </a>
+                    <a href="{% url 'blog:index' %}" class="btn btn-secondary">
+                        Volver a funciones
+                    </a>
                 </div>
             </div>
         </div>
@@ -70,22 +122,5 @@
 {% endblock %}
 
 {% block extra_js %}
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const inputFiltro = document.getElementById('filter-username');
-            const listaItems = document.querySelectorAll('#posts-list .list-group-item');
-
-            inputFiltro.addEventListener('input', function () {
-                const valor = inputFiltro.value.trim().toLowerCase();
-                listaItems.forEach(function (item) {
-                    const autor = item.getAttribute('data-author');
-                    if (!valor || autor.includes(valor)) {
-                        item.style.display = '';
-                    } else {
-                        item.style.display = 'none';
-                    }
-                });
-            });
-        });
-    </script>
+    <script src="{% static 'js/blog.js' %}"></script>
 {% endblock %}

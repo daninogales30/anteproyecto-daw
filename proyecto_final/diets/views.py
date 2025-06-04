@@ -121,7 +121,6 @@ class DietasPrecargadasDetailView(LoginRequiredMixin, DetailView):
         return context
 
 
-
 class DayFormView(LoginRequiredMixin, FormView):
     form_class = DayForm
     template_name = 'diets/form_generic.html'
